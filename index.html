@@ -3143,6 +3143,44 @@ dfs(graph, 'A')   # A B D E F C</code></pre></div>
     </table>
     <p><small>V = vertex সংখ্যা, E = edge সংখ্যা। প্রতিটি নোড ও edge একবার করে দেখা হয়, তাই O(V+E)।</small></p>
 
+    <h3>🔬 দুই ধরনের উপস্থাপন</h3>
+    <table class="cx-table">
+      <tr><th></th><th>Adjacency List</th><th>Adjacency Matrix</th></tr>
+      <tr><td>জায়গা</td><td>O(V+E) — সাশ্রয়ী</td><td>O(V²)</td></tr>
+      <tr><td>edge আছে কিনা চেক</td><td>O(degree)</td><td><span class="cx-good">O(1)</span></td></tr>
+      <tr><td>কখন</td><td>sparse graph (কম edge)</td><td>dense graph</td></tr>
+    </table>
+
+    <h3>🔬 ধাপে ধাপে: BFS dry-run (A থেকে)</h3>
+    <div class="code-wrap"><span class="lang">text</span><pre><code>graph: A-B, A-C, B-D, C-D  | শুরু A
+queue=[A]      visited={A}        → A বের, প্রতিবেশী B,C যোগ
+queue=[B,C]    visited={A,B,C}    → B বের, D যোগ
+queue=[C,D]    visited={A,B,C,D}  → C বের, D visited (বাদ)
+queue=[D]                          → D বের
+ক্রম: A B C D  (স্তরে স্তরে — কাছের আগে)</code></pre></div>
+
+    <h3>🔬 ধাপে ধাপে: DFS dry-run (A থেকে)</h3>
+    <div class="code-wrap"><span class="lang">text</span><pre><code>A visit → B visit → D visit (গভীরে যতদূর যায়)
+D শেষ → ফিরে → C visit
+ক্রম: A B D C  (এক পথে গভীরে, তারপর backtrack)
+stack/recursion ব্যবহার করে</code></pre></div>
+
+    <h3>🔬 Grid কে Graph হিসেবে দেখা (খুব কমন)</h3>
+    <p>2D grid-এ প্রতিটি cell একটি নোড, পাশের ৪টি cell তার প্রতিবেশী। "number of islands", "maze", "rotting oranges" — সব এই প্যাটার্ন।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def grid_dfs(grid, r, c, visited):
+    rows, cols = len(grid), len(grid[0])
+    # bn: সীমা ও visited ও বাধা চেক
+    if (r < 0 or c < 0 or r >= rows or c >= cols
+            or (r,c) in visited or grid[r][c] == 0):
+        return
+    visited.add((r, c))
+    # bn: ৪ দিকে যাও
+    for dr, dc in [(1,0),(-1,0),(0,1),(0,-1)]:
+        grid_dfs(grid, r+dr, c+dc, visited)</code></pre></div>
+
+    <h3>🔬 Cycle Detection</h3>
+    <p><strong>Undirected:</strong> DFS-এ parent ছাড়া অন্য visited নোড পেলে cycle। <strong>Directed:</strong> বর্তমান recursion path-এ থাকা নোডে ফিরলে cycle (অথবা topological sort করে দেখা — সব নোড সাজানো না গেলে cycle)।</p>
+
     <div class="note interview">
       <span class="tag">🎯 ইন্টারভিউ প্রশ্ন</span>
       <strong>Q:</strong> BFS নাকি DFS — কখন কোনটা? <br>
@@ -3679,6 +3717,25 @@ print(t.starts_with("app"))   # True (prefix আছে)</code></pre></div>
       <tr><td>prefix খোঁজা</td><td><span class="cx-good">O(L)</span></td><td><span class="cx-bad">O(n·L)</span></td></tr>
     </table>
 
+    <h3>🔬 Trie দেখতে কেমন (structure)</h3>
+    <p>"cat", "car", "card", "dog" রাখলে — একই prefix পথ শেয়ার করে (* = শব্দ শেষ):</p>
+    <div class="code-wrap"><span class="lang">text</span><pre><code>        (root)
+        /      \
+       c        d
+       |        |
+       a        o
+      / \       |
+     t*  r      g*
+         |
+         d*
+"ca" পর্যন্ত cat ও car ও card শেয়ার করে → মেমোরি সাশ্রয়
+search("car"): c→a→r, r-এ is_end=True → পাওয়া গেল ✓
+search("ca"):  c→a, a-এ is_end=False → শব্দ নয় (কিন্তু prefix আছে)</code></pre></div>
+    <div class="note tip">
+      <span class="tag">💡 কেন hash set-এর চেয়ে ভালো (prefix-এ)</span>
+      hash set-এ "ca দিয়ে শুরু সব শব্দ" খুঁজতে সব শব্দ স্ক্যান করতে হয় — O(n·L)। Trie-তে শুধু "ca" পথে নেমে নিচের সব শাখা — autocomplete-এর জন্য আদর্শ। তবে Trie বেশি মেমোরি নেয় (প্রতিটি নোডে children map)।
+    </div>
+
     <div class="note interview">
       <span class="tag">🎯 চিনবেন কীভাবে</span>
       "prefix", "autocomplete", "dictionary শব্দ", "word search II", "longest common prefix" — এসব দেখলে Trie। prefix-ভিত্তিক প্রশ্নে hash set-এর চেয়ে অনেক দ্রুত।
@@ -3786,6 +3843,20 @@ print(floyd_warshall(g))</code></pre></div>
       <tr><td>Floyd-Warshall</td><td>all-pairs</td><td>হ্যাঁ</td><td><span class="cx-bad">O(V³)</span></td></tr>
     </table>
 
+    <h3>🔬 ধাপে ধাপে: Dijkstra dry-run</h3>
+    <p>graph: A→B(1), A→C(4), B→C(2), B→D(5), C→D(1)। শুরু A। min-heap সবসময় সবচেয়ে কাছের নোড আগে বের করে:</p>
+    <div class="code-wrap"><span class="lang">text</span><pre><code>dist শুরু: A=0, বাকি=∞ | heap=[(0,A)]
+pop (0,A): B=0+1=1, C=0+4=4 | heap=[(1,B),(4,C)]
+pop (1,B): C=min(4, 1+2)=3 (উন্নত!), D=1+5=6 | heap=[(3,C),(4,C),(6,D)]
+pop (3,C): D=min(6, 3+1)=4 (উন্নত!) | heap=[(4,C),(4,D),(6,D)]
+pop (4,C): পুরোনো (dist[C]=3 < 4) → বাদ
+pop (4,D): চূড়ান্ত | dist = {A:0, B:1, C:3, D:4} ✅
+মূল: একবার pop হওয়া নোডের dist চূড়ান্ত (greedy)</code></pre></div>
+    <div class="note warn">
+      <span class="tag">⚠️ Dijkstra নেগেটিভ edge-এ ভুল</span>
+      Dijkstra ধরে নেয় একবার নোড "চূড়ান্ত" হলে আর ছোট পথ নেই — নেগেটিভ edge থাকলে এই ধারণা ভাঙে। তখন <strong>Bellman-Ford</strong> ব্যবহার করো।
+    </div>
+
     <div class="note interview">
       <span class="tag">🎯 চিনবেন কীভাবে</span>
       "সবচেয়ে কম খরচ/দূরত্ব + weighted" → Dijkstra। "course schedule", "build order", "prerequisite", "নির্ভরতা" → Topological Sort। "unweighted shortest path" → সাধারণ BFS-ই যথেষ্ট।
@@ -3831,6 +3902,20 @@ uf.union(0, 1)
 uf.union(1, 2)
 print(uf.find(0) == uf.find(2))   # True (একই দল)
 print(uf.find(0) == uf.find(3))   # False</code></pre></div>
+
+    <h3>🔬 ধাপে ধাপে: কীভাবে দল তৈরি হয়</h3>
+    <div class="code-wrap"><span class="lang">text</span><pre><code>শুরু: parent=[0,1,2,3,4] (সবাই নিজের root, ৫টি আলাদা দল)
+union(0,1): 1 এর root = 0 → parent=[0,0,2,3,4]   দল: {0,1}
+union(1,2): find(1)=0, find(2)=2 → 2 যোগ → parent=[0,0,0,3,4]  দল: {0,1,2}
+find(0)==find(2)? দুটোরই root 0 → True (একই দল) ✓
+find(0)==find(3)? root 0 vs 3 → False (আলাদা) ✓</code></pre></div>
+
+    <h3>🔬 দুই অপটিমাইজেশন কেন গুরুত্বপূর্ণ</h3>
+    <ul>
+      <li><strong>Path Compression:</strong> find() করার সময় পথের সব নোডকে সরাসরি root-এ যুক্ত করে দেয় — পরের find আরও দ্রুত (গাছ চ্যাপ্টা হয়)।</li>
+      <li><strong>Union by Rank:</strong> ছোট গাছকে বড় গাছের নিচে জুড়ে — গাছ লম্বা হতে দেয় না।</li>
+    </ul>
+    <p>দুটো একসাথে ব্যবহারে প্রতিটি অপারেশন প্রায় <span class="cx-good">O(α(n))</span> (inverse Ackermann) — বাস্তবে ≤ 4, কার্যত ধ্রুবক।</p>
 
     <div class="note interview">
       <span class="tag">🎯 চিনবেন কীভাবে</span>
@@ -4169,6 +4254,19 @@ g = {0:[(1,1),(2,3)], 1:[(0,1),(2,2)], 2:[(0,3),(1,2),(3,4)], 3:[(2,4)]}
 print(prim(g))   # 7</code></pre></div>
     <p><strong>Time:</strong> <span class="cx-mid">O(E log V)</span>।</p>
 
+    <h3>🔬 ধাপে ধাপে: Kruskal dry-run</h3>
+    <p>edges (weight): (0-1:1), (1-2:2), (0-2:3), (2-3:4)। ওজন অনুযায়ী সাজিয়ে ছোট থেকে নাও — cycle না বানালে:</p>
+    <div class="code-wrap"><span class="lang">text</span><pre><code>সাজানো: 1(0-1), 2(1-2), 3(0-2), 4(2-3)
+নাও 1 (0-1): 0,1 আলাদা দল → যোগ করো | মোট=1, দল {0,1}
+নাও 2 (1-2): 1,2 আলাদা দল → যোগ করো | মোট=3, দল {0,1,2}
+নাও 3 (0-2): 0,2 একই দল! → cycle, বাদ
+নাও 4 (2-3): 2,3 আলাদা → যোগ করো | মোট=7, দল {0,1,2,3}
+MST ওজন = 1+2+4 = 7 ✅ (V-1 = 3 edge)</code></pre></div>
+    <div class="note tip">
+      <span class="tag">💡 Kruskal বনাম Prim</span>
+      <strong>Kruskal:</strong> edge-কেন্দ্রিক, সব edge সাজিয়ে Union-Find দিয়ে cycle এড়ায় — sparse graph-এ ভালো। <strong>Prim:</strong> নোড-কেন্দ্রিক, heap দিয়ে একটি বাড়তে থাকা গাছে সস্তা edge যোগ করে — dense graph-এ ভালো। দুটোই greedy, দুটোই একই ন্যূনতম ওজন দেয়।
+    </div>
+
     <div class="note interview">
       <span class="tag">🎯 চিনবেন কীভাবে</span>
       "সব নোড যুক্ত রাখা ন্যূনতম খরচে", "connect all points", "minimum cost to connect" — এসব MST। sparse graph (কম edge) → Kruskal; dense graph → Prim।
@@ -4248,6 +4346,23 @@ print(bit.query(4) - bit.query(1))   # 3+5+7 = 15</code></pre></div>
       <tr><td>range query</td><td><span class="cx-good">O(1)</span></td><td><span class="cx-good">O(log n)</span></td></tr>
       <tr><td>update</td><td><span class="cx-bad">O(n)</span></td><td><span class="cx-good">O(log n)</span></td></tr>
     </table>
+
+    <h3>🔬 Segment Tree কীভাবে O(log n) দেয়</h3>
+    <p>গাছের প্রতিটি নোড একটি range-এর সারাংশ (যোগফল/min) ধরে রাখে। root = পুরো array, প্রতিটি child = অর্ধেক। একটি range query কয়েকটি পূর্ব-হিসাবকৃত খণ্ডে ভেঙে যায় — সর্বোচ্চ O(log n) খণ্ড স্পর্শ করতে হয়।</p>
+    <div class="code-wrap"><span class="lang">text</span><pre><code>array [1,3,5,7,9,11] এর sum-tree:
+                  [0-5]=36
+              /              \
+        [0-2]=9            [3-5]=27
+        /     \            /      \
+    [0-1]=4  [2]=5    [3-4]=16   [5]=11
+    /   \             /    \
+  [0]=1 [1]=3     [3]=7  [4]=9
+query(1,4)=3+5+7+9: [1],[2],[3-4] খণ্ড জোড়া → O(log n) নোড
+update index 2: শুধু [2]→[0-2]→[0-5] পথ আপডেট → O(log n)</code></pre></div>
+    <div class="note tip">
+      <span class="tag">💡 Fenwick-এর i & -i জাদু</span>
+      <code>i & (-i)</code> সবচেয়ে ডানের set বিট দেয় — এটি বলে দেয় প্রতিটি index কোন range-এর দায়িত্বে। তাই update/query-তে কয়েকটি (log n) index লাফিয়ে লাফিয়ে স্পর্শ করলেই হয়। Segment Tree-র চেয়ে কোড অনেক ছোট, কিন্তু শুধু prefix-যোগ্য অপারেশনে (sum) ভালো; min/max-এ Segment Tree বেশি নমনীয়।
+    </div>
 
     <div class="note interview">
       <span class="tag">🎯 চিনবেন কীভাবে</span>
