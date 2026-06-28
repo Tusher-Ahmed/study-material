@@ -283,6 +283,29 @@ pre code { font-family: var(--mono); white-space: pre; }
 .viz-legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; margin: 8px 0; color: var(--text-dim); }
 .viz-legend span { display: flex; align-items: center; gap: 6px; }
 
+/* ---------- Binary Search visualizer ---------- */
+.bs-cells { display: flex; gap: 5px; flex-wrap: wrap; margin: 14px 0; }
+.bs-cell {
+  min-width: 46px; height: 46px; display: grid; place-items: center;
+  border-radius: 8px; background: var(--bg-card); border: 2px solid var(--border);
+  font-family: var(--mono); font-weight: 700; font-size: 14px; transition: all .25s; position: relative;
+}
+.bs-cell .idx { position: absolute; top: -16px; font-size: 10px; color: var(--text-dim); font-weight: 500; }
+.bs-cell.out { opacity: .2; }
+.bs-cell.range { border-color: var(--accent-2); }
+.bs-cell.mid { background: var(--accent); color: #0b0d13; border-color: var(--accent); transform: translateY(-4px); }
+.bs-cell.found { background: var(--green); color: #06281a; border-color: var(--green); }
+
+/* ---------- Pathfinding grid visualizer ---------- */
+.pf-grid { display: grid; gap: 2px; margin: 14px 0; max-width: 100%; }
+.pf-cell { width: 100%; aspect-ratio: 1 / 1; border-radius: 3px; background: var(--bg-card); border: 1px solid var(--border); transition: background .12s; }
+.pf-cell.wall { background: #3a3f55; border-color: #3a3f55; }
+.pf-cell.start { background: var(--green); border-color: var(--green); }
+.pf-cell.end { background: var(--red); border-color: var(--red); }
+.pf-cell.visited { background: var(--accent-2); border-color: var(--accent-2); }
+.pf-cell.frontier { background: var(--purple); border-color: var(--purple); }
+.pf-cell.path { background: var(--accent); border-color: var(--accent); }
+
 /* ---------- Practice problems (collapsible) ---------- */
 .problem {
   background: var(--bg-card); border: 1px solid var(--border);

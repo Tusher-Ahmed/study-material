@@ -4411,6 +4411,46 @@ update index 2: শুধু [2]→[0-2]→[0-5] পথ আপডেট → O(lo
       <span class="tag">💡 কী লক্ষ্য করবেন</span>
       Bubble/Selection/Insertion-এ compare ও swap সংখ্যা দ্রুত বাড়ে (O(n²))। কিন্তু Merge ও Quick-এ অনেক কম কাজে সাজানো শেষ হয় (O(n log n)) — size বাড়িয়ে দুটো চালিয়ে গণনার পার্থক্য নিজে দেখুন। এটাই Big-O বাস্তবে অনুভব করার সেরা উপায়।
     </div>
+
+    <h2 style="margin-top:40px">🔎 Binary Search Visualizer</h2>
+    <p class="lead">সাজানো অ্যারেতে target খোঁজা — প্রতি ধাপে অর্ধেক বাদ পড়া চোখে দেখো। হলুদ = mid, ম্লান = বাদ পড়া অংশ, সবুজ = পাওয়া গেছে।</p>
+    <div class="viz-controls">
+      <label>Target <input type="number" id="bs-target" value="23" style="width:80px;background:var(--bg-soft);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-family:var(--mono)"></label>
+      <button class="viz-btn" id="bs-gen">🎲 নতুন অ্যারে</button>
+      <button class="viz-btn alt" id="bs-run">▶️ Search</button>
+    </div>
+    <div class="bs-cells" id="bs-cells"></div>
+    <div class="viz-status">
+      <span>ধাপ: <b id="bs-steps">0</b></span>
+      <span id="bs-msg">—</span>
+    </div>
+
+    <h2 style="margin-top:40px">🕸️ Pathfinding Visualizer (BFS / DFS)</h2>
+    <p class="lead">গোলকধাঁধায় সবুজ (start) থেকে লাল (end) পর্যন্ত পথ খোঁজা। নীল = visited, হলুদ = চূড়ান্ত পথ। BFS সবচেয়ে ছোট পথ দেয়, DFS শুধু একটা পথ।</p>
+    <div class="viz-controls">
+      <label>অ্যালগরিদম
+        <select id="pf-algo">
+          <option value="bfs">BFS — সবচেয়ে ছোট পথ</option>
+          <option value="dfs">DFS — গভীরে আগে</option>
+        </select>
+      </label>
+      <label>গতি <input type="range" id="pf-speed" min="1" max="100" value="70"></label>
+      <button class="viz-btn" id="pf-gen">🎲 নতুন গোলকধাঁধা</button>
+      <button class="viz-btn alt" id="pf-run">▶️ Find Path</button>
+    </div>
+    <div class="viz-legend">
+      <span><span class="dot" style="background:var(--green)"></span> Start</span>
+      <span><span class="dot" style="background:var(--red)"></span> End</span>
+      <span><span class="dot" style="background:#3a3f55"></span> দেয়াল</span>
+      <span><span class="dot" style="background:var(--accent-2)"></span> visited</span>
+      <span><span class="dot" style="background:var(--accent)"></span> পথ</span>
+    </div>
+    <div class="pf-grid" id="pf-grid"></div>
+    <div class="viz-status">
+      <span>visited: <b id="pf-visited">0</b></span>
+      <span>পথের দৈর্ঘ্য: <b id="pf-path">0</b></span>
+      <span id="pf-msg">—</span>
+    </div>
     <div class="page-nav"><button>←</button><button>→</button></div>
   </section>
 
@@ -5457,5 +5497,6 @@ GET  /{shortcode}                → 301 redirect
 <script src="js/main.js"></script>
 <script src="js/practice.js"></script>
 <script src="js/visualizer.js"></script>
+<script src="js/visualizer2.js"></script>
 </body>
 </html>
