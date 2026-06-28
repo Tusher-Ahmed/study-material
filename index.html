@@ -215,6 +215,58 @@ print("আমার নাম", name)</code></pre></div>
       ১) <a href="https://python.org" target="_blank">python.org</a> থেকে Python ইনস্টল করুন। ২) VS Code এডিটর ইনস্টল করুন। ৩) <code>.py</code> ফাইল বানিয়ে টার্মিনালে <code>python ফাইলের_নাম.py</code> চালান। দ্রুত পরীক্ষা করতে অনলাইনে <a href="https://replit.com" target="_blank">replit.com</a> বা <a href="https://colab.research.google.com" target="_blank">Google Colab</a> ব্যবহার করতে পারেন।
     </div>
 
+    <h3>🔬 গভীরে: Python আসলে কীভাবে চলে</h3>
+    <p>তুমি যখন <code>python hello.py</code> চালাও, পর্দার আড়ালে কয়েকটি ধাপ ঘটে:</p>
+    <ol>
+      <li><strong>Source code</strong> (<code>.py</code>) — তোমার লেখা কোড।</li>
+      <li><strong>Compilation → Bytecode</strong> — CPython কোডকে platform-independent <em>bytecode</em>-এ (<code>.pyc</code>, <code>__pycache__</code> ফোল্ডারে) রূপান্তর করে।</li>
+      <li><strong>PVM (Python Virtual Machine)</strong> — এই bytecode লাইন বাই লাইন এক্সিকিউট করে।</li>
+    </ol>
+    <p>তাই Python একই সাথে compiled (bytecode-এ) ও interpreted (PVM চালায়)। <strong>CPython</strong> হলো ডিফল্ট implementation (C-তে লেখা); আরও আছে PyPy (দ্রুত, JIT), Jython, IronPython।</p>
+
+    <h3>🔬 Python 2 বনাম Python 3</h3>
+    <p>সবসময় <strong>Python 3</strong> ব্যবহার করো — Python 2 (2020 সালে) বন্ধ হয়ে গেছে। মূল পার্থক্য: Py3-এ <code>print()</code> ফাংশন, <code>/</code> সবসময় float ভাগ, ডিফল্ট Unicode string।</p>
+
+    <h3>🔬 REPL — ইন্টারঅ্যাক্টিভ পরীক্ষা</h3>
+    <p>টার্মিনালে শুধু <code>python</code> লিখলে REPL (Read-Eval-Print Loop) খোলে — এক লাইন লিখলেই সাথে সাথে ফল। দ্রুত কিছু পরীক্ষা করতে দারুণ।</p>
+    <div class="code-wrap"><span class="lang">bash</span><pre><code>$ python
+>>> 2 + 3
+5
+>>> "hi".upper()
+'HI'
+>>> exit()</code></pre></div>
+
+    <h3>🔬 pip ও Virtual Environment (অবশ্য-জানা)</h3>
+    <p><strong>pip</strong> দিয়ে বাইরের লাইব্রেরি ইনস্টল করা হয়। <strong>venv</strong> দিয়ে প্রতিটি প্রজেক্টের আলাদা পরিবেশ — একটার লাইব্রেরি অন্যটায় গন্ডগোল করে না।</p>
+    <div class="code-wrap"><span class="lang">bash</span><pre><code># bn: virtual environment তৈরি ও চালু
+python -m venv venv
+venv\Scripts\activate       # Windows
+# source venv/bin/activate  # Mac/Linux
+
+# bn: লাইব্রেরি ইনস্টল
+pip install requests numpy
+pip freeze > requirements.txt   # bn: তালিকা সেভ
+pip install -r requirements.txt # bn: তালিকা থেকে ইনস্টল</code></pre></div>
+
+    <h3>🔬 Indentation, Comment ও Docstring</h3>
+    <p>Python ব্লক বোঝে <strong>indentation</strong> (ফাঁকা জায়গা) দিয়ে — কোঁকড়া বন্ধনী <code>{}</code> নেই। সাধারণত ৪ স্পেস। ভুল indentation = <code>IndentationError</code>।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: এক-লাইন কমেন্ট
+
+"""
+bn: একাধিক লাইনের কমেন্ট / docstring
+"""
+
+def add(a, b):
+    """দুটি সংখ্যা যোগ করে ফেরত দেয়।"""   # bn: docstring
+    return a + b
+
+print(add.__doc__)   # bn: docstring দেখা যায়</code></pre></div>
+
+    <div class="note tip">
+      <span class="tag">💡 The Zen of Python</span>
+      টার্মিনালে <code>import this</code> লিখলে Python-এর দর্শন দেখায় — "Simple is better than complex", "Readability counts"। ভালো Python কোডের মূলমন্ত্র।
+    </div>
+
     <div class="note interview">
       <span class="tag">🎯 ইন্টারভিউ প্রশ্ন</span>
       <strong>Q:</strong> Python "interpreted" নাকি "compiled"? <br>
@@ -654,6 +706,70 @@ for i in range(10):
         break      # bn: 6 এ থেমে যাবে
     print(i)       # 0 1 2 4 5</code></pre></div>
 
+    <h3>🔬 গভীরে: range() পুরোপুরি বোঝা</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>range(5)          # bn: 0,1,2,3,4 (stop বাদ)
+range(2, 8)       # bn: 2,3,4,5,6,7 (start, stop)
+range(0, 10, 2)   # bn: 0,2,4,6,8 (start, stop, step)
+range(10, 0, -1)  # bn: 10,9,...,1 (উল্টো)
+# bn: range "lazy" — সব সংখ্যা মেমোরিতে রাখে না, একটা একটা দেয়
+print(list(range(5)))   # [0, 1, 2, 3, 4]</code></pre></div>
+
+    <h3>🔬 লুপিং কৌশল (Pythonic — ইন্টারভিউয়ে নজর কাড়ে)</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>names = ["আম", "জাম", "লিচু"]
+
+# bn: index লাগলে -> enumerate (range(len()) নয়!)
+for i, name in enumerate(names):
+    print(i, name)
+
+# bn: একাধিক list একসাথে -> zip
+prices = [50, 80, 120]
+for name, price in zip(names, prices):
+    print(name, price)
+
+# bn: উল্টো দিকে -> reversed
+for name in reversed(names):
+    print(name)
+
+# bn: সাজিয়ে -> sorted
+for price in sorted(prices, reverse=True):
+    print(price)</code></pre></div>
+
+    <h3>🔬 for-else ও while-else (অল্প-জানা কিন্তু দরকারি)</h3>
+    <p>লুপ <code>break</code> ছাড়া স্বাভাবিকভাবে শেষ হলে <code>else</code> চলে। "খুঁজে পাইনি" ধরনের লজিকে চমৎকার।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: একটি সংখ্যা prime কিনা
+n = 7
+for i in range(2, n):
+    if n % i == 0:
+        print("prime নয়")
+        break
+else:                    # bn: break না হলে এই else চলে
+    print("prime!")      # prime!</code></pre></div>
+
+    <h3>🔬 Nested Loop ও pass</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: নেস্টেড লুপ (গুণফল টেবিল) — O(n²)
+for i in range(1, 4):
+    for j in range(1, 4):
+        print(f"{i}x{j}={i*j}", end="  ")
+    print()
+
+# bn: pass -> কিছু না করার placeholder (পরে লিখব)
+for x in range(5):
+    pass   # TODO: পরে কোড লিখব</code></pre></div>
+
+    <h3>🔬 match-case (Python 3.10+, switch এর মতো)</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def http_status(code):
+    match code:
+        case 200:
+            return "OK"
+        case 404:
+            return "Not Found"
+        case 500 | 502 | 503:   # bn: একাধিক মান
+            return "Server Error"
+        case _:                 # bn: default (যেকোনো কিছু)
+            return "Unknown"
+
+print(http_status(404))   # Not Found</code></pre></div>
+
     <div class="note warn">
       <span class="tag">⚠️ Infinite Loop</span>
       <code>while</code> লুপে শর্ত কখনো মিথ্যা না হলে প্রোগ্রাম আটকে যাবে চিরকাল। সবসময় নিশ্চিত করুন ভেতরে এমন কিছু আছে যা একসময় শর্ত ভাঙবে। থামাতে <code>Ctrl + C</code>।
@@ -711,6 +827,71 @@ print(square(5))   # 25
 nums = [3, 1, 4, 1, 5]
 print(sorted(nums, key=lambda x: -x))   # বড় থেকে ছোট
 print(list(filter(lambda x: x % 2 == 0, nums)))  # শুধু জোড়</code></pre></div>
+
+    <h3>🔬 গভীরে: একাধিক মান ফেরত (tuple unpacking)</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: Python ফাংশন একাধিক মান ফেরত দিতে পারে (আসলে tuple)
+def min_max(nums):
+    return min(nums), max(nums)   # bn: tuple ফেরত
+
+low, high = min_max([3, 1, 9, 5])  # bn: unpack
+print(low, high)    # 1 9</code></pre></div>
+
+    <h3>🔬 Type Hints (পেশাদার কোডে আবশ্যক)</h3>
+    <p>Python dynamically typed, কিন্তু type hint দিয়ে কোড পড়া সহজ হয় ও IDE/টুল ভুল ধরে (রানটাইমে বাধ্যতামূলক নয়)।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def greet(name: str, age: int = 18) -> str:
+    return f"{name}, বয়স {age}"
+
+from typing import List, Optional
+def total(nums: List[int]) -> int:
+    return sum(nums)
+
+def find(x: int) -> Optional[str]:   # bn: str বা None
+    return "পেয়েছি" if x > 0 else None</code></pre></div>
+
+    <h3>🔬 আর্গুমেন্টের সঠিক ক্রম (নিয়ম)</h3>
+    <p>ফাংশন সংজ্ঞায় ক্রম হতে হবে: <code>positional → *args → keyword-only → **kwargs</code>। না মানলে SyntaxError।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def f(a, b, *args, key=None, **kwargs):
+    print(a, b, args, key, kwargs)
+
+f(1, 2, 3, 4, key="x", extra=99)
+# 1 2 (3, 4) x {'extra': 99}
+
+# bn: * এর পরেরগুলো keyword-only (নাম দিয়ে দিতেই হবে)
+def divide(a, b, *, rounding=2):
+    return round(a / b, rounding)
+divide(10, 3, rounding=4)   # bn: rounding=... দিতেই হবে</code></pre></div>
+
+    <h3>🔬 Functions are First-Class Objects</h3>
+    <p>Python-এ ফাংশন একটি object — ভেরিয়েবলে রাখা, আর্গুমেন্ট হিসেবে পাঠানো, ফেরত দেওয়া যায়। এটাই decorator, callback, higher-order function-এর ভিত্তি।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def square(x): return x * x
+
+# bn: ভেরিয়েবলে রাখা
+f = square
+print(f(5))          # 25
+
+# bn: আর্গুমেন্ট হিসেবে পাঠানো (higher-order function)
+def apply(func, value):
+    return func(value)
+print(apply(square, 6))   # 36
+
+# bn: ফাংশনের list
+ops = [str.upper, str.strip]
+text = "  hi  "
+for op in ops:
+    text = op(text)
+print(text)          # "HI"</code></pre></div>
+
+    <h3>🔬 Nested Function ও Closure (decorator-এর ভিত্তি)</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def make_counter():
+    count = 0              # bn: বাইরের ফাংশনের ভেরিয়েবল
+    def counter():
+        nonlocal count    # bn: বাইরেরটা পরিবর্তন করতে
+        count += 1
+        return count
+    return counter        # bn: closure -> count মনে রাখে
+
+c = make_counter()
+print(c(), c(), c())      # 1 2 3</code></pre></div>
 
     <div class="note interview">
       <span class="tag">🎯 ইন্টারভিউ প্রশ্ন</span>
@@ -792,6 +973,74 @@ evens = [i*i for i in range(10) if i % 2 == 0]
 # bn: dict comprehension
 sq_map = {i: i*i for i in range(5)}        # {0:0, 1:1, 2:4...}</code></pre></div>
 
+    <h3>🔬 গভীরে: List Slicing (অত্যন্ত শক্তিশালী)</h3>
+    <p>সিনট্যাক্স <code>list[start:stop:step]</code> — stop বাদ যায়। DSA-তে subarray, reverse, কপিতে সর্বত্র লাগে।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>a = [0, 1, 2, 3, 4, 5]
+print(a[1:4])     # [1, 2, 3]   -> index 1..3
+print(a[:3])      # [0, 1, 2]   -> শুরু থেকে
+print(a[3:])      # [3, 4, 5]   -> শেষ পর্যন্ত
+print(a[-2:])     # [4, 5]      -> শেষ ২টি
+print(a[::2])     # [0, 2, 4]   -> এক ঘর পর পর
+print(a[::-1])    # [5,4,3,2,1,0] -> reverse!
+b = a[:]          # bn: পূর্ণ কপি (shallow)</code></pre></div>
+
+    <h3>🔬 দরকারি List মেথড</h3>
+    <table class="cx-table">
+      <tr><th>মেথড</th><th>কাজ</th><th>Complexity</th></tr>
+      <tr><td><code>append(x)</code></td><td>শেষে যোগ</td><td>O(1)</td></tr>
+      <tr><td><code>insert(i,x)</code></td><td>i-তে বসানো</td><td>O(n)</td></tr>
+      <tr><td><code>pop()</code> / <code>pop(i)</code></td><td>শেষ / i সরানো</td><td>O(1) / O(n)</td></tr>
+      <tr><td><code>remove(x)</code></td><td>প্রথম x সরানো</td><td>O(n)</td></tr>
+      <tr><td><code>sort()</code> / <code>reverse()</code></td><td>সাজানো / উল্টানো</td><td>O(n log n) / O(n)</td></tr>
+      <tr><td><code>extend(lst)</code></td><td>আরেক list জোড়া</td><td>O(k)</td></tr>
+      <tr><td><code>index(x)</code> / <code>count(x)</code></td><td>অবস্থান / সংখ্যা</td><td>O(n)</td></tr>
+    </table>
+
+    <h3>🔬 Custom Sorting — key দিয়ে (FAANG-এ খুব দরকারি)</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>words = ["banana", "kiwi", "apple"]
+print(sorted(words, key=len))          # ['kiwi','apple','banana'] -> দৈর্ঘ্য
+print(sorted(words, reverse=True))     # উল্টো ক্রমে
+
+# bn: tuple দিয়ে মাল্টি-লেভেল sort
+people = [("Rahim", 25), ("Karim", 20), ("Jamal", 25)]
+# bn: আগে বয়স, তারপর নাম
+print(sorted(people, key=lambda p: (p[1], p[0])))
+
+nums = [3, -1, -4, 2]
+print(sorted(nums, key=abs))           # [-1, 2, 3, -4] -> পরম মান</code></pre></div>
+
+    <h3>🔬 2D List তৈরি — কুখ্যাত ফাঁদ</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: ভুল! সব row একই list (একটায় পরিবর্তন সবগুলোয়)
+grid = [[0] * 3] * 3
+grid[0][0] = 1
+print(grid)   # [[1,0,0],[1,0,0],[1,0,0]] -> সর্বনাশ!
+
+# bn: সঠিক — comprehension দিয়ে আলাদা row
+grid = [[0] * 3 for _ in range(3)]
+grid[0][0] = 1
+print(grid)   # [[1,0,0],[0,0,0],[0,0,0]] -> ঠিক</code></pre></div>
+
+    <h3>🔬 দরকারি dict মেথড</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>d = {"a": 1, "b": 2}
+print(d.get("z", 0))        # 0 -> না থাকলে default (KeyError এড়ায়)
+d.setdefault("c", 3)        # bn: না থাকলে যোগ করে দেয়
+d.update({"a": 10, "x": 5}) # bn: একসাথে আপডেট/যোগ
+print(d.keys(), d.values()) # bn: সব key / value
+print(d.items())            # bn: (key,value) জোড়া
+d.pop("b")                  # bn: key সরানো
+# bn: dict merge (3.9+)
+merged = {"a": 1} | {"b": 2}   # {'a':1, 'b':2}</code></pre></div>
+
+    <h3>🔬 Nested Structure (বাস্তব ডেটা)</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: JSON-এর মতো নেস্টেড ডেটা
+students = [
+    {"name": "Rahim", "marks": [80, 90]},
+    {"name": "Karim", "marks": [70, 85]},
+]
+for s in students:
+    avg = sum(s["marks"]) / len(s["marks"])
+    print(f"{s['name']}: {avg}")</code></pre></div>
+
     <div class="note interview">
       <span class="tag">🎯 ইন্টারভিউ: কোনটা কখন?</span>
       <strong>List</strong> → ক্রম দরকার, ডুপ্লিকেট ঠিক আছে। <strong>Tuple</strong> → পরিবর্তন হবে না। <strong>Dict</strong> → key দিয়ে দ্রুত খোঁজা। <strong>Set</strong> → অনন্যতা + দ্রুত membership। ইন্টারভিউয়ে "কোন ডেটা স্ট্রাকচার বেছে নেবে?" — এই উত্তরই তারা শুনতে চায়।
@@ -869,7 +1118,98 @@ for animal in [Dog("টমি"), Cat("মিনি")]:
     print(animal.sound())   # ঘেউ ঘেউ / মিয়াও</code></pre></div>
 
     <h4>৪. Abstraction (বিমূর্ততা)</h4>
-    <p>জটিলতা লুকিয়ে শুধু দরকারি অংশ দেখানো। যেমন গাড়ি চালাতে ইঞ্জিন কীভাবে কাজ করে জানতে হয় না।</p>
+    <p>জটিলতা লুকিয়ে শুধু দরকারি অংশ দেখানো। যেমন গাড়ি চালাতে ইঞ্জিন কীভাবে কাজ করে জানতে হয় না। Python-এ <code>abc</code> মডিউল দিয়ে abstract base class বানানো হয় (নিচে দেখো)।</p>
+
+    <h3>🔬 গভীরে: Instance বনাম Class Variable</h3>
+    <p><strong>Instance variable</strong> প্রতিটি object-এ আলাদা (<code>self.x</code>)। <strong>Class variable</strong> সব object শেয়ার করে (ক্লাসে সরাসরি)।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>class Student:
+    school = "ABC School"      # bn: class variable (সবার এক)
+    def __init__(self, name):
+        self.name = name       # bn: instance variable (আলাদা)
+
+a = Student("Rahim")
+b = Student("Karim")
+print(a.school, b.school)      # ABC School ABC School (শেয়ার্ড)
+Student.school = "XYZ"         # bn: সবার জন্য বদলায়
+print(a.school)                # XYZ</code></pre></div>
+
+    <h3>🔬 instance / class / static method</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>class Pizza:
+    def __init__(self, size):
+        self.size = size
+
+    def describe(self):              # bn: instance method -> self
+        return f"{self.size} ইঞ্চি পিৎজা"
+
+    @classmethod
+    def small(cls):                  # bn: cls -> alternative constructor
+        return cls(8)                # bn: Pizza(8) বানায়
+
+    @staticmethod
+    def is_valid_size(size):         # bn: self/cls নেই, শুধু লজিক
+        return 6 <= size <= 18
+
+p = Pizza.small()                    # bn: classmethod দিয়ে তৈরি
+print(p.describe())                  # 8 ইঞ্চি পিৎজা
+print(Pizza.is_valid_size(20))       # False</code></pre></div>
+
+    <h3>🔬 @property — নিয়ন্ত্রিত attribute (getter/setter)</h3>
+    <p>মেথডকে attribute-এর মতো ব্যবহার + validation যোগ করা যায় — encapsulation-এর Pythonic উপায়।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>class Temperature:
+    def __init__(self, celsius):
+        self._celsius = celsius
+
+    @property
+    def fahrenheit(self):            # bn: getter -> attribute এর মতো
+        return self._celsius * 9/5 + 32
+
+    @property
+    def celsius(self):
+        return self._celsius
+
+    @celsius.setter
+    def celsius(self, value):        # bn: validation সহ setter
+        if value < -273.15:
+            raise ValueError("খুব ঠান্ডা!")
+        self._celsius = value
+
+t = Temperature(25)
+print(t.fahrenheit)    # 77.0 -> () লাগে না!
+t.celsius = 30         # bn: setter চলে (validation সহ)</code></pre></div>
+
+    <h3>🔬 super() ও __str__ (বাস্তব উদাহরণ)</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>class Animal:
+    def __init__(self, name):
+        self.name = name
+
+class Dog(Animal):
+    def __init__(self, name, breed):
+        super().__init__(name)       # bn: parent এর __init__ ডাকা
+        self.breed = breed
+    def __str__(self):               # bn: print() এ সুন্দর দেখায়
+        return f"{self.name} ({self.breed})"
+
+d = Dog("টমি", "Labrador")
+print(d)                             # টমি (Labrador)</code></pre></div>
+
+    <h3>🔬 Abstract Base Class (ABC) ও dataclass</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>from abc import ABC, abstractmethod
+class Shape(ABC):
+    @abstractmethod
+    def area(self): ...      # bn: সাবক্লাসে বাধ্যতামূলক
+class Circle(Shape):
+    def __init__(self, r): self.r = r
+    def area(self): return 3.14 * self.r ** 2
+# Shape()  -> bn: ERROR, abstract; Circle(5).area() ঠিক
+
+# bn: dataclass -> __init__, __repr__, __eq__ অটো তৈরি
+from dataclasses import dataclass
+@dataclass
+class Point:
+    x: int
+    y: int
+p = Point(3, 4)
+print(p)            # Point(x=3, y=4) -> বয়লারপ্লেট ছাড়াই!</code></pre></div>
 
     <div class="note interview">
       <span class="tag">🎯 ইন্টারভিউ প্রশ্ন</span>
@@ -912,6 +1252,70 @@ with open("data.txt", "r") as f:     # bn: r = read
 with open("data.txt", "r") as f:
     for line in f:
         print(line.strip())</code></pre></div>
+
+    <h3>🔬 গভীরে: Exception Hierarchy</h3>
+    <p>সব exception <code>BaseException</code> থেকে আসে। বেশিরভাগ <code>Exception</code>-এর সাবক্লাস। সাধারণগুলো:</p>
+    <table class="cx-table">
+      <tr><th>Exception</th><th>কখন ঘটে</th></tr>
+      <tr><td><code>ValueError</code></td><td>সঠিক টাইপ কিন্তু ভুল মান (<code>int("abc")</code>)</td></tr>
+      <tr><td><code>TypeError</code></td><td>ভুল টাইপ (<code>"a" + 5</code>)</td></tr>
+      <tr><td><code>KeyError</code></td><td>dict-এ key নেই</td></tr>
+      <tr><td><code>IndexError</code></td><td>list index সীমার বাইরে</td></tr>
+      <tr><td><code>FileNotFoundError</code></td><td>ফাইল নেই</td></tr>
+      <tr><td><code>ZeroDivisionError</code></td><td>শূন্য দিয়ে ভাগ</td></tr>
+      <tr><td><code>AttributeError</code></td><td>object-এ attribute নেই</td></tr>
+    </table>
+
+    <h3>🔬 raise — নিজে Exception তোলা</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def set_age(age):
+    if age < 0:
+        raise ValueError("বয়স নেগেটিভ হতে পারে না")
+    return age
+
+# bn: একাধিক exception একসাথে ধরা
+try:
+    risky()
+except (ValueError, TypeError) as e:
+    print(f"ধরা পড়ল: {e}")
+except Exception as e:           # bn: বাকি সব
+    print(f"অন্য সমস্যা: {e}")</code></pre></div>
+
+    <h3>🔬 Custom Exception (নিজের exception ক্লাস)</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>class InsufficientFundsError(Exception):
+    """ব্যালেন্স কম হলে।"""
+    pass
+
+class Account:
+    def __init__(self, balance):
+        self.balance = balance
+    def withdraw(self, amount):
+        if amount > self.balance:
+            raise InsufficientFundsError(f"ব্যালেন্স মাত্র {self.balance}")
+        self.balance -= amount
+
+try:
+    Account(100).withdraw(500)
+except InsufficientFundsError as e:
+    print(e)        # ব্যালেন্স মাত্র 100</code></pre></div>
+
+    <h3>🔬 Context Manager (with) — গভীরে</h3>
+    <p><code>with</code> নিশ্চিত করে রিসোর্স (ফাইল, connection) ব্যবহার শেষে স্বয়ংক্রিয়ভাবে বন্ধ হয় — error হলেও। নিজের context manager বানানো যায়:</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>class Timer:
+    def __enter__(self):              # bn: with শুরুতে চলে
+        import time
+        self.start = time.perf_counter()
+        return self
+    def __exit__(self, *args):        # bn: with শেষে (error হলেও) চলে
+        import time
+        print(f"সময়: {time.perf_counter() - self.start:.4f}s")
+
+with Timer():
+    sum(range(1000000))</code></pre></div>
+
+    <div class="note tip">
+      <span class="tag">💡 EAFP বনাম LBYL (Pythonic দর্শন)</span>
+      <strong>LBYL</strong> (Look Before You Leap): আগে চেক করো (<code>if key in d</code>)। <strong>EAFP</strong> (Easier to Ask Forgiveness than Permission): চেষ্টা করো, ব্যর্থ হলে ধরো (<code>try: d[key] except KeyError</code>)। Python-এ সাধারণত EAFP পছন্দনীয় — দ্রুত ও পরিষ্কার।
+    </div>
 
     <div class="note tip">
       <span class="tag">💡 মোড</span>
