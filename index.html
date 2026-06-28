@@ -2744,6 +2744,42 @@ ll.display()    # 10 -> 20 -> 30 -> None</code></pre></div>
       <tr><td>মেমোরি</td><td>পাশাপাশি</td><td>ছড়ানো (পয়েন্টার লাগে)</td></tr>
     </table>
 
+    <h3>🔬 Linked List-এর প্রকারভেদ</h3>
+    <ul>
+      <li><strong>Singly:</strong> প্রতিটি নোডে শুধু <code>next</code> (এক দিকে)।</li>
+      <li><strong>Doubly:</strong> <code>next</code> ও <code>prev</code> (দুই দিকে চলা যায়; deque, LRU cache-এ ব্যবহৃত)।</li>
+      <li><strong>Circular:</strong> শেষ নোড আবার head-কে নির্দেশ করে (round-robin scheduling)।</li>
+    </ul>
+
+    <h3>🔬 ধাপে ধাপে: Reverse কীভাবে কাজ করে</h3>
+    <p>তিন পয়েন্টার prev, cur, nxt। প্রতি ধাপে cur-এর তীর উল্টে prev-এর দিকে দিই। <code>1→2→3→None</code>:</p>
+    <div class="code-wrap"><span class="lang">text</span><pre><code>শুরু: prev=None, cur=1
+ধাপ১: nxt=2 | 1.next=None | prev=1, cur=2     → None←1   2→3
+ধাপ২: nxt=3 | 2.next=1    | prev=2, cur=3     → None←1←2  3
+ধাপ৩: nxt=None | 3.next=2 | prev=3, cur=None  → None←1←2←3
+cur=None, থামি → নতুন head = prev = 3 ✅  (3→2→1→None)</code></pre></div>
+
+    <h3>🔬 Dummy Node কৌশল (edge case সরল করে)</h3>
+    <p>head বদলাতে পারে এমন সমস্যায় (insert/delete) একটি ডামি নোড সামনে রাখলে "head খালি?" চেক করতে হয় না — কোড পরিষ্কার হয়।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def remove_elements(head, val):
+    dummy = Node(0)          # bn: ডামি নোড head-এর আগে
+    dummy.next = head
+    cur = dummy
+    while cur.next:
+        if cur.next.data == val:
+            cur.next = cur.next.next   # bn: নোড বাদ
+        else:
+            cur = cur.next
+    return dummy.next        # bn: আসল head (বদলে থাকতে পারে)</code></pre></div>
+
+    <h3>🔬 Fast & Slow Pointer — মাঝের নোড</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def find_middle(head):
+    slow = fast = head
+    while fast and fast.next:
+        slow = slow.next         # bn: ১ ঘর
+        fast = fast.next.next    # bn: ২ ঘর
+    return slow                  # bn: fast শেষে গেলে slow মাঝে</code></pre></div>
+
     <div class="note interview">
       <span class="tag">🎯 ক্লাসিক প্রশ্ন: Linked List Reverse</span>
       খুব জনপ্রিয়! তিনটি পয়েন্টার (prev, current, next) দিয়ে দিক উল্টানো হয়, <span class="cx-mid">O(n)</span> time, <span class="cx-good">O(1)</span> space।
@@ -2794,6 +2830,52 @@ print(queue.popleft()) # 2</code></pre></div>
     </div>
     <p><strong>ব্যবহার:</strong> প্রিন্টার queue, টাস্ক শিডিউলিং, BFS (Breadth-First Search)।</p>
 
+    <h3>🔬 ধাপে ধাপে: Balanced Brackets dry-run</h3>
+    <p><code>"{[()]}"</code> — খোলা bracket push, বন্ধ এলে top মেলে কিনা দেখি:</p>
+    <div class="code-wrap"><span class="lang">text</span><pre><code>'{' push → stack=['{']
+'[' push → stack=['{','[']
+'(' push → stack=['{','[','(']
+')' বন্ধ → pop '(' মেলে ✓ → stack=['{','[']
+']' বন্ধ → pop '[' মেলে ✓ → stack=['{']
+'}' বন্ধ → pop '{' মেলে ✓ → stack=[]
+শেষে stack খালি → balanced ✅</code></pre></div>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def is_valid(s):
+    stack = []
+    pairs = {')': '(', ']': '[', '}': '{'}
+    for ch in s:
+        if ch in pairs:                       # bn: বন্ধ bracket
+            if not stack or stack.pop() != pairs[ch]:
+                return False
+        else:
+            stack.append(ch)                  # bn: খোলা bracket
+    return not stack                          # bn: শেষে খালি হতে হবে</code></pre></div>
+
+    <h3>🔬 Min Stack — O(1) তে সর্বনিম্ন (ক্লাসিক)</h3>
+    <p>মূল trick: প্রতিটি মানের সাথে "এ পর্যন্ত min" জোড়া রাখো, তাই min পাওয়া O(1)।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>class MinStack:
+    def __init__(self): self.stack = []
+    def push(self, x):
+        cur_min = min(x, self.stack[-1][1]) if self.stack else x
+        self.stack.append((x, cur_min))   # (মান, এ পর্যন্ত min)
+    def pop(self): return self.stack.pop()[0]
+    def top(self): return self.stack[-1][0]
+    def get_min(self): return self.stack[-1][1]   # O(1)!</code></pre></div>
+
+    <h3>🔬 দুই Stack দিয়ে Queue বানানো (ইন্টারভিউ ফেভারিট)</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>class MyQueue:
+    def __init__(self):
+        self.inbox = []; self.outbox = []
+    def push(self, x): self.inbox.append(x)
+    def pop(self):
+        if not self.outbox:               # bn: খালি হলে উল্টে ঢালো
+            while self.inbox:
+                self.outbox.append(self.inbox.pop())
+        return self.outbox.pop()          # bn: amortized O(1)</code></pre></div>
+    <div class="note tip">
+      <span class="tag">💡 deque = Stack + Queue + আরও</span>
+      <code>collections.deque</code> দুই প্রান্তেই O(1) (<code>append/pop</code> ও <code>appendleft/popleft</code>) — তাই stack, queue, এমনকি sliding-window-maximum (monotonic deque) সবকিছুতে ব্যবহার করা যায়।
+    </div>
+
     <div class="note interview">
       <span class="tag">🎯 ক্লাসিক প্রশ্ন: Balanced Brackets</span>
       <code>"{[()]}"</code> ব্যালেন্সড কিনা — stack দিয়ে সমাধান। খোলা bracket push করুন; বন্ধ bracket এলে stack-এর top মিলছে কিনা দেখুন।
@@ -2841,6 +2923,39 @@ print(Counter("banana"))   # {'a':3, 'n':2, 'b':1}</code></pre></div>
     return []
 
 print(two_sum([2, 7, 11, 15], 9))   # [0, 1]</code></pre></div>
+
+    <h3>🔬 গভীরে: Hash Table কীভাবে কাজ করে</h3>
+    <ol>
+      <li><strong>Hash function:</strong> key (যেমন "apple") নিয়ে একটি সংখ্যা বানায়।</li>
+      <li><strong>Index:</strong> <code>hash % array_size</code> দিয়ে কোন bucket-এ রাখবে ঠিক করে।</li>
+      <li><strong>সংরক্ষণ/খোঁজা:</strong> সরাসরি সেই index-এ — তাই গড়ে O(1)।</li>
+    </ol>
+
+    <h3>🔬 Collision Resolution (দুই key একই index পেলে)</h3>
+    <ul>
+      <li><strong>Chaining:</strong> প্রতিটি bucket-এ একটি linked list — সংঘর্ষ হলে সেখানে যোগ। (Java HashMap)</li>
+      <li><strong>Open Addressing:</strong> পরের খালি slot খোঁজা (linear/quadratic probing)। (Python dict অনেকটা এই ধাঁচে)</li>
+    </ul>
+    <div class="note warn">
+      <span class="tag">⚠️ Worst Case O(n)</span>
+      সব key একই bucket-এ পড়লে (খারাপ hash বা আক্রমণ) lookup O(n) হয়ে যায়। তাই গড়ে O(1), কিন্তু worst case O(n) — ইন্টারভিউয়ে এটা উল্লেখ করা ভালো।
+    </div>
+
+    <h3>🔬 Load Factor ও Resizing</h3>
+    <p><strong>Load factor</strong> = উপাদান সংখ্যা / bucket সংখ্যা। এটি একটি সীমা (যেমন 0.66) ছাড়ালে hash table নিজেকে বড় করে (rehash) — সব উপাদান নতুন করে বসায়। এই মাঝে মাঝে দামি resize-ই append-কে <em>amortized</em> O(1) রাখে।</p>
+
+    <h3>🔬 কী কী Hashable (dict key/set হতে পারে)</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: immutable -> hashable (key হতে পারে)
+d = {("x", 1): "ok", "name": 1, 42: 1}   # tuple, str, int ✓
+# bn: mutable -> hashable নয় (key হতে পারে না)
+# d = {[1,2]: "x"}   # TypeError: unhashable type: 'list'
+# bn: list কে key করতে চাইলে tuple বানাও
+point = (3, 4)
+seen = {point: True}</code></pre></div>
+    <div class="note tip">
+      <span class="tag">💡 set বনাম dict</span>
+      <strong>set</strong> = শুধু key (অনন্যতা, membership)। <strong>dict</strong> = key→value। দুটোই hashing-ভিত্তিক, দুটোতেই lookup গড়ে O(1)। "আগে দেখেছি কিনা" → set; "আগে দেখেছি, কোথায়/কতবার" → dict।
+    </div>
 
     <div class="note interview">
       <span class="tag">🎯 গোল্ডেন রুল</span>
@@ -2915,6 +3030,54 @@ def postorder(root):
       <tr><td>Insert</td><td><span class="cx-good">O(log n)</span></td><td><span class="cx-bad">O(n)</span></td></tr>
       <tr><td>Traversal</td><td><span class="cx-mid">O(n)</span></td><td><span class="cx-mid">O(n)</span></td></tr>
     </table>
+
+    <h3>🔬 ধাপে ধাপে: Traversal dry-run</h3>
+    <p>এই গাছে তিন DFS traversal:</p>
+    <div class="code-wrap"><span class="lang">text</span><pre><code>          4
+         / \
+        2   6        Inorder  (বাম-মূল-ডান): 1 2 3 4 5 6 7  ← BST তে সাজানো!
+       / \ / \       Preorder (মূল-বাম-ডান): 4 2 1 3 6 5 7  ← root আগে (কপি/serialize)
+      1  3 5  7      Postorder(বাম-ডান-মূল): 1 3 2 5 7 6 4  ← children আগে (delete)</code></pre></div>
+    <div class="note tip">
+      <span class="tag">💡 মনে রাখার ট্রিক</span>
+      নামেই উত্তর: <strong>Pre</strong>order = root <em>আগে</em>, <strong>In</strong>order = root <em>মাঝে</em> (BST-তে সাজানো ক্রম দেয়!), <strong>Post</strong>order = root <em>শেষে</em>। বাম সবসময় ডানের আগে।
+    </div>
+
+    <h3>🔬 Level-Order Traversal (BFS — queue দিয়ে)</h3>
+    <p>স্তরে স্তরে (উপর থেকে নিচে) — DFS নয়, BFS। queue ব্যবহার করে। "level" সম্পর্কিত প্রশ্নে অপরিহার্য।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>from collections import deque
+def level_order(root):
+    if not root: return []
+    result, queue = [], deque([root])
+    while queue:
+        level = []
+        for _ in range(len(queue)):     # bn: এই level-এর সব নোড
+            node = queue.popleft()
+            level.append(node.val)
+            if node.left: queue.append(node.left)
+            if node.right: queue.append(node.right)
+        result.append(level)
+    return result   # [[4],[2,6],[1,3,5,7]] -> level ধরে</code></pre></div>
+
+    <h3>🔬 Tree Recursion Template (বেশিরভাগ tree প্রশ্নের ভিত্তি)</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: প্রায় সব tree প্রশ্ন এই কাঠামোয়
+def solve(node):
+    if not node:                 # ১) base case (খালি)
+        return base_value
+    left = solve(node.left)      # ২) বাম subtree সমাধান
+    right = solve(node.right)    # ৩) ডান subtree সমাধান
+    return combine(left, right, node.val)  # ৪) জোড়া দাও
+
+# bn: উদাহরণ — গাছের উচ্চতা
+def height(node):
+    if not node: return 0
+    return 1 + max(height(node.left), height(node.right))
+
+# bn: উদাহরণ — দুটি গাছ সমান কিনা
+def same(p, q):
+    if not p and not q: return True
+    if not p or not q: return False
+    return p.val == q.val and same(p.left,q.left) and same(p.right,q.right)</code></pre></div>
 
     <div class="note interview">
       <span class="tag">🎯 ইন্টারভিউ প্রশ্ন</span>
@@ -3427,6 +3590,36 @@ print(-heapq.heappop(max_heap))   # 5</code></pre></div>
 
 print(kth_largest([3,2,1,5,6,4], 2))   # 5</code></pre></div>
     <p><strong>Time:</strong> <span class="cx-mid">O(n log k)</span> — পুরো সাজানোর (O(n log n)) চেয়ে ভালো যখন k ছোট।</p>
+
+    <h3>🔬 গভীরে: Heap আসলে একটি Array</h3>
+    <p>Heap একটি complete binary tree, কিন্তু array দিয়েই রাখা হয় (পয়েন্টার লাগে না)। index i-এর জন্য:</p>
+    <div class="code-wrap"><span class="lang">text</span><pre><code>parent(i) = (i - 1) // 2
+left(i)   = 2*i + 1
+right(i)  = 2*i + 2
+
+min-heap উদাহরণ:        index: 0  1  2  3  4
+        1                array: [1, 3, 2, 7, 4]
+       / \
+      3   2               নিয়ম: parent ≤ children (min-heap)
+     / \
+    7   4</code></pre></div>
+
+    <h3>🔬 Sift Up / Sift Down (heap কীভাবে শৃঙ্খলা রাখে)</h3>
+    <ul>
+      <li><strong>Push (sift up):</strong> নতুন উপাদান শেষে রাখো, তারপর parent-এর সাথে তুলনা করে উপরে তুলতে থাকো যতক্ষণ না নিয়ম মানে → O(log n)।</li>
+      <li><strong>Pop (sift down):</strong> root সরাও, শেষ উপাদান root-এ বসাও, তারপর ছোট child-এর সাথে swap করে নিচে নামাও → O(log n)।</li>
+    </ul>
+
+    <h3>🔬 heapify কেন O(n), O(n log n) নয়</h3>
+    <p>পুরো array-কে এক এক করে push করলে O(n log n)। কিন্তু <code>heapify</code> নিচ থেকে উপরে sift-down করে — বেশিরভাগ নোড পাতার কাছে (কম গভীরতা), তাই গাণিতিকভাবে মোট কাজ <span class="cx-good">O(n)</span>।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>import heapq
+arr = [5, 3, 8, 1, 9, 2]
+heapq.heapify(arr)        # bn: O(n) তে min-heap
+print(arr[0])             # 1 -> সবচেয়ে ছোট, O(1) peek</code></pre></div>
+    <div class="note tip">
+      <span class="tag">💡 Heap বনাম Sorted List</span>
+      পুরো সাজানো দরকার হলে <code>sorted()</code>। কিন্তু শুধু "সবচেয়ে ছোট/বড়টা বারবার" দরকার হলে heap — push/pop O(log n), peek O(1)। স্ট্রিমিং ডেটায় (running median, top-k) heap অপরিহার্য, কারণ পুরোটা সাজানোর দরকার নেই।
+    </div>
 
     <div class="note interview">
       <span class="tag">🎯 চিনবেন কীভাবে</span>
