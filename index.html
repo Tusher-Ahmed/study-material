@@ -2276,6 +2276,69 @@ print(binary_search(sorted_nums, 4))   # -1</code></pre></div>
       <tr><td>১০ লক্ষ ডেটায় ধাপ</td><td>~১০,০০,০০০</td><td>~২০!</td></tr>
     </table>
 
+    <h3>🔬 ধাপে ধাপে: Binary Search dry-run</h3>
+    <p><code>arr = [1, 3, 5, 7, 9, 11]</code> তে <code>target = 7</code> খোঁজা — প্রতিটি ধাপ:</p>
+    <div class="code-wrap"><span class="lang">text</span><pre><code>শুরু: low=0, high=5
+ধাপ ১: mid=(0+5)//2=2 → arr[2]=5 < 7 → ডানে যাও → low=3
+ধাপ ২: low=3, high=5 → mid=(3+5)//2=4 → arr[4]=9 > 7 → বামে → high=3
+ধাপ ৩: low=3, high=3 → mid=3 → arr[3]=7 == 7 → পেলাম! return 3 ✅
+
+লক্ষ্য করো: ৬টি উপাদানে মাত্র ৩ ধাপ (log₂6 ≈ 2.6)</code></pre></div>
+
+    <h3>🔬 Binary Search Template (এই কাঠামো মুখস্থ রাখো)</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def binary_search(arr, target):
+    low, high = 0, len(arr) - 1     # bn: high = শেষ index
+    while low <= high:              # bn: <= (সমান থাকলেও চেক)
+        mid = low + (high - low) // 2   # bn: overflow-নিরাপদ
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] < target:
+            low = mid + 1           # bn: mid বাদ, ডান অর্ধেক
+        else:
+            high = mid - 1          # bn: mid বাদ, বাম অর্ধেক
+    return -1</code></pre></div>
+    <div class="note warn">
+      <span class="tag">⚠️ ৩টি কমন বাগ</span>
+      ১) <code>while low < high</code> নাকি <code>&lt;=</code>? — সাধারণ search-এ <code>&lt;=</code>। ২) infinite loop — <code>low=mid</code> না লিখে <code>low=mid+1</code>। ৩) overflow — <code>(low+high)//2</code> এর বদলে <code>low+(high-low)//2</code> (অন্য ভাষায় গুরুত্বপূর্ণ)।
+    </div>
+
+    <h3>🔬 গুরুত্বপূর্ণ Variant: First/Last Occurrence</h3>
+    <p>ডুপ্লিকেট থাকলে target-এর প্রথম বা শেষ অবস্থান খোঁজা — পেয়েও থামি না, এক দিকে খুঁজতে থাকি।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def first_occurrence(arr, target):
+    low, high, ans = 0, len(arr)-1, -1
+    while low <= high:
+        mid = low + (high-low)//2
+        if arr[mid] == target:
+            ans = mid           # bn: মনে রাখি, কিন্তু থামি না
+            high = mid - 1      # bn: বামে আরও আছে কিনা দেখি
+        elif arr[mid] < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+    return ans
+
+print(first_occurrence([1,2,2,2,3], 2))   # 1 (প্রথম 2)</code></pre></div>
+
+    <h3>🔬 Variant: Search in Rotated Sorted Array</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: [4,5,6,7,0,1,2] — সাজানো কিন্তু ঘোরানো
+def search_rotated(arr, target):
+    low, high = 0, len(arr)-1
+    while low <= high:
+        mid = low + (high-low)//2
+        if arr[mid] == target: return mid
+        if arr[low] <= arr[mid]:       # bn: বাম অর্ধেক sorted
+            if arr[low] <= target < arr[mid]: high = mid-1
+            else: low = mid+1
+        else:                          # bn: ডান অর্ধেক sorted
+            if arr[mid] < target <= arr[high]: low = mid+1
+            else: high = mid-1
+    return -1
+print(search_rotated([4,5,6,7,0,1,2], 0))   # 4</code></pre></div>
+    <div class="note tip">
+      <span class="tag">💡 "Binary Search on Answer"</span>
+      অনেক কঠিন সমস্যা (Koko Eating Bananas, Ship Packages) সরাসরি array নয়, বরং সম্ভাব্য <em>উত্তরের রেঞ্জে</em> binary search করে সমাধান হয়। শর্ত: উত্তরটি monotonic (একটি মান কাজ করলে তার একপাশের সবই করে)।
+    </div>
+
     <div class="note interview">
       <span class="tag">🎯 ইন্টারভিউ প্রশ্ন</span>
       <strong>Q:</strong> Binary search কেন O(log n)? <br>
@@ -2422,6 +2485,46 @@ print(quick_select([7, 2, 1, 6, 8, 5, 3], 3))   # 3 (3rd smallest)</code></pre><
 
 print(counting_sort([4, 2, 2, 8, 3, 3, 1]))   # [1,2,2,3,3,4,8]</code></pre></div>
     <p><strong>Time:</strong> <span class="cx-good">O(n + k)</span> (k = মানের পরিসর) • <strong>Space:</strong> O(k)। <em>Radix Sort</em> বড় সংখ্যায় অঙ্ক-ধরে-ধরে counting sort চালায় — O(d·(n+k))।</p>
+
+    <h3>🔬 ধাপে ধাপে: Bubble Sort dry-run</h3>
+    <p><code>[5, 2, 8, 1]</code> — প্রতিটি pass-এ পাশাপাশি তুলনা ও swap (সবচেয়ে বড় বুদবুদের মতো শেষে যায়):</p>
+    <div class="code-wrap"><span class="lang">text</span><pre><code>Pass 1: [5,2,8,1]
+  5>2 swap → [2,5,8,1]
+  5<8 ok   → [2,5,8,1]
+  8>1 swap → [2,5,1,8]   ← 8 শেষে পৌঁছে গেল
+Pass 2: [2,5,1,8]
+  2<5 ok, 5>1 swap → [2,1,5,8]   ← 5 জায়গায়
+Pass 3: [2,1,5,8]
+  2>1 swap → [1,2,5,8]   ✅ সাজানো</code></pre></div>
+
+    <h3>🔬 ধাপে ধাপে: Merge Sort (Divide & Conquer গাছ)</h3>
+    <div class="code-wrap"><span class="lang">text</span><pre><code>ভাঙা (divide):           [5,2,8,1,9,3]
+                        /                \
+                 [5,2,8]                  [1,9,3]
+                /      \                  /      \
+             [5]    [2,8]             [1]     [9,3]
+                    /   \                     /   \
+                  [2]   [8]                 [9]   [3]
+
+জোড়া (merge — সাজিয়ে সাজিয়ে উপরে):
+   [2,8]  [3,9]
+   [2,5,8]   [1,3,9]
+   [1,2,3,5,8,9]   ✅
+প্রতি লেভেলে O(n) কাজ × log n লেভেল = O(n log n)</code></pre></div>
+
+    <h3>🔬 ধাপে ধাপে: Quick Sort partition</h3>
+    <p><code>[5,2,8,1,9,3]</code>, pivot = শেষ (3)। 3-এর চেয়ে ছোট বামে, বড় ডানে নিয়ে pivot বসানো:</p>
+    <div class="code-wrap"><span class="lang">text</span><pre><code>pivot=3: [5,2,8,1,9 | 3]
+  2<3, 1<3 বামে যায় → [2,1 | 5,8,9 | 3]
+  pivot বসল: [2,1, 3, 5,8,9]   ← 3 চূড়ান্ত জায়গায়
+এবার বাম [2,1] ও ডান [5,8,9] আলাদাভাবে recursion
+  [2,1] → pivot 1 → [1,2]
+  [5,8,9] → আগেই সাজানো
+চূড়ান্ত: [1,2,3,5,8,9] ✅</code></pre></div>
+    <div class="note tip">
+      <span class="tag">💡 Stable মানে কী?</span>
+      Stable sort সমান মানের উপাদানের আপেক্ষিক ক্রম বজায় রাখে। যেমন আগে নাম দিয়ে, পরে বয়স দিয়ে sort করলে — সমান বয়সের লোকেরা নামের ক্রমেই থাকবে (stable হলে)। Merge stable, Quick/Heap নয়। Python-এর <code>sorted()</code> stable।
+    </div>
 
     <div class="note tip">
       <span class="tag">💡 বাস্তবে</span>
