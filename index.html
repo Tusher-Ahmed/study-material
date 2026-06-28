@@ -3119,6 +3119,19 @@ print(two_sum_sorted([1,3,4,5,7,11], 9))   # [2, 3] (4+5)</code></pre></div>
 
 print(is_palindrome("racecar"))   # True</code></pre></div>
 
+    <h3>🔬 ধাপে ধাপে: Two Sum (sorted) dry-run</h3>
+    <p><code>arr = [1, 3, 4, 5, 7, 11]</code>, target = 9। কেন কাজ করে: সাজানো বলে যোগফল বেশি হলে ডান কমালেই কমে, কম হলে বাম বাড়ালেই বাড়ে।</p>
+    <div class="code-wrap"><span class="lang">text</span><pre><code>left=0(1), right=5(11): 1+11=12 > 9 → right-- (বড়, কমাও)
+left=0(1), right=4(7):  1+7 =8  < 9 → left++ (ছোট, বাড়াও)
+left=1(3), right=4(7):  3+7 =10 > 9 → right--
+left=1(3), right=3(5):  3+5 =8  < 9 → left++
+left=2(4), right=3(5):  4+5 =9  == 9 → পেলাম! [2,3] ✅
+প্রতিটি উপাদান একবার দেখা হয় → O(n)</code></pre></div>
+    <div class="note tip">
+      <span class="tag">💡 3Sum কৌশল</span>
+      3Sum = একটি সংখ্যা ঠিক করো (লুপ), বাকি দুটি two-pointer দিয়ে খোঁজো → O(n²)। সাজানো থাকায় ডুপ্লিকেট skip করা সহজ। এটাই "k-sum" সমস্যার ভিত্তি।
+    </div>
+
     <div class="note interview">
       <span class="tag">🎯 চিনবেন কীভাবে</span>
       "সাজানো array", "জোড়া/triplet খোঁজা", "palindrome", "in-place সরানো/duplicate", "linked list cycle" — এসব দেখলেই two pointers ভাবুন।
@@ -3156,6 +3169,39 @@ print(max_sum_k([2,1,5,1,3,2], 3))   # 9 (5+1+3)</code></pre></div>
 
 print(longest_unique("abcabcbb"))   # 3 ("abc")</code></pre></div>
     <p><strong>Time:</strong> <span class="cx-good">O(n)</span> — প্রতিটি অক্ষর সর্বোচ্চ দুবার দেখা হয়।</p>
+
+    <h3>🔬 দুই ধরনের Sliding Window</h3>
+    <ul>
+      <li><strong>Fixed window:</strong> আকার নির্দিষ্ট (k)। ডানে যোগ করো, বাঁয়ে বাদ দাও — আকার সবসময় k।</li>
+      <li><strong>Variable window:</strong> শর্তভিত্তিক আকার। right দিয়ে বড় করো; শর্ত ভাঙলে left দিয়ে ছোট করো।</li>
+    </ul>
+
+    <h3>🔬 Variable Window Template (মুখস্থ রাখো)</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def sliding_window(s):
+    left = 0
+    window = {}          # bn: window-এর অবস্থা (count/sum ইত্যাদি)
+    best = 0
+    for right in range(len(s)):
+        # ১) right যোগ করো window-তে
+        window[s[right]] = window.get(s[right], 0) + 1
+        # ২) শর্ত ভাঙলে left সরিয়ে window সংকুচিত করো
+        while is_invalid(window):
+            window[s[left]] -= 1
+            left += 1
+        # ৩) এখন window বৈধ -> উত্তর আপডেট
+        best = max(best, right - left + 1)
+    return best</code></pre></div>
+
+    <h3>🔬 ধাপে ধাপে: longest unique substring "abcabcbb"</h3>
+    <div class="code-wrap"><span class="lang">text</span><pre><code>r=0 'a': window="a"     len=1 best=1
+r=1 'b': window="ab"    len=2 best=2
+r=2 'c': window="abc"   len=3 best=3
+r=3 'a': 'a' আছে! left সরাও past আগের 'a' → window="bca" len=3
+r=4 'b': 'b' duplicate → left সরাও → window="cab" len=3
+r=5 'c': → window="abc" len=3
+r=6 'b': → window="cb"...
+চূড়ান্ত best = 3 ("abc") ✅
+প্রতিটি অক্ষর একবার যোগ, একবার বাদ → O(n)</code></pre></div>
 
     <div class="note interview">
       <span class="tag">🎯 চিনবেন কীভাবে</span>
@@ -3213,6 +3259,40 @@ print(subsets([1, 2, 3]))
 print(permute([1, 2, 3]))   # 6 টি সাজানো
 # Time: O(n * n!)</code></pre></div>
 
+    <h3>🔬 গভীরে: Backtracking আসলে একটি Decision Tree</h3>
+    <p>প্রতিটি ধাপে কয়েকটি পছন্দ — প্রতিটি পছন্দ একটি শাখা। গাছের গভীরে গিয়ে (DFS) সমাধান পেলে রাখি, না হলে পিছিয়ে এসে (backtrack) অন্য শাখা। subsets([1,2,3])-এর গাছ:</p>
+    <div class="code-wrap"><span class="lang">text</span><pre><code>                    [] (শুরু)
+          /          |          \
+        [1]         [2]         [3]
+       /   \         |
+   [1,2]  [1,3]    [2,3]
+     |
+  [1,2,3]
+প্রতিটি নোড একটি subset। "নাও/নিয়ো না" সিদ্ধান্ত → 2ⁿ subset।
+choose (path.append) → recurse → un-choose (path.pop) ← এই pop-ই backtrack</code></pre></div>
+
+    <h3>🔬 Pruning — অপ্রয়োজনীয় শাখা কাটা (গতি বাড়ায়)</h3>
+    <p>যে শাখা কখনো সমাধানে নিতে পারবে না, সেটি আগেই বাদ দাও — তাহলে অনেক কাজ বাঁচে। N-Queens, Sudoku-তে এটাই মূল।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: Combination Sum — target ছাড়িয়ে গেলে শাখা কাটো
+def combination_sum(candidates, target):
+    result = []
+    def backtrack(start, path, remaining):
+        if remaining == 0:
+            result.append(path[:]); return
+        if remaining < 0:           # bn: PRUNE — আর এগোনো বৃথা
+            return
+        for i in range(start, len(candidates)):
+            path.append(candidates[i])
+            backtrack(i, path, remaining - candidates[i])  # i (পুনরায় ব্যবহার)
+            path.pop()              # bn: backtrack
+    backtrack(0, [], target)
+    return result
+print(combination_sum([2,3,6,7], 7))   # [[2,2,3],[7]]</code></pre></div>
+    <div class="note tip">
+      <span class="tag">💡 Backtracking-এর সর্বজনীন কাঠামো</span>
+      <strong>১)</strong> base case (সমাধান পূর্ণ?) → সংরক্ষণ। <strong>২)</strong> প্রতিটি পছন্দে: choose → recurse → un-choose। <strong>৩)</strong> অবৈধ হলে pruning। permutation/subset/combination/N-Queens সব এই কাঠামোরই রূপ।
+    </div>
+
     <div class="note interview">
       <span class="tag">🎯 চিনবেন কীভাবে</span>
       "সব সম্ভাব্য", "সব কম্বিনেশন/permutation/subset", "N-Queens", "Sudoku", "word search", "phone letter combination" — এসব backtracking। মূল কৌশল: choose → recurse → undo।
@@ -3262,6 +3342,48 @@ print(bin(13).count('1'))   # 3  (1101)</code></pre></div>
     return result
 
 print(single_number([4, 1, 2, 1, 2]))   # 4</code></pre></div>
+
+    <h3>🔬 গভীরে: Binary Representation বোঝা</h3>
+    <div class="code-wrap"><span class="lang">text</span><pre><code>13 কে binary তে:  1   1   0   1
+স্থানীয় মান:      8   4   2   1
+                  = 8 + 4 + 0 + 1 = 13
+প্রতিটি বিট একটি 2-এর ঘাত। ডান থেকে বিট 0,1,2,3...
+নেগেটিভ সংখ্যা two's complement-এ থাকে (~x = -x-1)</code></pre></div>
+
+    <h3>🔬 অপরিহার্য Bit Trick সংকলন</h3>
+    <table class="cx-table">
+      <tr><th>কাজ</th><th>ট্রিক</th></tr>
+      <tr><td>i-তম বিট সেট আছে?</td><td><code>(n >> i) & 1</code></td></tr>
+      <tr><td>i-তম বিট সেট করা</td><td><code>n | (1 << i)</code></td></tr>
+      <tr><td>i-তম বিট মুছা</td><td><code>n & ~(1 << i)</code></td></tr>
+      <tr><td>i-তম বিট টগল</td><td><code>n ^ (1 << i)</code></td></tr>
+      <tr><td>সবচেয়ে ডানের set বিট মুছা</td><td><code>n & (n - 1)</code></td></tr>
+      <tr><td>সবচেয়ে ডানের set বিট পাওয়া</td><td><code>n & (-n)</code></td></tr>
+      <tr><td>জোড় কিনা</td><td><code>n & 1 == 0</code></td></tr>
+    </table>
+
+    <h3>🔬 n & (n-1) কেন বিশেষ (set bit গোনা)</h3>
+    <p><code>n & (n-1)</code> সবচেয়ে ডানের 1 বিটটি মুছে দেয়। এটি যতবার করা যায় = কতগুলো 1 বিট আছে। তাই set-bit গোনা O(সেট বিটের সংখ্যা):</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def count_bits(n):
+    count = 0
+    while n:
+        n &= (n - 1)     # bn: ডানের 1 মুছে দেয়
+        count += 1
+    return count
+print(count_bits(13))    # 3  (1101 -> তিনটি 1)
+# dry: 1101 & 1100 = 1100 → 1100 & 1011 = 1000 → 1000 & 0111 = 0 (3 ধাপ)</code></pre></div>
+
+    <h3>🔬 Bitmask দিয়ে সব Subset (চতুর কৌশল)</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: n উপাদানের 2ⁿ subset — প্রতিটি বিট = উপাদান নেব কিনা
+def all_subsets(arr):
+    n = len(arr)
+    result = []
+    for mask in range(1 << n):       # bn: 0 .. 2ⁿ-1
+        subset = [arr[i] for i in range(n) if mask & (1 << i)]
+        result.append(subset)
+    return result
+print(all_subsets([1, 2, 3]))
+# [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]</code></pre></div>
 
     <div class="note interview">
       <span class="tag">🎯 FAANG প্রশ্ন</span>
@@ -3556,6 +3678,14 @@ print(p[4] - p[1])              # 6  -> O(1)!</code></pre></div>
 
 print(subarray_sum([1, 1, 1], 2))   # 2</code></pre></div>
 
+    <h3>🔬 কেন এটা কাজ করে (মূল অন্তর্দৃষ্টি)</h3>
+    <p>যদি <code>prefix[j] - prefix[i] = k</code> হয়, তাহলে i থেকে j পর্যন্ত subarray-র যোগফল k। তাই প্রতিটি অবস্থানে আমরা খুঁজি — আগে কি এমন কোনো prefix ছিল যার মান <code>(এখনকার prefix - k)</code>? hash map-এ আগের prefix-গুলো রাখায় এই খোঁজা O(1)।</p>
+    <div class="code-wrap"><span class="lang">text</span><pre><code>nums=[1,1,1], k=2 | cur=running prefix, seen={prefix: count}
+শুরু: seen={0:1}
+x=1: cur=1, cur-k=-1 seen-এ নেই(0) | seen={0:1, 1:1}
+x=1: cur=2, cur-k=0  seen-এ আছে(1)! count+=1 | seen={0:1,1:1,2:1}
+x=1: cur=3, cur-k=1  seen-এ আছে(1)! count+=1 → count=2 ✅</code></pre></div>
+
     <div class="note interview">
       <span class="tag">🎯 চিনবেন কীভাবে</span>
       "range sum query", "subarray sum", "একাধিকবার যোগফল জিজ্ঞেস", "average of subarray" — এসব দেখলে prefix sum। 2D গ্রিডেও কাজ করে (2D prefix sum)। update-ও লাগলে Fenwick Tree ভাবুন।
@@ -3596,6 +3726,16 @@ print(next_greater([2, 1, 2, 4, 3]))   # [4, 2, 4, -1, -1]</code></pre></div>
 print(daily_temperatures([73,74,75,71,69,72,76,73]))
 # [1, 1, 4, 2, 1, 1, 0, 0]</code></pre></div>
     <p><strong>Time:</strong> <span class="cx-good">O(n)</span> — প্রতিটি index একবার push ও একবার pop হয়।</p>
+
+    <h3>🔬 ধাপে ধাপে: Next Greater dry-run</h3>
+    <p><code>[2, 1, 2, 4]</code> — stack-এ index রাখি (মান কমন্ত ক্রমে); নতুন বড় মান এলে stack-এর ছোটগুলোর উত্তর = নতুন মান।</p>
+    <div class="code-wrap"><span class="lang">text</span><pre><code>i=0 (2): stack খালি → push → stack=[0]
+i=1 (1): 1 < 2 → push → stack=[0,1]   (এখনো উত্তর পায়নি)
+i=2 (2): 2 > arr[1]=1 → pop 1, res[1]=2 | 2==arr[0] না বড় → push → stack=[0,2]
+i=3 (4): 4 > arr[2]=2 → pop 2, res[2]=4 | 4 > arr[0]=2 → pop 0, res[0]=4 → push → stack=[3]
+শেষে stack=[3] এর উত্তর নেই → res[3]=-1
+ফল: [4, 2, 4, -1] ✅
+প্রতিটি index একবার push + একবার pop → O(n)</code></pre></div>
 
     <div class="note interview">
       <span class="tag">🎯 চিনবেন কীভাবে</span>
