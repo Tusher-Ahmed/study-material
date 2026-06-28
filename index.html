@@ -1,0 +1,3198 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python + DSA শেখার হাব | বাংলায় ইন্টারভিউ প্রস্তুতি</title>
+<meta name="description" content="Python এবং Data Structures & Algorithms শূন্য থেকে বাংলায় — উদাহরণ, কোড ও Time Complexity সহ। MSc ও চাকরির ইন্টারভিউ প্রস্তুতির জন্য।">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<button class="theme-btn" title="থিম পরিবর্তন">🌙</button>
+
+<div class="topbar">
+  <button class="menu-btn" title="মেনু">☰</button>
+  <strong>Python + DSA হাব</strong>
+  <button class="theme-btn">🌙</button>
+</div>
+
+<div class="overlay"></div>
+
+<div class="layout">
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo">Py</div>
+      <div>
+        <h1>Python + DSA হাব</h1>
+        <small>বাংলায় ইন্টারভিউ প্রস্তুতি</small>
+      </div>
+    </div>
+
+    <div class="search-box">
+      <span class="icon">🔍</span>
+      <input id="search" type="text" placeholder="টপিক খুঁজুন... (search)">
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-title">শুরু</div>
+      <a class="nav-link" data-target="home" data-keywords="হোম home">🏠 হোম / শুরু করুন</a>
+      <a class="nav-link" data-target="intro" data-keywords="python কী কেন setup">🐍 Python পরিচিতি</a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-title">Python বেসিক</div>
+      <a class="nav-link" data-target="variables" data-keywords="variable type int str float data type">📦 ভেরিয়েবল ও ডেটা টাইপ</a>
+      <a class="nav-link" data-target="operators" data-keywords="operator arithmetic logical">➕ অপারেটর</a>
+      <a class="nav-link" data-target="strings" data-keywords="string slicing format">🔤 স্ট্রিং (String)</a>
+      <a class="nav-link" data-target="controlflow" data-keywords="if else loop for while condition">🔀 কন্ট্রোল ফ্লো</a>
+      <a class="nav-link" data-target="functions" data-keywords="function def return argument scope">⚙️ ফাংশন</a>
+      <a class="nav-link" data-target="datastructures" data-keywords="list tuple dict set list comprehension">🗂️ বিল্ট-ইন ডেটা স্ট্রাকচার</a>
+      <a class="nav-link" data-target="oop" data-keywords="class object oop inheritance">🏛️ OOP (ক্লাস ও অবজেক্ট)</a>
+      <a class="nav-link" data-target="errors" data-keywords="exception try except file error">🛡️ Exception ও ফাইল</a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-title">Python অ্যাডভান্সড 🔥</div>
+      <a class="nav-link" data-target="comprehensions" data-keywords="comprehension generator iterator yield lazy">🌀 Iterator ও Generator</a>
+      <a class="nav-link" data-target="decorators" data-keywords="decorator closure wrapper functools">🎀 Decorator ও Closure</a>
+      <a class="nav-link" data-target="dunder" data-keywords="dunder magic method operator overloading mro">✨ Magic Method ও OOP গভীরে</a>
+      <a class="nav-link" data-target="internals" data-keywords="gil memory mutable default copy is global interpreter lock">🧠 Python Internals ও GIL</a>
+      <a class="nav-link" data-target="pythonic" data-keywords="collections itertools heapq zip enumerate counter defaultdict">🛠️ stdlib অস্ত্রভাণ্ডার</a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-title">DSA ভিত্তি</div>
+      <a class="nav-link" data-target="complexity" data-keywords="big o time complexity space asymptotic amortized">⏱️ Time Complexity (Big-O)</a>
+      <a class="nav-link" data-target="recursion" data-keywords="recursion base case stack factorial">🔁 Recursion</a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-title">অ্যালগরিদম</div>
+      <a class="nav-link" data-target="searching" data-keywords="linear binary search rotated">🔎 Searching</a>
+      <a class="nav-link" data-target="sorting" data-keywords="bubble selection insertion merge quick sort heap counting">📊 Sorting</a>
+      <a class="nav-link" data-target="dp" data-keywords="dynamic programming memoization fibonacci knapsack lcs lis edit distance">🧮 Dynamic Programming</a>
+      <a class="nav-link" data-target="greedy" data-keywords="greedy interval activity selection">🪙 Greedy</a>
+      <a class="nav-link" data-target="stringmatching" data-keywords="kmp rabin karp string matching pattern lps rolling hash">🔡 String Matching (KMP)</a>
+      <a class="nav-link" data-target="mathalgo" data-keywords="gcd euclid sieve prime fast exponentiation modular lcm">🧷 Math অ্যালগরিদম</a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-title">FAANG প্যাটার্ন 🎯</div>
+      <a class="nav-link" data-target="twopointer" data-keywords="two pointer fast slow palindrome">↔️ Two Pointers</a>
+      <a class="nav-link" data-target="slidingwindow" data-keywords="sliding window substring subarray">🪟 Sliding Window</a>
+      <a class="nav-link" data-target="prefixsum" data-keywords="prefix sum cumulative range query subarray">➕ Prefix Sum</a>
+      <a class="nav-link" data-target="monotonicstack" data-keywords="monotonic stack next greater element histogram">📈 Monotonic Stack</a>
+      <a class="nav-link" data-target="backtracking" data-keywords="backtracking permutation subset combination nqueens">♟️ Backtracking</a>
+      <a class="nav-link" data-target="bitmanip" data-keywords="bit manipulation xor mask shift">🔢 Bit Manipulation</a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-title">ডেটা স্ট্রাকচার</div>
+      <a class="nav-link" data-target="linkedlist" data-keywords="linked list node pointer cycle floyd">🔗 Linked List</a>
+      <a class="nav-link" data-target="stackqueue" data-keywords="stack queue lifo fifo monotonic">📚 Stack ও Queue</a>
+      <a class="nav-link" data-target="hashing" data-keywords="hash table dictionary hashing collision two sum">#️⃣ Hashing</a>
+      <a class="nav-link" data-target="heaps" data-keywords="heap priority queue heapq top k kth largest">⛰️ Heap / Priority Queue</a>
+      <a class="nav-link" data-target="trees" data-keywords="tree binary bst traversal lca level order">🌳 Tree ও BST</a>
+      <a class="nav-link" data-target="trie" data-keywords="trie prefix tree autocomplete">🌲 Trie (Prefix Tree)</a>
+      <a class="nav-link" data-target="graphs" data-keywords="graph bfs dfs adjacency">🕸️ Graph (BFS/DFS)</a>
+      <a class="nav-link" data-target="advancedgraph" data-keywords="dijkstra topological sort shortest path weighted bellman ford floyd warshall">🗺️ Advanced Graph</a>
+      <a class="nav-link" data-target="mst" data-keywords="minimum spanning tree kruskal prim mst">🌐 MST (Prim/Kruskal)</a>
+      <a class="nav-link" data-target="unionfind" data-keywords="union find disjoint set dsu connected components">🔗 Union-Find (DSU)</a>
+      <a class="nav-link" data-target="segmenttree" data-keywords="segment tree fenwick binary indexed tree range query update">🌴 Segment Tree / BIT</a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-title">ইন্টারঅ্যাক্টিভ 🎬</div>
+      <a class="nav-link" data-target="visualizer" data-keywords="visualizer animation sorting visual bars">🎬 Sorting Visualizer</a>
+      <a class="nav-link" data-target="practice" data-keywords="practice problem leetcode exercise solution">📝 Practice Problems</a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-title">ক্যারিয়ার স্কিল 🚀</div>
+      <a class="nav-link" data-target="cloud" data-keywords="aws azure cloud ec2 s3 lambda iaas paas saas vm blob">☁️ Cloud (AWS ও Azure)</a>
+      <a class="nav-link" data-target="git" data-keywords="git version control commit branch merge github push pull">🔧 Git ও GitHub</a>
+      <a class="nav-link" data-target="softwaredesign" data-keywords="software design solid design pattern oop singleton factory observer system design">🏗️ Software Design</a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-title">ইন্টারভিউ</div>
+      <a class="nav-link" data-target="interview" data-keywords="interview question tips cheatsheet faang">🎯 ইন্টারভিউ গাইড</a>
+    </div>
+  </aside>
+
+  <!-- ===================== CONTENT ===================== -->
+  <main class="content">
+
+  <!-- ================= HOME ================= -->
+  <section class="topic" id="home">
+    <div class="hero">
+      <h2>🐍 Python + DSA শেখার হাব</h2>
+      <p>শূন্য থেকে শুরু করে <strong>FAANG ইন্টারভিউ</strong> পর্যন্ত — সম্পূর্ণ বাংলায়। প্রতিটি কনসেপ্টের <strong>বিস্তারিত ব্যাখ্যা</strong>, <strong>চলমান কোড উদাহরণ</strong> এবং <strong>Time Complexity</strong> সহ। বেসিক → ইন্টারমিডিয়েট → অ্যাডভান্সড — MSc ও বিশ্বমানের চাকরির ইন্টারভিউ ডিফেন্ড করার জন্য তৈরি।</p>
+      <div class="badges">
+        <span class="badge">✅ বাংলায় ব্যাখ্যা</span>
+        <span class="badge">✅ Big-O Complexity</span>
+        <span class="badge">✅ FAANG প্যাটার্ন</span>
+        <span class="badge">✅ ৩০+ টপিক</span>
+        <span class="badge">✅ চালানোর যোগ্য কোড</span>
+      </div>
+    </div>
+
+    <h3>কীভাবে ব্যবহার করবেন</h3>
+    <p>বাঁ পাশের মেনু থেকে যেকোনো টপিকে ক্লিক করুন। উপরে → নিচে ক্রমানুসারে পড়লে শূন্য থেকে অ্যাডভান্সড পর্যন্ত একটি পূর্ণ পথ পাবেন। প্রতিটি কোড ব্লকের <code>Copy</code> বোতামে চাপ দিয়ে কোড কপি করে নিজের কম্পিউটারে চালিয়ে দেখুন — শেখার সবচেয়ে ভালো উপায় হলো নিজে হাতে চালানো।</p>
+
+    <div class="note tip">
+      <span class="tag">💡 শেখার নিয়ম</span>
+      শুধু পড়ে যাবেন না — প্রতিটি উদাহরণ নিজে টাইপ করে চালান, তারপর সামান্য পরিবর্তন করে দেখুন কী হয়। ভুল করাই শেখার সবচেয়ে দ্রুত পথ।
+    </div>
+
+    <h3>রোডম্যাপ — কোন ক্রমে শিখবেন</h3>
+    <div class="cards">
+      <a class="card" data-goto="intro"><div class="num">ধাপ ০১</div><h4>🐍 Python পরিচিতি</h4><p>Python কী, কেন, কীভাবে চালাবেন</p></a>
+      <a class="card" data-goto="variables"><div class="num">ধাপ ০২</div><h4>📦 ভেরিয়েবল ও টাইপ</h4><p>ডেটা রাখার ভিত্তি</p></a>
+      <a class="card" data-goto="controlflow"><div class="num">ধাপ ০৩</div><h4>🔀 কন্ট্রোল ফ্লো</h4><p>if/else, লুপ</p></a>
+      <a class="card" data-goto="functions"><div class="num">ধাপ ০৪</div><h4>⚙️ ফাংশন</h4><p>কোড পুনর্ব্যবহার</p></a>
+      <a class="card" data-goto="datastructures"><div class="num">ধাপ ০৫</div><h4>🗂️ ডেটা স্ট্রাকচার</h4><p>list, dict, set, tuple</p></a>
+      <a class="card" data-goto="complexity"><div class="num">ধাপ ০৬</div><h4>⏱️ Big-O</h4><p>DSA-র হৃদয়</p></a>
+      <a class="card" data-goto="sorting"><div class="num">ধাপ ০৭</div><h4>📊 Sorting</h4><p>৫টি অ্যালগরিদম</p></a>
+      <a class="card" data-goto="trees"><div class="num">ধাপ ০৮</div><h4>🌳 Tree ও Graph</h4><p>অ্যাডভান্সড স্ট্রাকচার</p></a>
+      <a class="card" data-goto="interview"><div class="num">ধাপ ০৯</div><h4>🎯 ইন্টারভিউ গাইড</h4><p>প্রশ্ন ও কৌশল</p></a>
+    </div>
+
+    <h3>🔥 FAANG-লেভেল টপিক (অ্যাডভান্সড)</h3>
+    <p class="lead">বেসিক শেষ হলে এই অংশগুলোই তোমাকে শীর্ষ কোম্পানির ইন্টারভিউতে আলাদা করবে।</p>
+    <div class="cards">
+      <a class="card" data-goto="comprehensions"><div class="num">Python+</div><h4>🌀 Generator/Iterator</h4><p>মেমোরি-এফিশিয়েন্ট কোড</p></a>
+      <a class="card" data-goto="decorators"><div class="num">Python+</div><h4>🎀 Decorator</h4><p>@lru_cache, closure</p></a>
+      <a class="card" data-goto="internals"><div class="num">Python+</div><h4>🧠 GIL ও Internals</h4><p>সিনিয়র-লেভেল প্রশ্ন</p></a>
+      <a class="card" data-goto="twopointer"><div class="num">প্যাটার্ন</div><h4>↔️ Two Pointers</h4><p>O(n²) → O(n)</p></a>
+      <a class="card" data-goto="slidingwindow"><div class="num">প্যাটার্ন</div><h4>🪟 Sliding Window</h4><p>substring/subarray</p></a>
+      <a class="card" data-goto="backtracking"><div class="num">প্যাটার্ন</div><h4>♟️ Backtracking</h4><p>permutation, subset</p></a>
+      <a class="card" data-goto="heaps"><div class="num">DS+</div><h4>⛰️ Heap</h4><p>Top-K, priority</p></a>
+      <a class="card" data-goto="trie"><div class="num">DS+</div><h4>🌲 Trie</h4><p>prefix, autocomplete</p></a>
+      <a class="card" data-goto="advancedgraph"><div class="num">DS+</div><h4>🗺️ Dijkstra</h4><p>shortest path, topo sort</p></a>
+      <a class="card" data-goto="unionfind"><div class="num">DS+</div><h4>🔗 Union-Find</h4><p>connected components</p></a>
+      <a class="card" data-goto="bitmanip"><div class="num">প্যাটার্ন</div><h4>🔢 Bit Manipulation</h4><p>XOR ট্রিক</p></a>
+      <a class="card" data-goto="dp"><div class="num">অ্যালগো</div><h4>🧮 Advanced DP</h4><p>LCS, LIS, Edit Distance</p></a>
+    </div>
+    <div class="page-nav"><button disabled>←</button><button>→</button></div>
+    <div class="footer-credit">তৈরি হয়েছে তোমার MSc ও ক্যারিয়ার যাত্রার জন্য • বাংলায় Python + DSA</div>
+  </section>
+
+  <!-- ================= INTRO ================= -->
+  <section class="topic" id="intro">
+    <h2>🐍 Python পরিচিতি</h2>
+    <p class="lead">প্রোগ্রামিং শুরু করার আগে বুঝে নিই — Python আসলে কী এবং কেন এটাই ইন্টারভিউ ও চাকরির জন্য সবচেয়ে জনপ্রিয় ভাষা।</p>
+
+    <h3>Python কী?</h3>
+    <p>Python হলো একটি <strong>high-level</strong> (মানুষের ভাষার কাছাকাছি), <strong>interpreted</strong> (লাইন বাই লাইন চলে), এবং <strong>general-purpose</strong> প্রোগ্রামিং ভাষা। Guido van Rossum এটি ১৯৯১ সালে তৈরি করেন। এর সবচেয়ে বড় শক্তি — কোড পড়তে প্রায় ইংরেজি বাক্যের মতো সহজ।</p>
+
+    <h3>কেন Python শিখবেন?</h3>
+    <ul>
+      <li><strong>সহজ সিনট্যাক্স:</strong> অন্য ভাষার তুলনায় কম কোডে বেশি কাজ। তাই অ্যালগরিদমে মনোযোগ দেওয়া যায়, সিনট্যাক্সে নয়।</li>
+      <li><strong>চাহিদা:</strong> Data Science, AI/ML, Web (Django/Flask), Automation — সব জায়গায় Python।</li>
+      <li><strong>ইন্টারভিউ:</strong> বেশিরভাগ কোম্পানি DSA ইন্টারভিউতে Python অ্যালাউ করে — কম কোডে সমাধান দেখানো যায়।</li>
+    </ul>
+
+    <h3>প্রথম প্রোগ্রাম</h3>
+    <p>যেকোনো ভাষা শেখার ঐতিহ্য — "Hello, World!" ছাপানো। নিচের কোডটি একটি ফাইলে <code>hello.py</code> নামে সেভ করে টার্মিনালে <code>python hello.py</code> লিখে চালান।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: পর্দায় লেখা ছাপানোর ফাংশন print()
+print("Hello, World!")
+print("আমি Python শিখছি")
+
+# bn: একাধিক জিনিস একসাথে ছাপানো যায়
+name = "Byron"
+print("আমার নাম", name)</code></pre></div>
+
+    <div class="note">
+      <span class="tag">📝 কীভাবে চালাবেন</span>
+      ১) <a href="https://python.org" target="_blank">python.org</a> থেকে Python ইনস্টল করুন। ২) VS Code এডিটর ইনস্টল করুন। ৩) <code>.py</code> ফাইল বানিয়ে টার্মিনালে <code>python ফাইলের_নাম.py</code> চালান। দ্রুত পরীক্ষা করতে অনলাইনে <a href="https://replit.com" target="_blank">replit.com</a> বা <a href="https://colab.research.google.com" target="_blank">Google Colab</a> ব্যবহার করতে পারেন।
+    </div>
+
+    <div class="note interview">
+      <span class="tag">🎯 ইন্টারভিউ প্রশ্ন</span>
+      <strong>Q:</strong> Python "interpreted" নাকি "compiled"? <br>
+      <strong>A:</strong> Python প্রধানত interpreted — কোড লাইন বাই লাইন CPython ইন্টারপ্রেটার দিয়ে চলে (মাঝে bytecode-এ কম্পাইল হয়)। এজন্য ডেভেলপমেন্ট দ্রুত, কিন্তু C/C++ এর চেয়ে রানটাইম ধীর।
+    </div>
+
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= VARIABLES ================= -->
+  <section class="topic" id="variables">
+    <h2>📦 ভেরিয়েবল ও ডেটা টাইপ</h2>
+    <p class="lead">ভেরিয়েবল হলো ডেটা রাখার "বাক্স"। Python-এ টাইপ আগে থেকে বলতে হয় না — মান দেখেই Python নিজে টাইপ বুঝে নেয় (dynamic typing)।</p>
+
+    <h3>ভেরিয়েবল তৈরি</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: = চিহ্ন দিয়ে মান বসানো হয় (assignment)
+age = 25            # bn: পূর্ণসংখ্যা (integer)
+price = 99.50       # bn: দশমিক সংখ্যা (float)
+name = "Byron"      # bn: টেক্সট (string)
+is_student = True   # bn: সত্য/মিথ্যা (boolean)
+
+# bn: type() দিয়ে টাইপ জানা যায়
+print(type(age))     # <class 'int'>
+print(type(price))   # <class 'float'>
+print(type(name))    # <class 'str'>
+print(type(is_student))  # <class 'bool'></code></pre></div>
+
+    <h3>প্রধান ডেটা টাইপগুলো</h3>
+    <table class="cx-table">
+      <tr><th>টাইপ</th><th>কাজ</th><th>উদাহরণ</th></tr>
+      <tr><td><code>int</code></td><td>পূর্ণসংখ্যা</td><td><code>10, -5, 1000</code></td></tr>
+      <tr><td><code>float</code></td><td>দশমিক সংখ্যা</td><td><code>3.14, -0.5</code></td></tr>
+      <tr><td><code>str</code></td><td>টেক্সট/অক্ষর</td><td><code>"hello", 'A'</code></td></tr>
+      <tr><td><code>bool</code></td><td>সত্য/মিথ্যা</td><td><code>True, False</code></td></tr>
+      <tr><td><code>list</code></td><td>পরিবর্তনযোগ্য তালিকা</td><td><code>[1, 2, 3]</code></td></tr>
+      <tr><td><code>tuple</code></td><td>অপরিবর্তনীয় তালিকা</td><td><code>(1, 2, 3)</code></td></tr>
+      <tr><td><code>dict</code></td><td>key-value জোড়া</td><td><code>{"a": 1}</code></td></tr>
+      <tr><td><code>set</code></td><td>অনন্য মানের সংগ্রহ</td><td><code>{1, 2, 3}</code></td></tr>
+    </table>
+
+    <h3>টাইপ কনভার্সন (Type Casting)</h3>
+    <p>এক টাইপ থেকে আরেক টাইপে রূপান্তর। ইনপুট সবসময় string আসে, তাই সংখ্যায় কাজ করতে <code>int()</code>/<code>float()</code> দরকার হয়।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>x = "100"          # bn: এটা string
+y = int(x)         # bn: string থেকে int -> 100
+z = float(x)       # bn: string থেকে float -> 100.0
+s = str(50)        # bn: int থেকে string -> "50"
+
+# bn: ইনপুট নেওয়া (সবসময় string আসে, তাই int() লাগে)
+# age = int(input("তোমার বয়স: "))
+print(y + 50)      # 150</code></pre></div>
+
+    <div class="note warn">
+      <span class="tag">⚠️ সাধারণ ভুল</span>
+      <code>"5" + 5</code> লিখলে error হবে — string আর int যোগ করা যায় না। আগে <code>int("5")</code> করে নিতে হবে।
+    </div>
+
+    <div class="note interview">
+      <span class="tag">🎯 ইন্টারভিউ প্রশ্ন</span>
+      <strong>Q:</strong> Python-এ ভেরিয়েবল আসলে কী ধরে রাখে? <br>
+      <strong>A:</strong> ভেরিয়েবল মান নিজে ধরে না — এটি মেমোরিতে থাকা অবজেক্টের দিকে একটি <em>reference</em> (পয়েন্টার)। তাই <code>a = b</code> করলে দুটো নাম একই অবজেক্টকে নির্দেশ করে।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= OPERATORS ================= -->
+  <section class="topic" id="operators">
+    <h2>➕ অপারেটর (Operators)</h2>
+    <p class="lead">অপারেটর হলো সেই চিহ্ন যা দিয়ে আমরা মানের ওপর কাজ (যোগ, তুলনা, যুক্তি) করি।</p>
+
+    <h3>১. গাণিতিক (Arithmetic)</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>a, b = 10, 3
+print(a + b)   # 13  -> যোগ
+print(a - b)   # 7   -> বিয়োগ
+print(a * b)   # 30  -> গুণ
+print(a / b)   # 3.333  -> ভাগ (সবসময় float)
+print(a // b)  # 3   -> floor division (পূর্ণ ভাগফল)
+print(a % b)   # 1   -> modulus (ভাগশেষ)
+print(a ** b)  # 1000 -> ঘাত (10^3)</code></pre></div>
+
+    <div class="note tip">
+      <span class="tag">💡 DSA-তে গুরুত্বপূর্ণ</span>
+      <code>%</code> (modulus) দিয়ে জোড়/বিজোড় বের করা হয়: <code>n % 2 == 0</code> মানে জোড়। <code>//</code> দিয়ে মাঝামাঝি বের করা হয় (binary search-এ <code>mid = (low+high)//2</code>)।
+    </div>
+
+    <h3>২. তুলনা (Comparison) — ফলাফল True/False</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>print(5 == 5)   # True   -> সমান কিনা
+print(5 != 3)   # True   -> অসমান কিনা
+print(5 > 3)    # True
+print(5 <= 5)   # True</code></pre></div>
+
+    <h3>৩. যুক্তিগত (Logical)</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>age = 20
+# bn: and -> দুটোই সত্য হলে True
+print(age > 18 and age < 60)   # True
+# bn: or -> যেকোনো একটি সত্য হলে True
+print(age < 13 or age > 18)    # True
+# bn: not -> উল্টে দেয়
+print(not (age > 18))          # False</code></pre></div>
+
+    <h3>৪. অ্যাসাইনমেন্ট ও মেম্বারশিপ</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>x = 5
+x += 3   # bn: x = x + 3 -> 8
+x *= 2   # bn: x = x * 2 -> 16
+
+# bn: in -> কোনো কিছুর ভেতরে আছে কিনা (খুব দরকারি)
+print("a" in "apple")        # True
+print(3 in [1, 2, 3])        # True</code></pre></div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= STRINGS ================= -->
+  <section class="topic" id="strings">
+    <h2>🔤 স্ট্রিং (String)</h2>
+    <p class="lead">String হলো অক্ষরের ক্রম (sequence of characters)। ইন্টারভিউতে string-এর প্রশ্ন খুব আসে (palindrome, anagram, reverse)।</p>
+
+    <h3>Indexing ও Slicing</h3>
+    <p>String-এর প্রতিটি অক্ষরের একটি index আছে — শুরু <strong>0</strong> থেকে। পেছন থেকে গুনতে negative index (<code>-1</code> = শেষ অক্ষর)।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>s = "Python"
+#    P  y  t  h  o  n
+#    0  1  2  3  4  5
+#   -6 -5 -4 -3 -2 -1
+
+print(s[0])     # P  -> প্রথম অক্ষর
+print(s[-1])    # n  -> শেষ অক্ষর
+print(s[0:3])   # Pyt -> index 0,1,2 (3 বাদ)
+print(s[2:])    # thon -> 2 থেকে শেষ
+print(s[::-1])  # nohtyP -> পুরো string উল্টানো!</code></pre></div>
+
+    <div class="note tip">
+      <span class="tag">💡 ইন্টারভিউ ট্রিক</span>
+      <code>s[::-1]</code> দিয়ে এক লাইনে string reverse — palindrome চেক করার সবচেয়ে দ্রুত উপায়: <code>s == s[::-1]</code>।
+    </div>
+
+    <h3>দরকারি String মেথড</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>s = "  Hello World  "
+print(s.strip())          # "Hello World" -> দুপাশের স্পেস বাদ
+print(s.lower())          # "  hello world  "
+print(s.upper())          # "  HELLO WORLD  "
+print("Hello".replace("l", "L"))  # HeLLo
+print("a,b,c".split(","))         # ['a', 'b', 'c'] -> ভাগ করা
+print("-".join(["a","b","c"]))    # "a-b-c" -> জোড়া লাগানো
+print("Hello".find("l"))          # 2 -> প্রথম যেখানে পাওয়া যায়
+print(len("Hello"))               # 5 -> দৈর্ঘ্য</code></pre></div>
+
+    <h3>f-string দিয়ে ফরম্যাটিং (আধুনিক উপায়)</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>name = "Byron"
+age = 25
+# bn: f"" এর ভেতরে {} দিলে ভেরিয়েবলের মান বসে
+print(f"আমার নাম {name}, বয়স {age}")
+print(f"আগামী বছর বয়স হবে {age + 1}")  # হিসাবও করা যায়</code></pre></div>
+
+    <div class="note interview">
+      <span class="tag">🎯 মনে রাখুন</span>
+      String <strong>immutable</strong> (অপরিবর্তনীয়)। <code>s[0] = "X"</code> করা যায় না। পরিবর্তন করতে নতুন string বানাতে হয়। তাই লুপে বারবার string জোড়া দিলে O(n²) হয়ে যায় — তখন list-এ জমিয়ে শেষে <code>"".join()</code> করা ভালো।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= CONTROL FLOW ================= -->
+  <section class="topic" id="controlflow">
+    <h2>🔀 কন্ট্রোল ফ্লো (if/else ও লুপ)</h2>
+    <p class="lead">প্রোগ্রামকে সিদ্ধান্ত নিতে (if/else) আর বারবার কাজ করতে (loop) শেখানোই কন্ট্রোল ফ্লো। DSA-র ভিত্তি এখানেই।</p>
+
+    <h3>if / elif / else</h3>
+    <p>Python ব্লক বোঝে <strong>indentation</strong> (সামনের স্পেস) দিয়ে — কোঁকড়া বন্ধনী নেই। সাধারণত ৪টি স্পেস।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>marks = 75
+
+if marks >= 80:
+    print("A+")
+elif marks >= 70:        # bn: আগেরটা মিথ্যা হলে এটা চেক
+    print("A")
+elif marks >= 60:
+    print("B")
+else:                    # bn: কোনোটাই না মিললে
+    print("Fail")</code></pre></div>
+
+    <h3>for লুপ — নির্দিষ্ট সংখ্যকবার</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: range(5) -> 0,1,2,3,4
+for i in range(5):
+    print(i)
+
+# bn: range(start, stop, step)
+for i in range(2, 11, 2):   # 2,4,6,8,10
+    print(i)
+
+# bn: লিস্টের প্রতিটি উপাদানের ওপর লুপ
+fruits = ["আম", "জাম", "কাঁঠাল"]
+for f in fruits:
+    print(f)
+
+# bn: index সহ চাইলে enumerate
+for index, f in enumerate(fruits):
+    print(index, f)</code></pre></div>
+
+    <h3>while লুপ — শর্ত সত্য থাকা পর্যন্ত</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>count = 1
+while count <= 5:
+    print(count)
+    count += 1     # bn: এটা না বাড়ালে infinite loop!
+
+# bn: break -> লুপ থেকে বেরিয়ে যাওয়া
+# bn: continue -> এই বারটা বাদ দিয়ে পরের বারে যাওয়া
+for i in range(10):
+    if i == 3:
+        continue   # bn: 3 বাদ পড়বে
+    if i == 6:
+        break      # bn: 6 এ থেমে যাবে
+    print(i)       # 0 1 2 4 5</code></pre></div>
+
+    <div class="note warn">
+      <span class="tag">⚠️ Infinite Loop</span>
+      <code>while</code> লুপে শর্ত কখনো মিথ্যা না হলে প্রোগ্রাম আটকে যাবে চিরকাল। সবসময় নিশ্চিত করুন ভেতরে এমন কিছু আছে যা একসময় শর্ত ভাঙবে। থামাতে <code>Ctrl + C</code>।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= FUNCTIONS ================= -->
+  <section class="topic" id="functions">
+    <h2>⚙️ ফাংশন (Functions)</h2>
+    <p class="lead">ফাংশন হলো নাম দেওয়া কোডের ব্লক — একবার লিখে বারবার ব্যবহার করা যায়। DRY নীতি: Don't Repeat Yourself।</p>
+
+    <h3>ফাংশন তৈরি ও কল</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: def দিয়ে ফাংশন তৈরি
+def greet(name):           # bn: name হলো parameter
+    return f"হ্যালো, {name}!"
+
+# bn: ফাংশন কল করা
+message = greet("Byron")   # bn: "Byron" হলো argument
+print(message)             # হ্যালো, Byron!
+
+# bn: একাধিক ইনপুট ও হিসাব
+def add(a, b):
+    return a + b
+
+print(add(5, 3))           # 8</code></pre></div>
+
+    <h3>Default ও Keyword আর্গুমেন্ট</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: default value -> না দিলে এটাই ব্যবহার হবে
+def power(base, exp=2):
+    return base ** exp
+
+print(power(5))        # 25  -> exp ধরে নিল 2
+print(power(5, 3))     # 125
+print(power(base=2, exp=10))  # 1024 -> keyword দিয়ে</code></pre></div>
+
+    <h3>*args ও **kwargs — যত খুশি আর্গুমেন্ট</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: *args -> যেকোনো সংখ্যক positional argument (tuple আকারে)
+def total(*numbers):
+    return sum(numbers)
+print(total(1, 2, 3, 4))   # 10
+
+# bn: **kwargs -> যেকোনো সংখ্যক keyword argument (dict আকারে)
+def profile(**info):
+    for key, value in info.items():
+        print(f"{key}: {value}")
+profile(name="Byron", age=25)</code></pre></div>
+
+    <h3>Lambda — এক লাইনের ছোট ফাংশন</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: ছোট কাজের জন্য নামহীন ফাংশন
+square = lambda x: x * x
+print(square(5))   # 25
+
+# bn: sorted/map/filter এর সাথে খুব ব্যবহৃত
+nums = [3, 1, 4, 1, 5]
+print(sorted(nums, key=lambda x: -x))   # বড় থেকে ছোট
+print(list(filter(lambda x: x % 2 == 0, nums)))  # শুধু জোড়</code></pre></div>
+
+    <div class="note interview">
+      <span class="tag">🎯 ইন্টারভিউ প্রশ্ন</span>
+      <strong>Q:</strong> Scope কী? Local vs Global? <br>
+      <strong>A:</strong> ফাংশনের ভেতরে তৈরি ভেরিয়েবল <em>local</em> — বাইরে থেকে দেখা যায় না। বাইরের ভেরিয়েবল <em>global</em>। ভেতর থেকে global পরিবর্তন করতে <code>global</code> কীওয়ার্ড লাগে। Python খোঁজে LEGB ক্রমে: Local → Enclosing → Global → Built-in।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= DATA STRUCTURES ================= -->
+  <section class="topic" id="datastructures">
+    <h2>🗂️ বিল্ট-ইন ডেটা স্ট্রাকচার</h2>
+    <p class="lead">Python-এর চারটি স্তম্ভ: <strong>list, tuple, dict, set</strong>। কোনটা কখন ব্যবহার করবেন — এটাই ইন্টারভিউ ও বাস্তব কাজের মূল।</p>
+
+    <h3>১. List — পরিবর্তনযোগ্য, ক্রমবদ্ধ</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>nums = [10, 20, 30]
+nums.append(40)       # bn: শেষে যোগ -> [10,20,30,40]
+nums.insert(0, 5)     # bn: index 0 তে বসানো
+nums.pop()            # bn: শেষেরটা সরানো
+nums.remove(20)       # bn: মান 20 সরানো
+nums[0] = 99          # bn: পরিবর্তন করা যায় (mutable)
+print(len(nums))      # দৈর্ঘ্য
+print(30 in nums)     # True/False -> খোঁজা</code></pre></div>
+
+    <h4>List-এর অপারেশন Complexity</h4>
+    <table class="cx-table">
+      <tr><th>অপারেশন</th><th>Complexity</th><th>কেন</th></tr>
+      <tr><td>index দিয়ে অ্যাক্সেস <code>a[i]</code></td><td><span class="cx-good">O(1)</span></td><td>সরাসরি মেমোরি ঠিকানা</td></tr>
+      <tr><td>শেষে যোগ <code>append</code></td><td><span class="cx-good">O(1)</span></td><td>শেষেই বসে</td></tr>
+      <tr><td>শুরুতে/মাঝে যোগ <code>insert</code></td><td><span class="cx-bad">O(n)</span></td><td>বাকি সব সরাতে হয়</td></tr>
+      <tr><td>খোঁজা <code>x in list</code></td><td><span class="cx-bad">O(n)</span></td><td>একে একে দেখতে হয়</td></tr>
+      <tr><td>সাজানো <code>sort</code></td><td><span class="cx-mid">O(n log n)</span></td><td>Timsort</td></tr>
+    </table>
+
+    <h3>২. Tuple — অপরিবর্তনীয়, ক্রমবদ্ধ</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>point = (3, 4)        # bn: () দিয়ে, পরিবর্তন করা যায় না
+print(point[0])       # 3
+x, y = point          # bn: unpacking -> x=3, y=4
+# point[0] = 5        # bn: ERROR! immutable</code></pre></div>
+    <div class="note tip"><span class="tag">💡 কখন tuple?</span> যে ডেটা কখনো বদলাবে না (যেমন স্থানাঙ্ক, RGB রঙ)। Tuple list-এর চেয়ে সামান্য দ্রুত ও কম মেমোরি নেয়, আর dict-এর key হিসেবে ব্যবহার করা যায়।</div>
+
+    <h3>৩. Dictionary — key:value জোড়া (সবচেয়ে শক্তিশালী)</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>student = {"name": "Byron", "age": 25, "cgpa": 3.8}
+print(student["name"])         # Byron -> O(1) তে অ্যাক্সেস!
+student["dept"] = "CSE"        # bn: নতুন যোগ
+student["age"] = 26            # bn: আপডেট
+print(student.get("phone", "নেই"))  # bn: না থাকলে default
+print("name" in student)       # True -> key আছে কিনা
+
+for key, value in student.items():
+    print(key, "=>", value)</code></pre></div>
+    <div class="note tip"><span class="tag">💡 কেন dict সোনার খনি?</span> Key দিয়ে খোঁজা/যোগ/পরিবর্তন গড়ে <span class="cx-good">O(1)</span> — কারণ ভেতরে hashing হয়। তাই "frequency count", "দুবার দেখা গেছে কিনা", "lookup table" — এসব সমস্যায় dict ব্যবহার করে O(n²) কে O(n) বানানো যায়।</div>
+
+    <h3>৪. Set — শুধু অনন্য মান</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>nums = {1, 2, 2, 3, 3, 3}
+print(nums)            # {1, 2, 3} -> ডুপ্লিকেট বাদ!
+nums.add(4)
+print(2 in nums)       # True -> খোঁজা O(1)
+
+a = {1, 2, 3}
+b = {2, 3, 4}
+print(a & b)   # {2, 3}   -> common (intersection)
+print(a | b)   # {1,2,3,4} -> সব (union)
+print(a - b)   # {1}      -> difference</code></pre></div>
+    <div class="note tip"><span class="tag">💡 কখন set?</span> ডুপ্লিকেট সরাতে: <code>list(set(my_list))</code>। অথবা দ্রুত membership চেক করতে — <code>x in set</code> হলো O(1), কিন্তু <code>x in list</code> হলো O(n)।</div>
+
+    <h3>List Comprehension — এক লাইনে list তৈরি</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: সাধারণ উপায়
+squares = []
+for i in range(5):
+    squares.append(i * i)
+
+# bn: comprehension দিয়ে এক লাইনে (Pythonic!)
+squares = [i * i for i in range(5)]        # [0,1,4,9,16]
+
+# bn: শর্ত সহ -> শুধু জোড় সংখ্যার বর্গ
+evens = [i*i for i in range(10) if i % 2 == 0]
+
+# bn: dict comprehension
+sq_map = {i: i*i for i in range(5)}        # {0:0, 1:1, 2:4...}</code></pre></div>
+
+    <div class="note interview">
+      <span class="tag">🎯 ইন্টারভিউ: কোনটা কখন?</span>
+      <strong>List</strong> → ক্রম দরকার, ডুপ্লিকেট ঠিক আছে। <strong>Tuple</strong> → পরিবর্তন হবে না। <strong>Dict</strong> → key দিয়ে দ্রুত খোঁজা। <strong>Set</strong> → অনন্যতা + দ্রুত membership। ইন্টারভিউয়ে "কোন ডেটা স্ট্রাকচার বেছে নেবে?" — এই উত্তরই তারা শুনতে চায়।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= OOP ================= -->
+  <section class="topic" id="oop">
+    <h2>🏛️ OOP — ক্লাস ও অবজেক্ট</h2>
+    <p class="lead">Object-Oriented Programming মানে বাস্তব জিনিসকে কোডে "অবজেক্ট" হিসেবে মডেল করা। ইন্টারভিউতে ৪টি স্তম্ভ অবশ্যই জিজ্ঞেস করে।</p>
+
+    <h3>ক্লাস ও অবজেক্ট</h3>
+    <p><strong>Class</strong> হলো নকশা (blueprint), <strong>Object</strong> হলো সেই নকশা থেকে তৈরি বাস্তব জিনিস। যেমন "গাড়ি" একটা class, তোমার নির্দিষ্ট গাড়িটা একটা object।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>class Student:
+    # bn: __init__ -> constructor, অবজেক্ট তৈরির সময় চলে
+    def __init__(self, name, cgpa):
+        self.name = name      # bn: self -> এই অবজেক্ট নিজে
+        self.cgpa = cgpa      # bn: এগুলো attribute
+
+    # bn: method -> অবজেক্টের কাজ
+    def show(self):
+        return f"{self.name} এর CGPA {self.cgpa}"
+
+# bn: অবজেক্ট তৈরি
+s1 = Student("Byron", 3.8)
+s2 = Student("Rahim", 3.5)
+print(s1.show())     # Byron এর CGPA 3.8
+print(s2.name)       # Rahim</code></pre></div>
+
+    <h3>OOP-এর ৪টি স্তম্ভ</h3>
+
+    <h4>১. Encapsulation (আবদ্ধকরণ)</h4>
+    <p>ডেটা ও মেথড একসাথে আবদ্ধ রাখা এবং বাইরের সরাসরি অ্যাক্সেস সীমিত করা। নামের আগে <code>_</code> বা <code>__</code> দিয়ে private বোঝানো হয়।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>class Account:
+    def __init__(self):
+        self.__balance = 0          # bn: __ -> private
+
+    def deposit(self, amount):       # bn: নিয়ন্ত্রিত উপায়
+        if amount > 0:
+            self.__balance += amount
+
+    def get_balance(self):
+        return self.__balance
+
+acc = Account()
+acc.deposit(500)
+print(acc.get_balance())   # 500</code></pre></div>
+
+    <h4>২. Inheritance (উত্তরাধিকার)</h4>
+    <p>এক class আরেক class-এর বৈশিষ্ট্য পায়। কোড পুনর্ব্যবহার হয়।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>class Animal:
+    def __init__(self, name):
+        self.name = name
+    def sound(self):
+        return "কিছু একটা শব্দ"
+
+# bn: Dog, Animal থেকে উত্তরাধিকার পেল
+class Dog(Animal):
+    def sound(self):            # bn: override
+        return "ঘেউ ঘেউ"
+
+d = Dog("টমি")
+print(d.name)       # টমি (Animal থেকে পাওয়া)
+print(d.sound())    # ঘেউ ঘেউ (নিজের)</code></pre></div>
+
+    <h4>৩. Polymorphism (বহুরূপতা)</h4>
+    <p>একই মেথড নাম, কিন্তু ভিন্ন অবজেক্টে ভিন্ন আচরণ।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>class Cat(Animal):
+    def sound(self):
+        return "মিয়াও"
+
+# bn: একই sound() কল, ভিন্ন ফল
+for animal in [Dog("টমি"), Cat("মিনি")]:
+    print(animal.sound())   # ঘেউ ঘেউ / মিয়াও</code></pre></div>
+
+    <h4>৪. Abstraction (বিমূর্ততা)</h4>
+    <p>জটিলতা লুকিয়ে শুধু দরকারি অংশ দেখানো। যেমন গাড়ি চালাতে ইঞ্জিন কীভাবে কাজ করে জানতে হয় না।</p>
+
+    <div class="note interview">
+      <span class="tag">🎯 ইন্টারভিউ প্রশ্ন</span>
+      <strong>Q:</strong> <code>self</code> কী? <br>
+      <strong>A:</strong> <code>self</code> হলো বর্তমান অবজেক্টের রেফারেন্স। মেথড কল করার সময় Python স্বয়ংক্রিয়ভাবে অবজেক্টটিকে প্রথম আর্গুমেন্ট হিসেবে পাঠায়, যা আমরা <code>self</code> নামে ধরি — এর মাধ্যমে অবজেক্টের নিজের attribute অ্যাক্সেস করা হয়।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= ERRORS ================= -->
+  <section class="topic" id="errors">
+    <h2>🛡️ Exception ও ফাইল হ্যান্ডলিং</h2>
+    <p class="lead">প্রোগ্রাম যাতে error-এ ক্র্যাশ না করে, বরং সুন্দরভাবে সামলায় — সেটাই exception handling।</p>
+
+    <h3>try / except</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>try:
+    x = int(input("একটি সংখ্যা দাও: "))
+    result = 10 / x
+    print(result)
+except ValueError:
+    print("এটা সংখ্যা নয়!")
+except ZeroDivisionError:
+    print("শূন্য দিয়ে ভাগ করা যায় না!")
+else:
+    print("কোনো error হয়নি")   # bn: try সফল হলে
+finally:
+    print("এটা সবসময় চলবে")    # bn: error হোক বা না হোক</code></pre></div>
+
+    <h3>ফাইল পড়া ও লেখা</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: with ব্যবহার করলে ফাইল নিজে নিজে বন্ধ হয় (best practice)
+with open("data.txt", "w") as f:     # bn: w = write
+    f.write("প্রথম লাইন\n")
+    f.write("দ্বিতীয় লাইন\n")
+
+with open("data.txt", "r") as f:     # bn: r = read
+    content = f.read()
+    print(content)
+
+# bn: লাইন ধরে ধরে পড়া
+with open("data.txt", "r") as f:
+    for line in f:
+        print(line.strip())</code></pre></div>
+
+    <div class="note tip">
+      <span class="tag">💡 মোড</span>
+      <code>"r"</code> পড়া • <code>"w"</code> লেখা (আগেরটা মুছে) • <code>"a"</code> শেষে যোগ (append) • <code>"r+"</code> পড়া+লেখা। সবসময় <code>with</code> ব্যবহার করুন — ফাইল বন্ধ করা ভুলে যাওয়ার ভয় থাকে না।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= ITERATORS & GENERATORS ================= -->
+  <section class="topic" id="comprehensions">
+    <h2>🌀 Iterator ও Generator</h2>
+    <p class="lead">FAANG ইন্টারভিউয়ে "মেমোরি-এফিশিয়েন্ট" সমাধান চাওয়া হয়। Generator হলো সেই মূল অস্ত্র — কোটি কোটি ডেটা প্রসেস করা যায় সামান্য মেমোরিতে।</p>
+
+    <h3>Iterable বনাম Iterator</h3>
+    <p><strong>Iterable</strong> = যার ওপর লুপ চালানো যায় (list, str, dict)। <strong>Iterator</strong> = যে একটি একটি করে মান দেয় (<code>__next__</code> মেথড সহ)। <code>for</code> লুপ ভেতরে <code>iter()</code> দিয়ে iterator বানায়, তারপর <code>next()</code> কল করে।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>nums = [10, 20, 30]
+it = iter(nums)        # bn: iterator বানালাম
+print(next(it))        # 10
+print(next(it))        # 20
+print(next(it))        # 30
+# print(next(it))      # bn: StopIteration error</code></pre></div>
+
+    <h3>Generator — lazy, মেমোরি-সাশ্রয়ী</h3>
+    <p>সাধারণ ফাংশন সব ফল একসাথে <code>return</code> করে। Generator <code>yield</code> দিয়ে একটি একটি করে মান দেয় এবং অবস্থা মনে রাখে — পুরো ডেটা মেমোরিতে রাখে না।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: ১ কোটি সংখ্যা — কিন্তু মেমোরিতে একটাই থাকে
+def first_n(n):
+    i = 0
+    while i < n:
+        yield i          # bn: return নয়, yield -> থেমে মান দেয়
+        i += 1
+
+gen = first_n(10_000_000)
+print(next(gen))   # 0
+print(next(gen))   # 1
+# bn: list(range(n)) হলে বিশাল মেমোরি লাগত, generator এ লাগে না
+
+# bn: generator expression — list comp এর মেমোরি-সাশ্রয়ী সংস্করণ
+squares = (x*x for x in range(1_000_000))   # () বন্ধনী
+print(sum(squares))   # bn: এক সময়ে একটাই মান মেমোরিতে</code></pre></div>
+
+    <table class="cx-table">
+      <tr><th></th><th>List <code>[ ]</code></th><th>Generator <code>( )</code></th></tr>
+      <tr><td>মেমোরি</td><td>O(n) — সব রাখে</td><td><span class="cx-good">O(1)</span> — একটা</td></tr>
+      <tr><td>একাধিকবার লুপ</td><td>যায়</td><td>একবারই (নিঃশেষ হয়)</td></tr>
+      <tr><td>ব্যবহার</td><td>ছোট ডেটা, বারবার লাগে</td><td>বড়/অসীম স্ট্রিম</td></tr>
+    </table>
+
+    <div class="note interview">
+      <span class="tag">🎯 FAANG প্রশ্ন</span>
+      <strong>Q:</strong> ১০ GB ফাইল লাইন বাই লাইন প্রসেস করবে কীভাবে? <br>
+      <strong>A:</strong> পুরো ফাইল মেমোরিতে নেওয়া যাবে না। <code>for line in open(file)</code> — ফাইল অবজেক্ট নিজেই একটি generator/iterator, প্রতিবার একটি লাইন দেয়, মেমোরি O(1)। এটাই lazy evaluation।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= DECORATORS ================= -->
+  <section class="topic" id="decorators">
+    <h2>🎀 Decorator ও Closure</h2>
+    <p class="lead">Decorator হলো এমন ফাংশন যা অন্য ফাংশনকে মুড়ে (wrap) নতুন আচরণ যোগ করে — মূল কোড না ছুঁয়েই। লগিং, টাইমিং, caching, auth-এ ব্যবহার হয়।</p>
+
+    <h3>আগে: Closure বোঝা</h3>
+    <p>Closure = এমন ভেতরের ফাংশন যা বাইরের ফাংশনের ভেরিয়েবল মনে রাখে, বাইরের ফাংশন শেষ হয়ে গেলেও।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def multiplier(factor):
+    def multiply(x):
+        return x * factor    # bn: বাইরের factor মনে রাখে
+    return multiply          # bn: ফাংশন ফেরত দিচ্ছি
+
+double = multiplier(2)
+triple = multiplier(3)
+print(double(10))   # 20
+print(triple(10))   # 30</code></pre></div>
+
+    <h3>Decorator তৈরি</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>import functools
+
+def timer(func):
+    @functools.wraps(func)        # bn: মূল ফাংশনের নাম/doc রাখে
+    def wrapper(*args, **kwargs):
+        import time
+        start = time.perf_counter()
+        result = func(*args, **kwargs)   # bn: আসল কাজ
+        end = time.perf_counter()
+        print(f"{func.__name__} নিল {end-start:.4f}s")
+        return result
+    return wrapper
+
+@timer                # bn: এই @ লাইনই decorator লাগায়
+def slow_sum(n):
+    return sum(range(n))
+
+slow_sum(1_000_000)   # bn: স্বয়ংক্রিয়ভাবে সময় ছাপাবে</code></pre></div>
+
+    <h3>FAANG-এ অমূল্য: <code>@lru_cache</code> দিয়ে memoization</h3>
+    <p>একটি লাইনের decorator যা ফাংশনের ফল cache করে — DP প্রশ্নে recursion-কে তাৎক্ষণিক optimize করে।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>from functools import lru_cache
+
+@lru_cache(maxsize=None)     # bn: ফল মনে রাখবে
+def fib(n):
+    if n <= 1:
+        return n
+    return fib(n-1) + fib(n-2)
+
+print(fib(100))   # bn: O(2ⁿ) থেকে O(n) — এক লাইনে!</code></pre></div>
+
+    <div class="note interview">
+      <span class="tag">🎯 FAANG প্রশ্ন</span>
+      <strong>Q:</strong> <code>@staticmethod</code>, <code>@classmethod</code>, <code>@property</code> পার্থক্য? <br>
+      <strong>A:</strong> <code>@property</code> মেথডকে attribute-এর মতো অ্যাক্সেস করায় (getter)। <code>@classmethod</code> প্রথম আর্গুমেন্ট হিসেবে ক্লাস (<code>cls</code>) পায় — alternative constructor বানাতে। <code>@staticmethod</code> self/cls কিছুই পায় না — শুধু লজিক্যালি ক্লাসে রাখা সাধারণ ফাংশন।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= DUNDER / OOP DEEP ================= -->
+  <section class="topic" id="dunder">
+    <h2>✨ Magic Method ও OOP গভীরে</h2>
+    <p class="lead">Dunder ("double underscore") মেথড — যেমন <code>__init__</code>, <code>__str__</code> — Python-কে বলে দেয় তোমার অবজেক্ট কীভাবে আচরণ করবে (print, +, ==, len ইত্যাদিতে)।</p>
+
+    <h3>গুরুত্বপূর্ণ Magic Method</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>class Vector:
+    def __init__(self, x, y):
+        self.x, self.y = x, y
+
+    def __repr__(self):              # bn: ডেভেলপারের জন্য
+        return f"Vector({self.x}, {self.y})"
+
+    def __add__(self, other):        # bn: + অপারেটর কাজ করায়
+        return Vector(self.x + other.x, self.y + other.y)
+
+    def __eq__(self, other):         # bn: == তুলনা
+        return self.x == other.x and self.y == other.y
+
+    def __len__(self):               # bn: len() কাজ করায়
+        return 2
+
+v1 = Vector(1, 2)
+v2 = Vector(3, 4)
+print(v1 + v2)        # Vector(4, 6)
+print(v1 == Vector(1, 2))   # True</code></pre></div>
+
+    <table class="cx-table">
+      <tr><th>Magic Method</th><th>কী সক্রিয় করে</th></tr>
+      <tr><td><code>__init__</code></td><td>অবজেক্ট তৈরি (constructor)</td></tr>
+      <tr><td><code>__str__</code> / <code>__repr__</code></td><td><code>print()</code> / debug রিপ্রেজেন্টেশন</td></tr>
+      <tr><td><code>__len__</code></td><td><code>len(obj)</code></td></tr>
+      <tr><td><code>__getitem__</code></td><td><code>obj[i]</code> (indexing)</td></tr>
+      <tr><td><code>__eq__, __lt__</code></td><td><code>==</code>, <code>&lt;</code> (sort-এ লাগে)</td></tr>
+      <tr><td><code>__hash__</code></td><td>dict key / set-এ রাখা যায় কিনা</td></tr>
+    </table>
+
+    <h3>Multiple Inheritance ও MRO</h3>
+    <p>একাধিক parent থেকে উত্তরাধিকার নিলে Python <strong>MRO</strong> (Method Resolution Order, C3 linearization) দিয়ে ঠিক করে কোন মেথড আগে চলবে।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>class A:
+    def hello(self): return "A"
+class B(A):
+    def hello(self): return "B"
+class C(A):
+    def hello(self): return "C"
+class D(B, C):       # bn: B ও C দুটো থেকেই
+    pass
+
+print(D().hello())          # B (MRO অনুযায়ী)
+print([c.__name__ for c in D.__mro__])
+# ['D', 'B', 'C', 'A', 'object']</code></pre></div>
+
+    <div class="note interview">
+      <span class="tag">🎯 FAANG প্রশ্ন</span>
+      <strong>Q:</strong> <code>__slots__</code> কী এবং কেন? <br>
+      <strong>A:</strong> ডিফল্টে প্রতিটি অবজেক্টের <code>__dict__</code> থাকে (নমনীয় কিন্তু মেমোরি-ভারী)। <code>__slots__ = ['x','y']</code> দিলে attribute ফিক্সড হয়, <code>__dict__</code> বাদ যায় — লক্ষ লক্ষ অবজেক্টে বড় মেমোরি সাশ্রয়।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= INTERNALS / GIL ================= -->
+  <section class="topic" id="internals">
+    <h2>🧠 Python Internals ও GIL</h2>
+    <p class="lead">এই প্রশ্নগুলো সিনিয়র/FAANG ইন্টারভিউয়ে candidate-কে আলাদা করে। শুধু "কী" নয়, "কেন" বোঝা জরুরি।</p>
+
+    <h3>GIL — Global Interpreter Lock</h3>
+    <p>CPython-এ একটি লক যা নিশ্চিত করে একসাথে <strong>একটিমাত্র thread</strong> Python bytecode চালাবে। ফলাফল:</p>
+    <ul>
+      <li><strong>CPU-bound</strong> কাজ (ভারী হিসাব): multithreading গতি বাড়ায় না → <code>multiprocessing</code> ব্যবহার করুন (আলাদা প্রসেস, আলাদা GIL)।</li>
+      <li><strong>I/O-bound</strong> কাজ (ফাইল/নেটওয়ার্ক): threading কাজে লাগে, কারণ I/O-র সময় GIL ছেড়ে দেওয়া হয় → অথবা <code>asyncio</code>।</li>
+    </ul>
+
+    <h3>Mutable Default Argument — কুখ্যাত ফাঁদ</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: ভুল — default list একবারই তৈরি হয়, শেয়ার হয়!
+def add_item(item, items=[]):
+    items.append(item)
+    return items
+
+print(add_item(1))   # [1]
+print(add_item(2))   # [1, 2] -> অপ্রত্যাশিত!
+
+# bn: সঠিক উপায়
+def add_item(item, items=None):
+    if items is None:
+        items = []
+    items.append(item)
+    return items</code></pre></div>
+
+    <h3>is বনাম == এবং small int caching</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>a = [1, 2]; b = [1, 2]
+print(a == b)   # True  -> মান সমান
+print(a is b)   # False -> আলাদা অবজেক্ট
+
+# bn: Python ছোট int (-5..256) cache করে রাখে
+x = 256; y = 256
+print(x is y)   # True (cached)
+x = 257; y = 257
+print(x is y)   # False (নতুন অবজেক্ট)</code></pre></div>
+
+    <h3>Shallow বনাম Deep Copy</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>import copy
+original = [[1, 2], [3, 4]]
+shallow = copy.copy(original)       # bn: ভেতরের list শেয়ার করে
+deep = copy.deepcopy(original)      # bn: সব নতুন
+
+original[0][0] = 99
+print(shallow)   # [[99, 2], [3, 4]] -> প্রভাবিত!
+print(deep)      # [[1, 2], [3, 4]]  -> অক্ষত</code></pre></div>
+
+    <div class="note interview">
+      <span class="tag">🎯 FAANG প্রশ্ন</span>
+      <strong>Q:</strong> Python কীভাবে মেমোরি ম্যানেজ করে? <br>
+      <strong>A:</strong> দুই স্তরে — (১) <strong>reference counting</strong>: প্রতিটি অবজেক্টের reference গোনা হয়, 0 হলে সাথে সাথে মুক্ত। (২) <strong>generational garbage collector</strong>: reference cycle (একে অপরকে নির্দেশ করা অবজেক্ট) ধরতে। অবজেক্টগুলো private heap-এ থাকে, ম্যানেজ করে Python memory manager।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= STDLIB ================= -->
+  <section class="topic" id="pythonic">
+    <h2>🛠️ stdlib অস্ত্রভাণ্ডার (collections, heapq, itertools)</h2>
+    <p class="lead">FAANG ইন্টারভিউয়ে এই বিল্ট-ইন টুলগুলো জানলে ১০ লাইনের কোড ১ লাইনে নামে — সময় বাঁচে, বাগ কমে।</p>
+
+    <h3><code>collections</code> — সবচেয়ে দরকারি</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>from collections import Counter, defaultdict, deque, OrderedDict
+
+# bn: Counter -> frequency এক লাইনে
+c = Counter("banana")
+print(c.most_common(2))   # [('a', 3), ('n', 2)]
+
+# bn: defaultdict -> key না থাকলে অটো ডিফল্ট (KeyError নেই)
+graph = defaultdict(list)
+graph['A'].append('B')    # bn: 'A' আগে না থাকলেও কাজ করে
+
+# bn: deque -> দুই প্রান্তে O(1) (stack+queue)
+dq = deque([1, 2, 3])
+dq.appendleft(0)          # O(1)
+dq.popleft()              # O(1)</code></pre></div>
+
+    <h3><code>heapq</code> — Priority Queue / Top-K</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>import heapq
+nums = [5, 1, 8, 3, 9, 2]
+print(heapq.nlargest(3, nums))    # [9, 8, 5] -> Top 3
+print(heapq.nsmallest(2, nums))   # [1, 2]
+
+heap = []
+heapq.heappush(heap, 5)
+heapq.heappush(heap, 1)
+print(heapq.heappop(heap))   # 1 -> সবসময় ছোটটা (min-heap)</code></pre></div>
+
+    <h3><code>itertools</code> — কম্বিনেটরিক্স</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>from itertools import permutations, combinations, product
+
+print(list(permutations([1,2,3], 2)))   # সব সাজানো জোড়া
+print(list(combinations([1,2,3], 2)))   # সব নির্বাচন
+print(list(product([0,1], repeat=2)))   # কার্তেসীয় গুণফল</code></pre></div>
+
+    <div class="note tip">
+      <span class="tag">💡 Pythonic বনাম C-style</span>
+      <code>enumerate()</code> দিয়ে index+value, <code>zip()</code> দিয়ে একাধিক list একসাথে লুপ, <code>sorted(data, key=...)</code> কাস্টম সাজানো — এগুলো জানলে ইন্টারভিউয়ার বোঝে তুমি Python ভালো জানো, শুধু সিনট্যাক্স নয়।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= COMPLEXITY ================= -->
+  <section class="topic" id="complexity">
+    <h2>⏱️ Time Complexity — Big O (DSA-র হৃদয়)</h2>
+    <p class="lead">এটাই DSA ইন্টারভিউয়ের সবচেয়ে গুরুত্বপূর্ণ ধারণা। Big-O বলে দেয় — ইনপুট বড় হলে অ্যালগরিদম কত দ্রুত ধীর হবে।</p>
+
+    <h3>Big-O আসলে কী?</h3>
+    <p>Big-O হলো অ্যালগরিদমের <strong>বৃদ্ধির হার</strong> (growth rate) মাপার ভাষা — সেকেন্ড নয়, বরং "ইনপুট n দ্বিগুণ হলে কাজ কতগুণ বাড়ে"। আমরা সবসময় <strong>worst case</strong> (সবচেয়ে খারাপ অবস্থা) এবং খুব বড় n ধরি, তাই ছোট ধ্রুবক বাদ দিই (<code>O(2n)</code> কে <code>O(n)</code> লিখি)।</p>
+
+    <div class="note">
+      <span class="tag">📊 সরল ভাষায়</span>
+      ধরো n = ১,০০,০০,০০০। <code>O(n)</code> অ্যালগরিদম করবে ১ কোটি কাজ — চলবে। কিন্তু <code>O(n²)</code> করবে ১০০ লক্ষ কোটি কাজ — কম্পিউটার ঝুলে যাবে! এই পার্থক্যই ইন্টারভিউয়ে পাশ-ফেল ঠিক করে।
+    </div>
+
+    <h3>সাধারণ Complexity গুলো (ভালো → খারাপ)</h3>
+    <table class="cx-table">
+      <tr><th>Big-O</th><th>নাম</th><th>n=10 এ কাজ</th><th>উদাহরণ</th></tr>
+      <tr><td><span class="cx-good">O(1)</span></td><td>Constant</td><td>1</td><td>list-এ index অ্যাক্সেস, dict lookup</td></tr>
+      <tr><td><span class="cx-good">O(log n)</span></td><td>Logarithmic</td><td>~3</td><td>Binary Search</td></tr>
+      <tr><td><span class="cx-mid">O(n)</span></td><td>Linear</td><td>10</td><td>একবার লুপ, linear search</td></tr>
+      <tr><td><span class="cx-mid">O(n log n)</span></td><td>Linearithmic</td><td>~33</td><td>Merge sort, Quick sort</td></tr>
+      <tr><td><span class="cx-bad">O(n²)</span></td><td>Quadratic</td><td>100</td><td>নেস্টেড লুপ, bubble sort</td></tr>
+      <tr><td><span class="cx-bad">O(2ⁿ)</span></td><td>Exponential</td><td>1024</td><td>recursive fibonacci</td></tr>
+      <tr><td><span class="cx-bad">O(n!)</span></td><td>Factorial</td><td>3.6M</td><td>সব permutation</td></tr>
+    </table>
+
+    <h3>কোড দেখে Complexity বের করা</h3>
+    <h4>O(1) — Constant: ইনপুট যাই হোক, একই কাজ</h4>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def first(arr):
+    return arr[0]    # bn: array যত বড়ই হোক, একটাই কাজ -> O(1)</code></pre></div>
+
+    <h4>O(n) — Linear: একটি লুপ</h4>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def total(arr):
+    s = 0
+    for x in arr:     # bn: n বার চলে -> O(n)
+        s += x
+    return s</code></pre></div>
+
+    <h4>O(n²) — Quadratic: লুপের ভেতর লুপ</h4>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def all_pairs(arr):
+    for i in arr:          # bn: n বার
+        for j in arr:      # bn: প্রতিবার আবার n বার -> n*n
+            print(i, j)    # bn: মোট O(n²)</code></pre></div>
+
+    <h4>O(log n) — প্রতিবার অর্ধেক হয়ে যায়</h4>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def count_halving(n):
+    count = 0
+    while n > 1:
+        n = n // 2     # bn: প্রতিবার অর্ধেক -> O(log n)
+        count += 1
+    return count</code></pre></div>
+
+    <h3>Space Complexity</h3>
+    <p>শুধু সময় নয়, কত <strong>অতিরিক্ত মেমোরি</strong> লাগে সেটাও মাপা হয়। যেমন একটি লুপে শুধু একটি ভেরিয়েবল রাখলে O(1) space; কিন্তু n সাইজের নতুন list বানালে O(n) space। <em>সতর্কতা:</em> recursion-এ call stack মেমোরি নেয় — গভীরতা d হলে O(d) space (এমনকি কোনো array না বানালেও)।</p>
+
+    <h3>Amortized Analysis (FAANG follow-up)</h3>
+    <p>কখনো কখনো একটি অপারেশন মাঝে মাঝে ব্যয়বহুল, কিন্তু গড়ে সস্তা। যেমন <code>list.append()</code> সাধারণত O(1), তবে array ভরে গেলে Python দ্বিগুণ বড় নতুন array বানিয়ে কপি করে (O(n))। এই দামি ঘটনা বিরল বলে n বার append-এর গড় খরচ ধরা হয় <span class="cx-good">O(1) amortized</span>। ইন্টারভিউয়ে "append কি সবসময় O(1)?" জিজ্ঞেস করলে এটাই উত্তর।</p>
+
+    <div class="note">
+      <span class="tag">📊 Best / Average / Worst</span>
+      একই অ্যালগরিদমের তিন রকম case থাকে। Quick sort: average <span class="cx-mid">O(n log n)</span>, কিন্তু worst <span class="cx-bad">O(n²)</span> (খারাপ pivot)। ইন্টারভিউয়ে সাধারণত <strong>worst case</strong> বলবেন, প্রয়োজনে average উল্লেখ করবেন।
+    </div>
+
+    <div class="note interview">
+      <span class="tag">🎯 ইন্টারভিউ গোল্ডেন রুল</span>
+      কোড লেখার পর সবসময় বলুন: "এটার Time Complexity O(?), Space Complexity O(?)"। তারপর জিজ্ঞেস করুন/বলুন "এটা কি আরও optimize করা যায়?" — এই অভ্যাসই সিনিয়র ক্যান্ডিডেট চেনায়।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= RECURSION ================= -->
+  <section class="topic" id="recursion">
+    <h2>🔁 Recursion (পুনরাবৃত্তি)</h2>
+    <p class="lead">Recursion মানে একটি ফাংশন নিজেই নিজেকে কল করে। বড় সমস্যাকে ছোট একই ধরনের সমস্যায় ভাঙা হয়।</p>
+
+    <h3>দুটি অংশ — সবসময় লাগবে</h3>
+    <ol>
+      <li><strong>Base Case:</strong> থামার শর্ত। না থাকলে অসীম কল হয়ে ক্র্যাশ করবে (stack overflow)।</li>
+      <li><strong>Recursive Case:</strong> ছোট সমস্যা দিয়ে নিজেকে আবার কল।</li>
+    </ol>
+
+    <h3>উদাহরণ ১: Factorial (n!)</h3>
+    <p>5! = 5 × 4 × 3 × 2 × 1। লক্ষ্য করুন: n! = n × (n-1)!</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def factorial(n):
+    if n == 0 or n == 1:    # bn: Base case -> থামার জায়গা
+        return 1
+    return n * factorial(n - 1)   # bn: ছোট সমস্যায় কল
+
+print(factorial(5))   # 120
+
+# bn: ভেতরে যা ঘটে:
+# factorial(5) = 5 * factorial(4)
+#              = 5 * 4 * factorial(3)
+#              = 5 * 4 * 3 * 2 * 1 = 120</code></pre></div>
+    <p><strong>Time:</strong> <span class="cx-mid">O(n)</span> — n বার কল। <strong>Space:</strong> <span class="cx-mid">O(n)</span> — call stack-এ n টি কল জমা থাকে।</p>
+
+    <h3>উদাহরণ ২: Fibonacci</h3>
+    <p>0, 1, 1, 2, 3, 5, 8... প্রতিটি = আগের দুটির যোগফল।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def fib(n):
+    if n <= 1:           # bn: base case
+        return n
+    return fib(n-1) + fib(n-2)
+
+print(fib(7))   # 13</code></pre></div>
+    <div class="note warn">
+      <span class="tag">⚠️ সাবধান</span>
+      এই naive fibonacci-র Complexity <span class="cx-bad">O(2ⁿ)</span> — কারণ একই মান বারবার হিসাব হয়! <code>fib(50)</code> চালালে কয়েক মিনিট লাগবে। সমাধান: <strong>memoization</strong> (Dynamic Programming অধ্যায়ে আছে) যা একে <span class="cx-good">O(n)</span> বানায়।
+    </div>
+
+    <div class="note interview">
+      <span class="tag">🎯 ইন্টারভিউ প্রশ্ন</span>
+      <strong>Q:</strong> Recursion বনাম Iteration (লুপ)? <br>
+      <strong>A:</strong> Recursion কোড সুন্দর ও সংক্ষিপ্ত করে (tree, graph-এ স্বাভাবিক), কিন্তু call stack-এ মেমোরি খরচ করে ও ধীর হতে পারে। Iteration মেমোরি কম খরচ করে। Tree/Graph/Divide-and-conquer-এ recursion সেরা; সাধারণ গণনায় loop সেরা।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= SEARCHING ================= -->
+  <section class="topic" id="searching">
+    <h2>🔎 Searching Algorithms</h2>
+    <p class="lead">একটি তালিকায় কোনো মান আছে কিনা এবং কোথায় আছে — খুঁজে বের করা। দুটি মৌলিক পদ্ধতি।</p>
+
+    <h3>১. Linear Search — একে একে দেখা</h3>
+    <p>শুরু থেকে শেষ পর্যন্ত প্রতিটি উপাদান চেক করা। তালিকা সাজানো না থাকলেও কাজ করে।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def linear_search(arr, target):
+    for i in range(len(arr)):
+        if arr[i] == target:
+            return i        # bn: পেলে index ফেরত
+    return -1               # bn: না পেলে -1
+
+nums = [4, 2, 7, 1, 9]
+print(linear_search(nums, 7))   # 2
+print(linear_search(nums, 5))   # -1</code></pre></div>
+    <p><strong>Time:</strong> <span class="cx-mid">O(n)</span> (worst: শেষে বা নেই)। <strong>Space:</strong> <span class="cx-good">O(1)</span>।</p>
+
+    <h3>২. Binary Search — অর্ধেক করে খোঁজা (দ্রুততর)</h3>
+    <p><strong>শর্ত:</strong> তালিকা অবশ্যই <strong>সাজানো</strong> থাকতে হবে। মাঝখানে দেখি — target ছোট হলে বাম অর্ধেক, বড় হলে ডান অর্ধেক বাদ। প্রতিবার অর্ধেক বাদ যায়, তাই অসম্ভব দ্রুত।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def binary_search(arr, target):
+    low, high = 0, len(arr) - 1
+    while low <= high:
+        mid = (low + high) // 2     # bn: মাঝের index
+        if arr[mid] == target:
+            return mid              # bn: পেয়ে গেছি
+        elif arr[mid] < target:
+            low = mid + 1           # bn: ডান অর্ধেকে খোঁজো
+        else:
+            high = mid - 1          # bn: বাম অর্ধেকে খোঁজো
+    return -1
+
+sorted_nums = [1, 3, 5, 7, 9, 11]
+print(binary_search(sorted_nums, 7))   # 3
+print(binary_search(sorted_nums, 4))   # -1</code></pre></div>
+    <p><strong>Time:</strong> <span class="cx-good">O(log n)</span> — প্রতিবার অর্ধেক। <strong>Space:</strong> <span class="cx-good">O(1)</span>।</p>
+
+    <table class="cx-table">
+      <tr><th>তুলনা</th><th>Linear</th><th>Binary</th></tr>
+      <tr><td>সাজানো লাগে?</td><td>না</td><td>হ্যাঁ (অবশ্যই)</td></tr>
+      <tr><td>Time</td><td><span class="cx-mid">O(n)</span></td><td><span class="cx-good">O(log n)</span></td></tr>
+      <tr><td>১০ লক্ষ ডেটায় ধাপ</td><td>~১০,০০,০০০</td><td>~২০!</td></tr>
+    </table>
+
+    <div class="note interview">
+      <span class="tag">🎯 ইন্টারভিউ প্রশ্ন</span>
+      <strong>Q:</strong> Binary search কেন O(log n)? <br>
+      <strong>A:</strong> প্রতি ধাপে অর্ধেক উপাদান বাদ যায়। n থেকে 1 এ পৌঁছাতে কতবার অর্ধেক করতে হয় = log₂(n) বার। তাই O(log n)। ১০ লাখ ডেটায় মাত্র ~২০ ধাপ!
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= SORTING ================= -->
+  <section class="topic" id="sorting">
+    <h2>📊 Sorting Algorithms</h2>
+    <p class="lead">এলোমেলো ডেটা সাজানো — DSA-র সবচেয়ে ক্লাসিক বিষয়। ৫টি গুরুত্বপূর্ণ অ্যালগরিদম, প্রতিটির complexity সহ।</p>
+
+    <h3>সারসংক্ষেপ টেবিল (আগে দেখে নিন)</h3>
+    <table class="cx-table">
+      <tr><th>অ্যালগরিদম</th><th>Best</th><th>Average</th><th>Worst</th><th>Space</th><th>Stable?</th></tr>
+      <tr><td>Bubble</td><td><span class="cx-mid">O(n)</span></td><td><span class="cx-bad">O(n²)</span></td><td><span class="cx-bad">O(n²)</span></td><td>O(1)</td><td>হ্যাঁ</td></tr>
+      <tr><td>Selection</td><td><span class="cx-bad">O(n²)</span></td><td><span class="cx-bad">O(n²)</span></td><td><span class="cx-bad">O(n²)</span></td><td>O(1)</td><td>না</td></tr>
+      <tr><td>Insertion</td><td><span class="cx-mid">O(n)</span></td><td><span class="cx-bad">O(n²)</span></td><td><span class="cx-bad">O(n²)</span></td><td>O(1)</td><td>হ্যাঁ</td></tr>
+      <tr><td>Merge</td><td><span class="cx-mid">O(n log n)</span></td><td><span class="cx-mid">O(n log n)</span></td><td><span class="cx-mid">O(n log n)</span></td><td>O(n)</td><td>হ্যাঁ</td></tr>
+      <tr><td>Quick</td><td><span class="cx-mid">O(n log n)</span></td><td><span class="cx-mid">O(n log n)</span></td><td><span class="cx-bad">O(n²)</span></td><td>O(log n)</td><td>না</td></tr>
+    </table>
+
+    <h3>১. Bubble Sort — পাশাপাশি অদলবদল</h3>
+    <p>পাশাপাশি দুটি উপাদান তুলনা করে, বড়টাকে ডানে ঠেলে। সবচেয়ে বড় মান প্রতিবার "বুদবুদের মতো" শেষে চলে যায়।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        swapped = False
+        for j in range(0, n - i - 1):
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]  # bn: swap
+                swapped = True
+        if not swapped:        # bn: আগেই সাজানো থাকলে থামো
+            break
+    return arr
+
+print(bubble_sort([5, 2, 8, 1, 9]))   # [1, 2, 5, 8, 9]</code></pre></div>
+
+    <h3>২. Selection Sort — সবচেয়ে ছোট বেছে সামনে</h3>
+    <p>প্রতিবার বাকি অংশের সবচেয়ে ছোট মান খুঁজে সামনে বসায়।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def selection_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        min_idx = i
+        for j in range(i + 1, n):
+            if arr[j] < arr[min_idx]:
+                min_idx = j        # bn: ছোটতম খুঁজি
+        arr[i], arr[min_idx] = arr[min_idx], arr[i]
+    return arr
+
+print(selection_sort([5, 2, 8, 1]))   # [1, 2, 5, 8]</code></pre></div>
+
+    <h3>৩. Insertion Sort — তাস সাজানোর মতো</h3>
+    <p>হাতে তাস সাজানোর মতো — প্রতিটি নতুন উপাদানকে আগের সাজানো অংশে সঠিক জায়গায় ঢোকায়। ছোট বা প্রায়-সাজানো ডেটায় খুব দ্রুত।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def insertion_sort(arr):
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+        # bn: key থেকে বড় সবাইকে ডানে সরাও
+        while j >= 0 and arr[j] > key:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key       # bn: সঠিক জায়গায় বসাও
+    return arr
+
+print(insertion_sort([5, 2, 8, 1]))   # [1, 2, 5, 8]</code></pre></div>
+
+    <h3>৪. Merge Sort — ভাগ করো ও জয় করো</h3>
+    <p>Divide & Conquer: তালিকাকে অর্ধেক অর্ধেক করে ভাঙতে থাকো একক উপাদান পর্যন্ত, তারপর সাজিয়ে সাজিয়ে জোড়া লাগাও। সবসময় <span class="cx-mid">O(n log n)</span> — নির্ভরযোগ্য।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def merge_sort(arr):
+    if len(arr) <= 1:          # bn: base case
+        return arr
+    mid = len(arr) // 2
+    left = merge_sort(arr[:mid])    # bn: বাম অর্ধেক সাজাও
+    right = merge_sort(arr[mid:])   # bn: ডান অর্ধেক সাজাও
+    return merge(left, right)       # bn: জোড়া লাগাও
+
+def merge(left, right):
+    result = []
+    i = j = 0
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            result.append(left[i]); i += 1
+        else:
+            result.append(right[j]); j += 1
+    result.extend(left[i:])     # bn: বাকিগুলো যোগ
+    result.extend(right[j:])
+    return result
+
+print(merge_sort([5, 2, 8, 1, 9, 3]))   # [1,2,3,5,8,9]</code></pre></div>
+
+    <h3>৫. Quick Sort — pivot দিয়ে ভাগ</h3>
+    <p>একটি "pivot" বেছে নাও। তার চেয়ে ছোটগুলো বামে, বড়গুলো ডানে রাখো। তারপর দুই অংশে recursion। গড়ে দ্রুততম, তাই বহু লাইব্রেরিতে ব্যবহৃত।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def quick_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    pivot = arr[len(arr) // 2]       # bn: মাঝের মান pivot
+    left = [x for x in arr if x < pivot]
+    mid = [x for x in arr if x == pivot]
+    right = [x for x in arr if x > pivot]
+    return quick_sort(left) + mid + quick_sort(right)
+
+print(quick_sort([5, 2, 8, 1, 9, 3]))   # [1,2,3,5,8,9]</code></pre></div>
+
+    <h3>৬. Heap Sort — heap দিয়ে সাজানো</h3>
+    <p>array থেকে max-heap বানিয়ে বারবার সবচেয়ে বড় মান শেষে সরানো। সবসময় <span class="cx-mid">O(n log n)</span>, in-place (O(1) extra), কিন্তু unstable।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def heap_sort(arr):
+    import heapq
+    heapq.heapify(arr)          # bn: O(n) তে min-heap বানাও
+    return [heapq.heappop(arr) for _ in range(len(arr))]
+
+print(heap_sort([5, 2, 8, 1, 9, 3]))   # [1,2,3,5,8,9]</code></pre></div>
+
+    <h3>৭. Quick Select — O(n) তে Kth ক্ষুদ্রতম (FAANG)</h3>
+    <p>Quick Sort-এর partition ব্যবহার করে পুরো array না সাজিয়েই k-তম উপাদান খোঁজা। গড়ে <span class="cx-good">O(n)</span> — sorting (O(n log n)) থেকে দ্রুত!</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def quick_select(arr, k):      # bn: k = 1-indexed ক্ষুদ্রতম
+    def select(lo, hi):
+        pivot = arr[hi]; i = lo
+        for j in range(lo, hi):
+            if arr[j] < pivot:
+                arr[i], arr[j] = arr[j], arr[i]; i += 1
+        arr[i], arr[hi] = arr[hi], arr[i]
+        if i == k - 1: return arr[i]      # bn: পেয়ে গেছি
+        elif i < k - 1: return select(i + 1, hi)  # bn: ডানে
+        else: return select(lo, i - 1)            # bn: বামে
+    return select(0, len(arr) - 1)
+
+print(quick_select([7, 2, 1, 6, 8, 5, 3], 3))   # 3 (3rd smallest)</code></pre></div>
+    <p><strong>Time:</strong> average <span class="cx-good">O(n)</span>, worst <span class="cx-bad">O(n²)</span>।</p>
+
+    <h3>৮. Counting Sort — তুলনা ছাড়া, O(n+k)</h3>
+    <p>ছোট পরিসরের পূর্ণসংখ্যার জন্য। প্রতিটি মান কতবার আছে গুনে সাজায় — তুলনা করে না, তাই O(n log n) সীমা ভাঙে।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def counting_sort(arr):
+    if not arr: return arr
+    mx = max(arr)
+    count = [0] * (mx + 1)
+    for x in arr:
+        count[x] += 1          # bn: প্রতিটি মান গুনি
+    result = []
+    for val, cnt in enumerate(count):
+        result.extend([val] * cnt)   # bn: গুনে গুনে বসাই
+    return result
+
+print(counting_sort([4, 2, 2, 8, 3, 3, 1]))   # [1,2,2,3,3,4,8]</code></pre></div>
+    <p><strong>Time:</strong> <span class="cx-good">O(n + k)</span> (k = মানের পরিসর) • <strong>Space:</strong> O(k)। <em>Radix Sort</em> বড় সংখ্যায় অঙ্ক-ধরে-ধরে counting sort চালায় — O(d·(n+k))।</p>
+
+    <div class="note tip">
+      <span class="tag">💡 বাস্তবে</span>
+      ইন্টারভিউ ছাড়া বাস্তব কাজে নিজে sort লিখবেন না — Python-এর বিল্ট-ইন <code>sorted(arr)</code> বা <code>arr.sort()</code> ব্যবহার করুন। এটি <strong>Timsort</strong> (merge + insertion mix), <span class="cx-mid">O(n log n)</span>, অত্যন্ত optimized।
+    </div>
+
+    <div class="note interview">
+      <span class="tag">🎯 ইন্টারভিউ প্রশ্ন</span>
+      <strong>Q:</strong> Merge vs Quick — কোনটা ভালো? <br>
+      <strong>A:</strong> Quick গড়ে দ্রুত ও কম মেমোরি (in-place), কিন্তু worst case O(n²) (খারাপ pivot হলে)। Merge সবসময় O(n log n) ও stable, কিন্তু O(n) অতিরিক্ত মেমোরি লাগে। বড় ও স্থিতিশীলতা দরকার হলে Merge; সাধারণ ক্ষেত্রে Quick।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= DP ================= -->
+  <section class="topic" id="dp">
+    <h2>🧮 Dynamic Programming (DP)</h2>
+    <p class="lead">DP মানে — বড় সমস্যাকে ছোট উপ-সমস্যায় ভাঙা এবং প্রতিটি উপ-সমস্যার উত্তর <strong>একবার হিসাব করে জমিয়ে রাখা</strong>, যাতে আবার লাগলে নতুন করে হিসাব করতে না হয়।</p>
+
+    <h3>কখন DP?</h3>
+    <ul>
+      <li><strong>Overlapping subproblems:</strong> একই ছোট সমস্যা বারবার আসে (যেমন fibonacci)।</li>
+      <li><strong>Optimal substructure:</strong> ছোট সমাধান জোড়া দিয়ে বড় সমাধান হয়।</li>
+    </ul>
+
+    <h3>দুটি পদ্ধতি</h3>
+    <p><strong>১. Memoization (Top-Down):</strong> recursion + ফল জমানো (cache)।<br>
+    <strong>২. Tabulation (Bottom-Up):</strong> ছোট থেকে শুরু করে টেবিল ভরা।</p>
+
+    <h3>উদাহরণ: Fibonacci — O(2ⁿ) থেকে O(n)</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: পদ্ধতি ১ - Memoization (জমিয়ে রাখা)
+def fib_memo(n, cache={}):
+    if n <= 1:
+        return n
+    if n in cache:            # bn: আগে হিসাব করা থাকলে দিয়ে দাও
+        return cache[n]
+    cache[n] = fib_memo(n-1, cache) + fib_memo(n-2, cache)
+    return cache[n]
+
+print(fib_memo(50))   # bn: তাৎক্ষণিক! O(n)
+
+# bn: পদ্ধতি ২ - Tabulation (নিচ থেকে উপরে)
+def fib_tab(n):
+    if n <= 1: return n
+    dp = [0] * (n + 1)
+    dp[1] = 1
+    for i in range(2, n + 1):
+        dp[i] = dp[i-1] + dp[i-2]
+    return dp[n]
+
+print(fib_tab(50))</code></pre></div>
+    <p><strong>উন্নতি:</strong> naive O(2ⁿ) → DP O(n)। n=50 এ পার্থক্য: কয়েক মিনিট → মাইক্রোসেকেন্ড।</p>
+
+    <h3>ক্লাসিক উদাহরণ: 0/1 Knapsack</h3>
+    <p>একটি ব্যাগে নির্দিষ্ট ওজন ধরে। কোন জিনিসগুলো নিলে মোট মূল্য সর্বোচ্চ হবে?</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def knapsack(weights, values, capacity):
+    n = len(weights)
+    # bn: dp[i][w] = প্রথম i টা জিনিস, w ওজনে সর্বোচ্চ মূল্য
+    dp = [[0] * (capacity + 1) for _ in range(n + 1)]
+    for i in range(1, n + 1):
+        for w in range(capacity + 1):
+            if weights[i-1] <= w:
+                # bn: নেব নাকি নেব না -> বড়টা বাছি
+                dp[i][w] = max(values[i-1] + dp[i-1][w - weights[i-1]],
+                               dp[i-1][w])
+            else:
+                dp[i][w] = dp[i-1][w]   # bn: ধরে না, তাই বাদ
+    return dp[n][capacity]
+
+print(knapsack([1,3,4,5], [1,4,5,7], 7))   # 9</code></pre></div>
+    <p><strong>Time/Space:</strong> <span class="cx-mid">O(n × capacity)</span>।</p>
+
+    <h3>FAANG DP ক্লাসিক ১: Longest Common Subsequence (LCS)</h3>
+    <p>দুটি string-এ সাধারণ (পরপর নয়, ক্রম বজায়) সবচেয়ে লম্বা subsequence। diff টুল ও DNA মেলানোর ভিত্তি।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def lcs(a, b):
+    m, n = len(a), len(b)
+    dp = [[0]*(n+1) for _ in range(m+1)]
+    for i in range(1, m+1):
+        for j in range(1, n+1):
+            if a[i-1] == b[j-1]:
+                dp[i][j] = dp[i-1][j-1] + 1       # bn: মিলেছে
+            else:
+                dp[i][j] = max(dp[i-1][j], dp[i][j-1])  # bn: বড়টা
+    return dp[m][n]
+
+print(lcs("abcde", "ace"))   # 3 ("ace")</code></pre></div>
+
+    <h3>FAANG DP ক্লাসিক ২: Longest Increasing Subsequence (LIS)</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def lis(nums):
+    if not nums: return 0
+    dp = [1] * len(nums)         # bn: প্রতিটি একাই দৈর্ঘ্য ১
+    for i in range(len(nums)):
+        for j in range(i):
+            if nums[j] < nums[i]:
+                dp[i] = max(dp[i], dp[j] + 1)
+    return max(dp)
+
+print(lis([10,9,2,5,3,7,101,18]))   # 4
+# bn: O(n²); binary search দিয়ে O(n log n) করা যায়</code></pre></div>
+
+    <h3>FAANG DP ক্লাসিক ৩: Edit Distance (Levenshtein)</h3>
+    <p>একটি শব্দকে আরেকটিতে রূপান্তরে ন্যূনতম insert/delete/replace সংখ্যা। autocorrect-এর ভিত্তি।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def edit_distance(a, b):
+    m, n = len(a), len(b)
+    dp = [[0]*(n+1) for _ in range(m+1)]
+    for i in range(m+1): dp[i][0] = i      # bn: সব মুছে দাও
+    for j in range(n+1): dp[0][j] = j      # bn: সব যোগ করো
+    for i in range(1, m+1):
+        for j in range(1, n+1):
+            if a[i-1] == b[j-1]:
+                dp[i][j] = dp[i-1][j-1]
+            else:
+                dp[i][j] = 1 + min(dp[i-1][j],    # delete
+                                   dp[i][j-1],    # insert
+                                   dp[i-1][j-1])  # replace
+    return dp[m][n]
+
+print(edit_distance("horse", "ros"))   # 3</code></pre></div>
+
+    <div class="note interview">
+      <span class="tag">🎯 ইন্টারভিউ টিপ</span>
+      DP প্রশ্ন চেনার সংকেত: "সর্বোচ্চ/সর্বনিম্ন", "কত উপায়ে", "সম্ভব কিনা" — আর সমস্যা ছোট অংশে ভাঙা যায়। প্রথমে recursion লিখুন, তারপর memoization যোগ করুন — এটাই সবচেয়ে সহজ পথ।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= LINKED LIST ================= -->
+  <section class="topic" id="linkedlist">
+    <h2>🔗 Linked List</h2>
+    <p class="lead">নোডের শিকল — প্রতিটি নোডে ডেটা ও পরের নোডের ঠিকানা থাকে। array-র মতো পাশাপাশি মেমোরিতে থাকে না।</p>
+
+    <h3>ধারণা</h3>
+    <p>array-তে সব উপাদান পাশাপাশি থাকে। Linked list-এ প্রতিটি <strong>Node</strong>-এ দুটি জিনিস: (১) ডেটা, (২) পরের নোডের পয়েন্টার (<code>next</code>)। শুরুর নোডকে বলে <strong>head</strong>।</p>
+
+    <div class="code-wrap"><span class="lang">python</span><pre><code>class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None       # bn: পরের নোডের ঠিকানা
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    # bn: শেষে নতুন নোড যোগ -> O(n)
+    def append(self, data):
+        new_node = Node(data)
+        if not self.head:
+            self.head = new_node
+            return
+        current = self.head
+        while current.next:        # bn: শেষ নোড খোঁজো
+            current = current.next
+        current.next = new_node
+
+    # bn: সব নোড দেখানো -> O(n)
+    def display(self):
+        current = self.head
+        while current:
+            print(current.data, end=" -> ")
+            current = current.next
+        print("None")
+
+ll = LinkedList()
+ll.append(10); ll.append(20); ll.append(30)
+ll.display()    # 10 -> 20 -> 30 -> None</code></pre></div>
+
+    <h3>Array বনাম Linked List</h3>
+    <table class="cx-table">
+      <tr><th>অপারেশন</th><th>Array/List</th><th>Linked List</th></tr>
+      <tr><td>index অ্যাক্সেস</td><td><span class="cx-good">O(1)</span></td><td><span class="cx-bad">O(n)</span></td></tr>
+      <tr><td>শুরুতে যোগ/মোছা</td><td><span class="cx-bad">O(n)</span></td><td><span class="cx-good">O(1)</span></td></tr>
+      <tr><td>খোঁজা</td><td><span class="cx-bad">O(n)</span></td><td><span class="cx-bad">O(n)</span></td></tr>
+      <tr><td>মেমোরি</td><td>পাশাপাশি</td><td>ছড়ানো (পয়েন্টার লাগে)</td></tr>
+    </table>
+
+    <div class="note interview">
+      <span class="tag">🎯 ক্লাসিক প্রশ্ন: Linked List Reverse</span>
+      খুব জনপ্রিয়! তিনটি পয়েন্টার (prev, current, next) দিয়ে দিক উল্টানো হয়, <span class="cx-mid">O(n)</span> time, <span class="cx-good">O(1)</span> space।
+      <div class="code-wrap"><span class="lang">python</span><pre><code>def reverse(head):
+    prev = None
+    current = head
+    while current:
+        nxt = current.next   # bn: পরেরটা মনে রাখি
+        current.next = prev  # bn: দিক উল্টাই
+        prev = current       # bn: এগিয়ে যাই
+        current = nxt
+    return prev              # bn: নতুন head</code></pre></div>
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= STACK QUEUE ================= -->
+  <section class="topic" id="stackqueue">
+    <h2>📚 Stack ও Queue</h2>
+    <p class="lead">দুটি মৌলিক ডেটা স্ট্রাকচার যা ডেটা ঢোকানো-বের করার নিয়মে আলাদা।</p>
+
+    <h3>Stack — LIFO (Last In, First Out)</h3>
+    <p>থালার স্তূপের মতো — যেটা শেষে রাখলেন, সেটাই আগে নেবেন। <code>push</code> (উপরে রাখা), <code>pop</code> (উপর থেকে নেওয়া)।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: Python-এ list দিয়েই stack -> সব O(1)
+stack = []
+stack.append(1)    # bn: push
+stack.append(2)
+stack.append(3)
+print(stack.pop())   # 3 -> শেষেরটা আগে বের হয়
+print(stack.pop())   # 2
+print(stack[-1])     # 1 -> উপরেরটা দেখা (peek)</code></pre></div>
+    <p><strong>ব্যবহার:</strong> Undo/Redo, ব্রাউজার back বাটন, function call stack, bracket matching, DFS।</p>
+
+    <h3>Queue — FIFO (First In, First Out)</h3>
+    <p>লাইনে দাঁড়ানোর মতো — যে আগে এসেছে, সে আগে যাবে। <code>enqueue</code> (পেছনে যোগ), <code>dequeue</code> (সামনে থেকে বের)।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>from collections import deque
+
+# bn: deque দিয়ে queue -> দুই প্রান্তেই O(1)
+queue = deque()
+queue.append(1)        # bn: enqueue (পেছনে)
+queue.append(2)
+queue.append(3)
+print(queue.popleft()) # 1 -> যে আগে এসেছে আগে যায়
+print(queue.popleft()) # 2</code></pre></div>
+    <div class="note warn">
+      <span class="tag">⚠️ গুরুত্বপূর্ণ</span>
+      Queue-তে সাধারণ list ব্যবহার করবেন না! <code>list.pop(0)</code> হলো <span class="cx-bad">O(n)</span> (সবাইকে সরাতে হয়)। সবসময় <code>collections.deque</code> ব্যবহার করুন — এর <code>popleft()</code> হলো <span class="cx-good">O(1)</span>।
+    </div>
+    <p><strong>ব্যবহার:</strong> প্রিন্টার queue, টাস্ক শিডিউলিং, BFS (Breadth-First Search)।</p>
+
+    <div class="note interview">
+      <span class="tag">🎯 ক্লাসিক প্রশ্ন: Balanced Brackets</span>
+      <code>"{[()]}"</code> ব্যালেন্সড কিনা — stack দিয়ে সমাধান। খোলা bracket push করুন; বন্ধ bracket এলে stack-এর top মিলছে কিনা দেখুন।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= HASHING ================= -->
+  <section class="topic" id="hashing">
+    <h2>#️⃣ Hashing ও Hash Table</h2>
+    <p class="lead">Hashing-ই Python dict ও set-কে এত দ্রুত (গড়ে O(1)) বানায়। ইন্টারভিউয়ের অর্ধেক সমস্যার সমাধান লুকিয়ে এখানে।</p>
+
+    <h3>ধারণা</h3>
+    <p>একটি <strong>hash function</strong> যেকোনো key (যেমন "নাম") নিয়ে একটি সংখ্যা (index) বানায়। সেই index-এ মান রাখা হয়। ফলে খোঁজার সময় আবার সেই function চালিয়ে সরাসরি index-এ পৌঁছানো যায় — লুপ লাগে না, তাই <span class="cx-good">O(1)</span>।</p>
+
+    <div class="note">
+      <span class="tag">📊 Collision</span>
+      দুটি ভিন্ন key যদি একই index পায়, তাকে collision বলে। Python এটি সামলায় (open addressing/chaining দিয়ে)। তাই worst case তাত্ত্বিকভাবে O(n), কিন্তু বাস্তবে গড়ে O(1)।
+    </div>
+
+    <h3>সবচেয়ে গুরুত্বপূর্ণ প্যাটার্ন: Frequency Count</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: কোন উপাদান কতবার আছে -> O(n)
+def count_freq(arr):
+    freq = {}
+    for x in arr:
+        freq[x] = freq.get(x, 0) + 1   # bn: না থাকলে 0, পরে +1
+    return freq
+
+print(count_freq([1, 2, 2, 3, 3, 3]))
+# {1: 1, 2: 2, 3: 3}
+
+# bn: আরও সহজ উপায়
+from collections import Counter
+print(Counter("banana"))   # {'a':3, 'n':2, 'b':1}</code></pre></div>
+
+    <h3>ক্লাসিক প্রশ্ন: Two Sum (FAANG ফেভারিট)</h3>
+    <p>একটি array-তে দুটি সংখ্যা খুঁজুন যাদের যোগফল target। Brute force O(n²), কিন্তু hash দিয়ে <span class="cx-good">O(n)</span>!</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def two_sum(nums, target):
+    seen = {}                       # bn: মান -> index
+    for i, num in enumerate(nums):
+        complement = target - num   # bn: কত লাগবে
+        if complement in seen:      # bn: আগে দেখেছি? O(1)
+            return [seen[complement], i]
+        seen[num] = i
+    return []
+
+print(two_sum([2, 7, 11, 15], 9))   # [0, 1]</code></pre></div>
+
+    <div class="note interview">
+      <span class="tag">🎯 গোল্ডেন রুল</span>
+      ইন্টারভিউয়ে "এটা কি O(n²) থেকে O(n) করা যায়?" — এই প্রশ্নের উত্তর প্রায়ই <strong>"একটা hash map/set ব্যবহার করুন"</strong>। আগে দেখা মান মনে রাখতে dict/set ব্যবহারের অভ্যাস করুন।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= TREES ================= -->
+  <section class="topic" id="trees">
+    <h2>🌳 Tree ও Binary Search Tree</h2>
+    <p class="lead">Tree হলো শ্রেণিবদ্ধ (hierarchical) ডেটা স্ট্রাকচার — যেমন পরিবারের বংশলতিকা বা ফোল্ডার গঠন।</p>
+
+    <h3>পরিভাষা</h3>
+    <ul>
+      <li><strong>Root:</strong> সবার উপরের নোড।</li>
+      <li><strong>Child / Parent:</strong> নিচের / উপরের নোড।</li>
+      <li><strong>Leaf:</strong> যার কোনো child নেই।</li>
+      <li><strong>Binary Tree:</strong> প্রতিটি নোডের সর্বোচ্চ ২টি child।</li>
+    </ul>
+
+    <h3>Binary Search Tree (BST)</h3>
+    <p>বিশেষ binary tree — যেখানে প্রতিটি নোডের <strong>বাম</strong> subtree-তে ছোট মান, <strong>ডান</strong> subtree-তে বড় মান। এই নিয়মের কারণে খোঁজা/যোগ/মোছা গড়ে <span class="cx-good">O(log n)</span>।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left = None
+        self.right = None
+
+def insert(root, val):
+    if root is None:
+        return TreeNode(val)
+    if val < root.val:
+        root.left = insert(root.left, val)   # bn: ছোট -> বাম
+    else:
+        root.right = insert(root.right, val) # bn: বড় -> ডান
+    return root
+
+def search(root, val):
+    if root is None or root.val == val:
+        return root
+    if val < root.val:
+        return search(root.left, val)
+    return search(root.right, val)</code></pre></div>
+
+    <h3>Tree Traversal (নোড ঘোরা)</h3>
+    <p>তিন ধরনের DFS traversal। <strong>Inorder</strong>-এ BST সাজানো ক্রমে আসে — মনে রাখার সহজ ট্রিক।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: Inorder: বাম -> মূল -> ডান (BST তে সাজানো ক্রম দেয়)
+def inorder(root):
+    if root:
+        inorder(root.left)
+        print(root.val, end=" ")
+        inorder(root.right)
+
+# bn: Preorder: মূল -> বাম -> ডান
+def preorder(root):
+    if root:
+        print(root.val, end=" ")
+        preorder(root.left)
+        preorder(root.right)
+
+# bn: Postorder: বাম -> ডান -> মূল
+def postorder(root):
+    if root:
+        postorder(root.left)
+        postorder(root.right)
+        print(root.val, end=" ")</code></pre></div>
+
+    <table class="cx-table">
+      <tr><th>অপারেশন</th><th>BST (ব্যালেন্সড)</th><th>BST (worst/skewed)</th></tr>
+      <tr><td>Search</td><td><span class="cx-good">O(log n)</span></td><td><span class="cx-bad">O(n)</span></td></tr>
+      <tr><td>Insert</td><td><span class="cx-good">O(log n)</span></td><td><span class="cx-bad">O(n)</span></td></tr>
+      <tr><td>Traversal</td><td><span class="cx-mid">O(n)</span></td><td><span class="cx-mid">O(n)</span></td></tr>
+    </table>
+
+    <div class="note interview">
+      <span class="tag">🎯 ইন্টারভিউ প্রশ্ন</span>
+      <strong>Q:</strong> BST কখন O(n) হয়ে যায়? <br>
+      <strong>A:</strong> যখন গাছটি একপাশে হেলে যায় (skewed) — যেমন সাজানো ডেটা পরপর insert করলে। সমাধান: <strong>self-balancing tree</strong> (AVL, Red-Black Tree) যা সবসময় O(log n) নিশ্চিত করে।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= GRAPHS ================= -->
+  <section class="topic" id="graphs">
+    <h2>🕸️ Graph — BFS ও DFS</h2>
+    <p class="lead">Graph হলো নোড (vertex) ও সংযোগের (edge) সংগ্রহ। সোশ্যাল নেটওয়ার্ক, ম্যাপ, ইন্টারনেট — সবই graph।</p>
+
+    <h3>উপস্থাপন: Adjacency List</h3>
+    <p>প্রতিটি নোডের সাথে কে কে যুক্ত — dict দিয়ে রাখা সবচেয়ে সাধারণ ও মেমোরি-সাশ্রয়ী।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: A যুক্ত B,C এর সাথে; B যুক্ত D এর সাথে...
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F'],
+    'D': ['B'],
+    'E': ['B', 'F'],
+    'F': ['C', 'E']
+}</code></pre></div>
+
+    <h3>BFS — Breadth-First Search (স্তরে স্তরে)</h3>
+    <p>কাছের প্রতিবেশী আগে, তারপর তাদের প্রতিবেশী — ঢেউয়ের মতো ছড়ায়। <strong>Queue</strong> ব্যবহার করে। সবচেয়ে ছোট পথ (unweighted) খুঁজতে আদর্শ।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>from collections import deque
+
+def bfs(graph, start):
+    visited = set([start])
+    queue = deque([start])
+    while queue:
+        node = queue.popleft()      # bn: সামনে থেকে নাও
+        print(node, end=" ")
+        for neighbor in graph[node]:
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.append(neighbor)
+
+bfs(graph, 'A')   # A B C D E F</code></pre></div>
+
+    <h3>DFS — Depth-First Search (গভীরে আগে)</h3>
+    <p>এক পথে যতদূর যাওয়া যায় গিয়ে, তারপর পিছিয়ে এসে অন্য পথ। <strong>Stack</strong> বা recursion ব্যবহার করে।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def dfs(graph, node, visited=None):
+    if visited is None:
+        visited = set()
+    visited.add(node)
+    print(node, end=" ")
+    for neighbor in graph[node]:
+        if neighbor not in visited:
+            dfs(graph, neighbor, visited)
+
+dfs(graph, 'A')   # A B D E F C</code></pre></div>
+
+    <table class="cx-table">
+      <tr><th></th><th>BFS</th><th>DFS</th></tr>
+      <tr><td>ব্যবহার করে</td><td>Queue</td><td>Stack/Recursion</td></tr>
+      <tr><td>Time</td><td><span class="cx-mid">O(V + E)</span></td><td><span class="cx-mid">O(V + E)</span></td></tr>
+      <tr><td>Space</td><td>O(V)</td><td>O(V)</td></tr>
+      <tr><td>ভালো কাজে</td><td>সবচেয়ে ছোট পথ</td><td>পথ আছে কিনা, cycle, topological</td></tr>
+    </table>
+    <p><small>V = vertex সংখ্যা, E = edge সংখ্যা। প্রতিটি নোড ও edge একবার করে দেখা হয়, তাই O(V+E)।</small></p>
+
+    <div class="note interview">
+      <span class="tag">🎯 ইন্টারভিউ প্রশ্ন</span>
+      <strong>Q:</strong> BFS নাকি DFS — কখন কোনটা? <br>
+      <strong>A:</strong> সবচেয়ে ছোট/কম ধাপের পথ দরকার হলে <strong>BFS</strong> (স্তরে স্তরে যায়)। শুধু পথ আছে কিনা, cycle ধরা, বা সব সম্ভাবনা ঘোরা দরকার হলে <strong>DFS</strong> (মেমোরি কম লাগে, recursion সহজ)।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= GREEDY ================= -->
+  <section class="topic" id="greedy">
+    <h2>🪙 Greedy Algorithm</h2>
+    <p class="lead">প্রতি ধাপে যা <strong>এই মুহূর্তে সেরা</strong> মনে হয় সেটাই বেছে নেওয়া — ভবিষ্যৎ না ভেবে। সঠিক হলে সহজ ও দ্রুত, কিন্তু প্রমাণ করতে হয় যে greedy এখানে কাজ করবে।</p>
+
+    <h3>Greedy বনাম DP</h3>
+    <p>DP সব সম্ভাবনা দেখে; Greedy এক ধাপে সিদ্ধান্ত নিয়ে এগোয়। Greedy দ্রুত কিন্তু সবসময় optimal নয়। যেমন coin change-এ সাধারণ মুদ্রায় greedy কাজ করে, কিন্তু অস্বাভাবিক মুদ্রায় DP লাগে।</p>
+
+    <h3>ক্লাসিক: Activity Selection (সর্বোচ্চ মিটিং)</h3>
+    <p>শেষ-সময় অনুযায়ী সাজিয়ে, যেটা সবার আগে শেষ হয় সেটা নাও — তাহলে সবচেয়ে বেশি কাজ হয়।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def max_activities(intervals):
+    # bn: শেষ হওয়ার সময় অনুযায়ী সাজাও
+    intervals.sort(key=lambda x: x[1])
+    count = 0
+    last_end = float('-inf')
+    for start, end in intervals:
+        if start >= last_end:    # bn: আগেরটার পরে শুরু হলে নাও
+            count += 1
+            last_end = end
+    return count
+
+print(max_activities([(1,3),(2,4),(3,5),(0,6)]))  # 2</code></pre></div>
+    <p><strong>Time:</strong> <span class="cx-mid">O(n log n)</span> (সাজানোর জন্য)।</p>
+
+    <h3>ক্লাসিক: Merge Intervals (FAANG ফেভারিট)</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def merge(intervals):
+    intervals.sort(key=lambda x: x[0])   # bn: শুরু অনুযায়ী
+    result = [intervals[0]]
+    for start, end in intervals[1:]:
+        if start <= result[-1][1]:       # bn: ওভারল্যাপ?
+            result[-1][1] = max(result[-1][1], end)  # bn: জোড়া দাও
+        else:
+            result.append([start, end])
+    return result
+
+print(merge([[1,3],[2,6],[8,10],[15,18]]))
+# [[1,6],[8,10],[15,18]]</code></pre></div>
+
+    <div class="note interview">
+      <span class="tag">🎯 চিনবেন কীভাবে</span>
+      "interval", "schedule", "সর্বোচ্চ/সর্বনিম্ন এক পাসে", "অগ্রাধিকার অনুযায়ী বাছাই" — এসব greedy-র ইঙ্গিত। সাজানো + এক লুপ প্রায়ই সমাধান।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= TWO POINTERS ================= -->
+  <section class="topic" id="twopointer">
+    <h2>↔️ Two Pointers</h2>
+    <p class="lead">দুটি index একসাথে চালিয়ে O(n²) সমাধানকে <span class="cx-good">O(n)</span> বানানো — FAANG-এর সবচেয়ে বেশি জিজ্ঞাসিত প্যাটার্নগুলোর একটি।</p>
+
+    <h3>ধরন ১: দুই প্রান্ত থেকে (Opposite ends)</h3>
+    <p>সাজানো array-তে জোড়া খোঁজা। বাম+ডান যোগ target থেকে বড় হলে ডান কমাও, ছোট হলে বাম বাড়াও।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def two_sum_sorted(arr, target):
+    left, right = 0, len(arr) - 1
+    while left < right:
+        s = arr[left] + arr[right]
+        if s == target:
+            return [left, right]
+        elif s < target:
+            left += 1       # bn: যোগফল বাড়াতে
+        else:
+            right -= 1      # bn: যোগফল কমাতে
+    return []
+
+print(two_sum_sorted([1,3,4,5,7,11], 9))   # [2, 3] (4+5)</code></pre></div>
+
+    <h3>ধরন ২: Fast ও Slow (cycle detection)</h3>
+    <p>Floyd's Tortoise & Hare — linked list-এ loop আছে কিনা ধরা, <span class="cx-good">O(1)</span> মেমোরিতে।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def has_cycle(head):
+    slow = fast = head
+    while fast and fast.next:
+        slow = slow.next          # bn: ১ ঘর
+        fast = fast.next.next     # bn: ২ ঘর
+        if slow == fast:          # bn: মিলে গেলে cycle আছে
+            return True
+    return False</code></pre></div>
+
+    <h3>ক্লাসিক: Palindrome চেক</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def is_palindrome(s):
+    left, right = 0, len(s) - 1
+    while left < right:
+        if s[left] != s[right]:
+            return False
+        left += 1; right -= 1
+    return True
+
+print(is_palindrome("racecar"))   # True</code></pre></div>
+
+    <div class="note interview">
+      <span class="tag">🎯 চিনবেন কীভাবে</span>
+      "সাজানো array", "জোড়া/triplet খোঁজা", "palindrome", "in-place সরানো/duplicate", "linked list cycle" — এসব দেখলেই two pointers ভাবুন।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= SLIDING WINDOW ================= -->
+  <section class="topic" id="slidingwindow">
+    <h2>🪟 Sliding Window</h2>
+    <p class="lead">একটি "জানালা" array/string-এর ওপর সরিয়ে নিয়ে যাওয়া — প্রতিটি উপাদান বারবার না গুনে। subarray/substring সমস্যার O(n²) → <span class="cx-good">O(n)</span>।</p>
+
+    <h3>ক্লাসিক: সর্বোচ্চ যোগফল (size k subarray)</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def max_sum_k(arr, k):
+    window = sum(arr[:k])      # bn: প্রথম জানালা
+    best = window
+    for i in range(k, len(arr)):
+        window += arr[i] - arr[i-k]   # bn: ডানে যোগ, বাঁয়ে বাদ
+        best = max(best, window)
+    return best
+
+print(max_sum_k([2,1,5,1,3,2], 3))   # 9 (5+1+3)</code></pre></div>
+
+    <h3>Variable Window: longest substring no repeat (FAANG টপ প্রশ্ন)</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def longest_unique(s):
+    seen = {}            # bn: অক্ষর -> সর্বশেষ index
+    left = 0
+    best = 0
+    for right, ch in enumerate(s):
+        if ch in seen and seen[ch] >= left:
+            left = seen[ch] + 1      # bn: জানালা সংকুচিত করো
+        seen[ch] = right
+        best = max(best, right - left + 1)
+    return best
+
+print(longest_unique("abcabcbb"))   # 3 ("abc")</code></pre></div>
+    <p><strong>Time:</strong> <span class="cx-good">O(n)</span> — প্রতিটি অক্ষর সর্বোচ্চ দুবার দেখা হয়।</p>
+
+    <div class="note interview">
+      <span class="tag">🎯 চিনবেন কীভাবে</span>
+      "subarray/substring", "consecutive", "সর্বোচ্চ/সর্বনিম্ন দৈর্ঘ্য/যোগফল", "at most K" — এসব দেখলে sliding window। স্থির আকার হলে fixed window, শর্তভিত্তিক হলে variable window।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= BACKTRACKING ================= -->
+  <section class="topic" id="backtracking">
+    <h2>♟️ Backtracking</h2>
+    <p class="lead">সব সম্ভাবনা পদ্ধতিগতভাবে চেষ্টা করা — একটা পথ ব্যর্থ হলে পিছিয়ে এসে (backtrack) অন্য পথ। permutation, subset, N-Queens, Sudoku-র মূল।</p>
+
+    <h3>টেমপ্লেট (মুখস্থ রাখুন)</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: choose -> explore -> un-choose
+def backtrack(path, choices):
+    if goal_reached(path):
+        result.append(path[:])    # bn: কপি যোগ করো
+        return
+    for choice in choices:
+        path.append(choice)       # bn: choose
+        backtrack(path, ...)      # bn: explore
+        path.pop()                # bn: un-choose (backtrack!)</code></pre></div>
+
+    <h3>উদাহরণ ১: সব Subset (Power Set)</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def subsets(nums):
+    result = []
+    def backtrack(start, path):
+        result.append(path[:])    # bn: প্রতিটি অবস্থা একটা subset
+        for i in range(start, len(nums)):
+            path.append(nums[i])
+            backtrack(i + 1, path)
+            path.pop()            # bn: backtrack
+    backtrack(0, [])
+    return result
+
+print(subsets([1, 2, 3]))
+# [[], [1], [1,2], [1,2,3], [1,3], [2], [2,3], [3]]</code></pre></div>
+    <p><strong>Time:</strong> <span class="cx-bad">O(2ⁿ)</span> — n উপাদানের 2ⁿ subset।</p>
+
+    <h3>উদাহরণ ২: সব Permutation</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def permute(nums):
+    result = []
+    def backtrack(path, remaining):
+        if not remaining:
+            result.append(path[:])
+            return
+        for i in range(len(remaining)):
+            path.append(remaining[i])
+            backtrack(path, remaining[:i] + remaining[i+1:])
+            path.pop()
+    backtrack([], nums)
+    return result
+
+print(permute([1, 2, 3]))   # 6 টি সাজানো
+# Time: O(n * n!)</code></pre></div>
+
+    <div class="note interview">
+      <span class="tag">🎯 চিনবেন কীভাবে</span>
+      "সব সম্ভাব্য", "সব কম্বিনেশন/permutation/subset", "N-Queens", "Sudoku", "word search", "phone letter combination" — এসব backtracking। মূল কৌশল: choose → recurse → undo।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= BIT MANIPULATION ================= -->
+  <section class="topic" id="bitmanip">
+    <h2>🔢 Bit Manipulation</h2>
+    <p class="lead">সংখ্যাকে বাইনারি বিট হিসেবে দেখে কাজ করা — অবিশ্বাস্য দ্রুত (<span class="cx-good">O(1)</span>) ও মেমোরি-সাশ্রয়ী। FAANG-এ চতুর সমাধানের জন্য আসে।</p>
+
+    <h3>মৌলিক অপারেটর</h3>
+    <table class="cx-table">
+      <tr><th>অপারেটর</th><th>নাম</th><th>উদাহরণ</th></tr>
+      <tr><td><code>&amp;</code></td><td>AND</td><td><code>5 &amp; 3 = 1</code></td></tr>
+      <tr><td><code>|</code></td><td>OR</td><td><code>5 | 3 = 7</code></td></tr>
+      <tr><td><code>^</code></td><td>XOR</td><td><code>5 ^ 3 = 6</code></td></tr>
+      <tr><td><code>~</code></td><td>NOT</td><td><code>~5 = -6</code></td></tr>
+      <tr><td><code>&lt;&lt;</code></td><td>Left shift (×2)</td><td><code>5 &lt;&lt; 1 = 10</code></td></tr>
+      <tr><td><code>&gt;&gt;</code></td><td>Right shift (÷2)</td><td><code>5 &gt;&gt; 1 = 2</code></td></tr>
+    </table>
+
+    <h3>দরকারি ট্রিক</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: জোড়/বিজোড় — শেষ বিট দেখা
+print(6 & 1)     # 0 -> জোড়
+print(7 & 1)     # 1 -> বিজোড়
+
+# bn: 2 এর ঘাত কিনা — একটাই বিট সেট থাকে
+def is_power_of_two(n):
+    return n > 0 and (n & (n - 1)) == 0
+print(is_power_of_two(8))   # True
+
+# bn: i-তম বিট সেট আছে কিনা
+def is_set(n, i):
+    return (n >> i) & 1 == 1
+
+# bn: কতগুলো 1 বিট আছে
+print(bin(13).count('1'))   # 3  (1101)</code></pre></div>
+
+    <h3>ক্লাসিক XOR প্রশ্ন: Single Number</h3>
+    <p>সব সংখ্যা জোড়ায় আছে, একটি ছাড়া। XOR-এ <code>a^a=0</code>, <code>a^0=a</code> — তাই সব XOR করলে একাকী সংখ্যাটাই থাকে। <span class="cx-good">O(n)</span> time, <span class="cx-good">O(1)</span> space!</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def single_number(nums):
+    result = 0
+    for num in nums:
+        result ^= num     # bn: জোড়াগুলো বাতিল হয়ে যায়
+    return result
+
+print(single_number([4, 1, 2, 1, 2]))   # 4</code></pre></div>
+
+    <div class="note interview">
+      <span class="tag">🎯 FAANG প্রশ্ন</span>
+      <strong>Q:</strong> অতিরিক্ত মেমোরি ছাড়া দুটি সংখ্যা swap? <br>
+      <strong>A:</strong> XOR দিয়ে: <code>a ^= b; b ^= a; a ^= b</code>। তবে বাস্তবে Python-এ <code>a, b = b, a</code>-ই পরিষ্কার ও দ্রুত।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= HEAPS ================= -->
+  <section class="topic" id="heaps">
+    <h2>⛰️ Heap / Priority Queue</h2>
+    <p class="lead">Heap এমন গাছ যেখানে parent সবসময় child থেকে ছোট (min-heap) বা বড় (max-heap)। "সবচেয়ে ছোট/বড়টা বারবার লাগে" — এমন সমস্যার আদর্শ সমাধান।</p>
+
+    <h3>কেন Heap?</h3>
+    <p>সর্বনিম্ন/সর্বোচ্চ মান পাওয়া <span class="cx-good">O(1)</span>, যোগ ও মোছা <span class="cx-good">O(log n)</span>। তুলনায় sorted list রাখলে insert হয় O(n)। Python-এ <code>heapq</code> একটি <strong>min-heap</strong> দেয়।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>import heapq
+
+heap = []
+heapq.heappush(heap, 5)
+heapq.heappush(heap, 1)
+heapq.heappush(heap, 3)
+print(heap[0])              # 1 -> সবচেয়ে ছোট (peek) O(1)
+print(heapq.heappop(heap)) # 1 -> বের করা O(log n)
+
+# bn: max-heap চাইলে মান নেগেটিভ করো
+max_heap = []
+for x in [5, 1, 3]:
+    heapq.heappush(max_heap, -x)
+print(-heapq.heappop(max_heap))   # 5</code></pre></div>
+
+    <h3>ক্লাসিক: Kth Largest Element (টপ FAANG প্রশ্ন)</h3>
+    <p>size k-এর min-heap রাখো; বড় মান এলে ছোটটা ফেলে দাও। শেষে heap-এর top = k-তম বৃহত্তম।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def kth_largest(nums, k):
+    heap = []
+    for num in nums:
+        heapq.heappush(heap, num)
+        if len(heap) > k:
+            heapq.heappop(heap)    # bn: ছোটটা বাদ
+    return heap[0]
+
+print(kth_largest([3,2,1,5,6,4], 2))   # 5</code></pre></div>
+    <p><strong>Time:</strong> <span class="cx-mid">O(n log k)</span> — পুরো সাজানোর (O(n log n)) চেয়ে ভালো যখন k ছোট।</p>
+
+    <div class="note interview">
+      <span class="tag">🎯 চিনবেন কীভাবে</span>
+      "Top K", "K-তম বৃহত্তম/ক্ষুদ্রতম", "সবচেয়ে কাছের K", "median স্ট্রিম", "merge K sorted lists", "scheduling/priority" — এসবে heap। ১ লাইনে চাইলে <code>heapq.nlargest(k, nums)</code>।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= TRIE ================= -->
+  <section class="topic" id="trie">
+    <h2>🌲 Trie (Prefix Tree)</h2>
+    <p class="lead">শব্দ সংরক্ষণ ও prefix খোঁজার বিশেষ গাছ। autocomplete, বানান-পরীক্ষক, ডিকশনারি — সবের পেছনে Trie।</p>
+
+    <h3>ধারণা</h3>
+    <p>প্রতিটি নোড একটি অক্ষর। একই prefix-যুক্ত শব্দগুলো পথ শেয়ার করে। একটি শব্দ খোঁজা/যোগ করা লাগে <span class="cx-good">O(L)</span> — যেখানে L শব্দের দৈর্ঘ্য, মোট শব্দসংখ্যার ওপর নির্ভর করে না!</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>class TrieNode:
+    def __init__(self):
+        self.children = {}        # bn: অক্ষর -> TrieNode
+        self.is_end = False       # bn: এখানে শব্দ শেষ?
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert(self, word):       # bn: O(L)
+        node = self.root
+        for ch in word:
+            if ch not in node.children:
+                node.children[ch] = TrieNode()
+            node = node.children[ch]
+        node.is_end = True
+
+    def search(self, word):       # bn: O(L)
+        node = self._find(word)
+        return node is not None and node.is_end
+
+    def starts_with(self, prefix):   # bn: autocomplete এর ভিত্তি
+        return self._find(prefix) is not None
+
+    def _find(self, s):
+        node = self.root
+        for ch in s:
+            if ch not in node.children:
+                return None
+            node = node.children[ch]
+        return node
+
+t = Trie()
+t.insert("apple")
+print(t.search("apple"))      # True
+print(t.search("app"))        # False (শব্দ নয়)
+print(t.starts_with("app"))   # True (prefix আছে)</code></pre></div>
+
+    <table class="cx-table">
+      <tr><th>অপারেশন</th><th>Trie</th><th>Hash Set</th></tr>
+      <tr><td>insert/search সম্পূর্ণ শব্দ</td><td>O(L)</td><td>O(L)</td></tr>
+      <tr><td>prefix খোঁজা</td><td><span class="cx-good">O(L)</span></td><td><span class="cx-bad">O(n·L)</span></td></tr>
+    </table>
+
+    <div class="note interview">
+      <span class="tag">🎯 চিনবেন কীভাবে</span>
+      "prefix", "autocomplete", "dictionary শব্দ", "word search II", "longest common prefix" — এসব দেখলে Trie। prefix-ভিত্তিক প্রশ্নে hash set-এর চেয়ে অনেক দ্রুত।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= ADVANCED GRAPH ================= -->
+  <section class="topic" id="advancedgraph">
+    <h2>🗺️ Advanced Graph (Dijkstra, Topological Sort)</h2>
+    <p class="lead">BFS/DFS-এর পর FAANG যেটা চায় — ওজনযুক্ত (weighted) graph-এ সবচেয়ে ছোট পথ এবং নির্ভরতা-ক্রম নির্ণয়।</p>
+
+    <h3>Dijkstra — সবচেয়ে ছোট পথ (weighted)</h3>
+    <p>প্রতিটি edge-এ ওজন (দূরত্ব/খরচ) থাকলে এক নোড থেকে সবার সবচেয়ে কম খরচের পথ। min-heap ব্যবহার করে সবসময় সবচেয়ে কাছের নোড আগে নেয়।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>import heapq
+
+def dijkstra(graph, start):
+    # bn: graph = {node: [(neighbor, weight), ...]}
+    dist = {node: float('inf') for node in graph}
+    dist[start] = 0
+    heap = [(0, start)]            # bn: (দূরত্ব, নোড)
+    while heap:
+        d, node = heapq.heappop(heap)   # bn: সবচেয়ে কাছেরটা
+        if d > dist[node]:
+            continue              # bn: পুরোনো এন্ট্রি বাদ
+        for neighbor, weight in graph[node]:
+            new_dist = d + weight
+            if new_dist < dist[neighbor]:
+                dist[neighbor] = new_dist
+                heapq.heappush(heap, (new_dist, neighbor))
+    return dist
+
+g = {'A': [('B',1),('C',4)], 'B': [('C',2),('D',5)],
+     'C': [('D',1)], 'D': []}
+print(dijkstra(g, 'A'))   # {'A':0,'B':1,'C':3,'D':4}</code></pre></div>
+    <p><strong>Time:</strong> <span class="cx-mid">O((V + E) log V)</span>। (নেগেটিভ ওজন থাকলে Bellman-Ford লাগে।)</p>
+
+    <h3>Topological Sort — নির্ভরতা-ক্রম (DAG)</h3>
+    <p>কাজের পূর্বশর্ত থাকলে (যেমন কোর্স prerequisite) কোন ক্রমে করতে হবে। শুধু চক্রহীন directed graph-এ সম্ভব।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>from collections import deque
+
+def topo_sort(graph):
+    indegree = {n: 0 for n in graph}
+    for n in graph:
+        for nxt in graph[n]:
+            indegree[nxt] += 1
+    # bn: যাদের কোনো পূর্বশর্ত নেই, তারা আগে
+    queue = deque([n for n in graph if indegree[n] == 0])
+    order = []
+    while queue:
+        node = queue.popleft()
+        order.append(node)
+        for nxt in graph[node]:
+            indegree[nxt] -= 1        # bn: নির্ভরতা কমলো
+            if indegree[nxt] == 0:
+                queue.append(nxt)
+    return order if len(order) == len(graph) else []  # bn: cycle হলে খালি
+
+g = {'A':['C'], 'B':['C'], 'C':['D'], 'D':[]}
+print(topo_sort(g))   # ['A', 'B', 'C', 'D']</code></pre></div>
+    <p><strong>Time:</strong> <span class="cx-mid">O(V + E)</span>। এই Kahn's algorithm cycle detection-এও কাজে লাগে।</p>
+
+    <h3>Bellman-Ford — নেগেটিভ ওজনেও কাজ করে</h3>
+    <p>Dijkstra নেগেটিভ edge-এ ব্যর্থ হয়। Bellman-Ford V-1 বার সব edge "relax" করে — ধীর কিন্তু নেগেটিভ ওজন সামলায় ও নেগেটিভ cycle ধরতে পারে।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def bellman_ford(edges, V, start):
+    # bn: edges = [(u, v, weight), ...]
+    dist = [float('inf')] * V
+    dist[start] = 0
+    for _ in range(V - 1):           # bn: V-1 বার relax
+        for u, v, w in edges:
+            if dist[u] + w < dist[v]:
+                dist[v] = dist[u] + w
+    # bn: আরেকবার কমলে নেগেটিভ cycle আছে
+    for u, v, w in edges:
+        if dist[u] + w < dist[v]:
+            return None              # নেগেটিভ cycle!
+    return dist
+
+edges = [(0,1,4),(0,2,5),(1,2,-3),(2,3,4)]
+print(bellman_ford(edges, 4, 0))   # [0, 4, 1, 5]</code></pre></div>
+    <p><strong>Time:</strong> <span class="cx-bad">O(V × E)</span>।</p>
+
+    <h3>Floyd-Warshall — সব জোড়ার শর্টেস্ট পথ</h3>
+    <p>প্রতিটি নোড থেকে প্রতিটি নোডে ন্যূনতম দূরত্ব এক টেবিলে। মাত্র তিনটি নেস্টেড লুপ — মাঝের নোড k দিয়ে গেলে পথ ছোট হয় কিনা দেখে।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def floyd_warshall(dist):
+    # bn: dist[i][j] = সরাসরি দূরত্ব (নেই হলে inf)
+    V = len(dist)
+    for k in range(V):               # bn: মধ্যবর্তী নোড
+        for i in range(V):
+            for j in range(V):
+                if dist[i][k] + dist[k][j] < dist[i][j]:
+                    dist[i][j] = dist[i][k] + dist[k][j]
+    return dist
+
+INF = float('inf')
+g = [[0,3,INF,7],[8,0,2,INF],[5,INF,0,1],[2,INF,INF,0]]
+print(floyd_warshall(g))</code></pre></div>
+    <p><strong>Time:</strong> <span class="cx-bad">O(V³)</span> — ছোট graph-এ সব-জোড়ার জন্য আদর্শ।</p>
+
+    <table class="cx-table">
+      <tr><th>অ্যালগরিদম</th><th>কাজ</th><th>নেগেটিভ?</th><th>Time</th></tr>
+      <tr><td>BFS</td><td>unweighted shortest path</td><td>—</td><td><span class="cx-mid">O(V+E)</span></td></tr>
+      <tr><td>Dijkstra</td><td>single-source weighted</td><td>না</td><td><span class="cx-mid">O(E log V)</span></td></tr>
+      <tr><td>Bellman-Ford</td><td>single-source + cycle</td><td>হ্যাঁ</td><td><span class="cx-bad">O(VE)</span></td></tr>
+      <tr><td>Floyd-Warshall</td><td>all-pairs</td><td>হ্যাঁ</td><td><span class="cx-bad">O(V³)</span></td></tr>
+    </table>
+
+    <div class="note interview">
+      <span class="tag">🎯 চিনবেন কীভাবে</span>
+      "সবচেয়ে কম খরচ/দূরত্ব + weighted" → Dijkstra। "course schedule", "build order", "prerequisite", "নির্ভরতা" → Topological Sort। "unweighted shortest path" → সাধারণ BFS-ই যথেষ্ট।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= UNION FIND ================= -->
+  <section class="topic" id="unionfind">
+    <h2>🔗 Union-Find (Disjoint Set Union)</h2>
+    <p class="lead">কোন কোন উপাদান একই দলভুক্ত — দ্রুত মেলানো ও যাচাই করার ডেটা স্ট্রাকচার। "connected components", network connectivity, cycle detection-এ অপরিহার্য।</p>
+
+    <h3>দুটি অপারেশন</h3>
+    <ul>
+      <li><strong>find(x):</strong> x কোন দলে (root কে?)।</li>
+      <li><strong>union(a, b):</strong> a ও b-এর দল একত্র করা।</li>
+    </ul>
+    <p><em>Path compression</em> ও <em>union by rank</em> দিয়ে প্রতিটি অপারেশন প্রায় <span class="cx-good">O(1)</span> (amortized α(n), উল্টো-Ackermann — কার্যত ধ্রুবক)।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>class UnionFind:
+    def __init__(self, n):
+        self.parent = list(range(n))   # bn: প্রথমে সবাই নিজের root
+        self.rank = [0] * n
+
+    def find(self, x):
+        if self.parent[x] != x:
+            self.parent[x] = self.find(self.parent[x])  # bn: path compression
+        return self.parent[x]
+
+    def union(self, a, b):
+        ra, rb = self.find(a), self.find(b)
+        if ra == rb:
+            return False          # bn: আগেই একই দল (cycle!)
+        # bn: ছোট গাছ বড়টার নিচে (union by rank)
+        if self.rank[ra] < self.rank[rb]:
+            ra, rb = rb, ra
+        self.parent[rb] = ra
+        if self.rank[ra] == self.rank[rb]:
+            self.rank[ra] += 1
+        return True
+
+uf = UnionFind(5)
+uf.union(0, 1)
+uf.union(1, 2)
+print(uf.find(0) == uf.find(2))   # True (একই দল)
+print(uf.find(0) == uf.find(3))   # False</code></pre></div>
+
+    <div class="note interview">
+      <span class="tag">🎯 চিনবেন কীভাবে</span>
+      "connected components গোনা", "graph valid tree", "redundant connection (cycle)", "accounts merge", "number of islands" (একটি উপায়), "Kruskal's MST" — এসবে Union-Find। যখনই "এরা কি একই গ্রুপে?" প্রশ্ন আসে, DSU ভাবুন।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= PREFIX SUM ================= -->
+  <section class="topic" id="prefixsum">
+    <h2>➕ Prefix Sum (সঞ্চিত যোগফল)</h2>
+    <p class="lead">আগে থেকে cumulative sum হিসাব করে রাখলে যেকোনো range-এর যোগফল <span class="cx-good">O(1)</span> তে পাওয়া যায়। বারবার subarray যোগফল চাইলে এটি O(n²) কে O(n) বানায়।</p>
+
+    <h3>মূল ধারণা</h3>
+    <p><code>prefix[i]</code> = প্রথম i টি উপাদানের যোগফল। তাহলে index l থেকে r (inclusive) এর যোগফল = <code>prefix[r+1] - prefix[l]</code> — কোনো লুপ ছাড়াই।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def build_prefix(arr):
+    prefix = [0] * (len(arr) + 1)
+    for i in range(len(arr)):
+        prefix[i+1] = prefix[i] + arr[i]
+    return prefix
+
+arr = [3, 1, 4, 1, 5, 9]
+p = build_prefix(arr)           # [0,3,4,8,9,14,23]
+# bn: index 1..3 এর যোগফল (1+4+1=6)
+print(p[4] - p[1])              # 6  -> O(1)!</code></pre></div>
+
+    <h3>ক্লাসিক: Subarray Sum Equals K (FAANG)</h3>
+    <p>কতগুলো subarray-র যোগফল ঠিক k — prefix sum + hash map দিয়ে এক পাসে <span class="cx-good">O(n)</span>।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def subarray_sum(nums, k):
+    count = 0
+    cur = 0
+    seen = {0: 1}              # bn: prefix sum -> কতবার দেখা গেছে
+    for x in nums:
+        cur += x
+        count += seen.get(cur - k, 0)   # bn: আগে এমন prefix ছিল?
+        seen[cur] = seen.get(cur, 0) + 1
+    return count
+
+print(subarray_sum([1, 1, 1], 2))   # 2</code></pre></div>
+
+    <div class="note interview">
+      <span class="tag">🎯 চিনবেন কীভাবে</span>
+      "range sum query", "subarray sum", "একাধিকবার যোগফল জিজ্ঞেস", "average of subarray" — এসব দেখলে prefix sum। 2D গ্রিডেও কাজ করে (2D prefix sum)। update-ও লাগলে Fenwick Tree ভাবুন।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= MONOTONIC STACK ================= -->
+  <section class="topic" id="monotonicstack">
+    <h2>📈 Monotonic Stack</h2>
+    <p class="lead">এমন stack যেখানে উপাদানগুলো সবসময় বাড়তে বা কমতে থাকা ক্রমে থাকে। "পরের বড়/ছোট উপাদান" টাইপ সমস্যায় O(n²) কে <span class="cx-good">O(n)</span> বানায়।</p>
+
+    <h3>ক্লাসিক: Next Greater Element</h3>
+    <p>প্রতিটি উপাদানের ডানদিকে প্রথম বড় উপাদান কোনটি। stack-এ index রাখি; নতুন বড় মান এলে stack-এর ছোটগুলোর উত্তর সেট করি।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def next_greater(nums):
+    res = [-1] * len(nums)
+    stack = []                 # bn: index রাখে, মান কমন্ত ক্রমে
+    for i, x in enumerate(nums):
+        while stack and nums[stack[-1]] < x:
+            res[stack.pop()] = x   # bn: এর পরের বড় = x
+        stack.append(i)
+    return res
+
+print(next_greater([2, 1, 2, 4, 3]))   # [4, 2, 4, -1, -1]</code></pre></div>
+
+    <h3>ক্লাসিক: Daily Temperatures</h3>
+    <p>আর কত দিন পর বেশি গরম আসবে — প্রতিটি দিনের জন্য।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def daily_temperatures(temps):
+    res = [0] * len(temps)
+    stack = []                 # bn: index
+    for i, t in enumerate(temps):
+        while stack and temps[stack[-1]] < t:
+            j = stack.pop()
+            res[j] = i - j     # bn: কয় দিন পর
+        stack.append(i)
+    return res
+
+print(daily_temperatures([73,74,75,71,69,72,76,73]))
+# [1, 1, 4, 2, 1, 1, 0, 0]</code></pre></div>
+    <p><strong>Time:</strong> <span class="cx-good">O(n)</span> — প্রতিটি index একবার push ও একবার pop হয়।</p>
+
+    <div class="note interview">
+      <span class="tag">🎯 চিনবেন কীভাবে</span>
+      "next/previous greater/smaller element", "Daily Temperatures", "Largest Rectangle in Histogram", "Trapping Rain Water", "stock span" — এসবে monotonic stack। ব্রুট-ফোর্স O(n²) মনে হলেই এটি ভাবুন।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= STRING MATCHING ================= -->
+  <section class="topic" id="stringmatching">
+    <h2>🔡 String Matching — KMP ও Rabin-Karp</h2>
+    <p class="lead">একটি বড় text-এ একটি pattern কোথায় আছে খোঁজা। সরল পদ্ধতি O(n·m); এই অ্যালগরিদমগুলো <span class="cx-good">O(n+m)</span>।</p>
+
+    <h3>KMP — Knuth-Morris-Pratt</h3>
+    <p>মূল আইডিয়া: mismatch হলে pattern-এর শুরু থেকে নয়, আগে মিলে যাওয়া prefix কাজে লাগিয়ে এগোই। এজন্য <strong>LPS</strong> (Longest Prefix-Suffix) array আগে বানাই।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def kmp_search(text, pattern):
+    m = len(pattern)
+    lps = [0] * m              # bn: longest prefix-suffix
+    length = 0; i = 1
+    while i < m:
+        if pattern[i] == pattern[length]:
+            length += 1; lps[i] = length; i += 1
+        elif length:
+            length = lps[length - 1]   # bn: পিছিয়ে যাই
+        else:
+            lps[i] = 0; i += 1
+    # bn: এখন খোঁজা
+    res = []; i = j = 0
+    while i < len(text):
+        if text[i] == pattern[j]:
+            i += 1; j += 1
+            if j == m:
+                res.append(i - j)      # bn: ম্যাচ পাওয়া গেল
+                j = lps[j - 1]
+        elif j:
+            j = lps[j - 1]             # bn: pattern পিছাও, text নয়
+        else:
+            i += 1
+    return res
+
+print(kmp_search("ababcababcabc", "abc"))   # [2, 7, 10]</code></pre></div>
+    <p><strong>Time:</strong> <span class="cx-good">O(n + m)</span>।</p>
+
+    <h3>Rabin-Karp — Rolling Hash</h3>
+    <p>pattern ও text-এর প্রতিটি উইন্ডোর hash তুলনা করি। hash মিললে তবেই অক্ষর মিলিয়ে দেখি। rolling hash দিয়ে প্রতি ধাপে hash O(1)-এ আপডেট হয়।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def rabin_karp(text, pattern):
+    n, m = len(text), len(pattern)
+    if m > n: return []
+    base, mod = 256, 10**9 + 7
+    power = pow(base, m - 1, mod)
+    hp = ht = 0
+    for i in range(m):                  # bn: প্রথম hash
+        hp = (hp * base + ord(pattern[i])) % mod
+        ht = (ht * base + ord(text[i])) % mod
+    res = []
+    for i in range(n - m + 1):
+        if hp == ht and text[i:i+m] == pattern:
+            res.append(i)
+        if i < n - m:                   # bn: window সরাও (rolling)
+            ht = ((ht - ord(text[i]) * power) * base + ord(text[i+m])) % mod
+    return res
+
+print(rabin_karp("ababcababcabc", "abc"))   # [2, 7, 10]</code></pre></div>
+    <p><strong>Time:</strong> average <span class="cx-good">O(n + m)</span>, worst O(n·m) (hash collision)।</p>
+
+    <div class="note interview">
+      <span class="tag">🎯 চিনবেন কীভাবে</span>
+      "substring খোঁজা (strStr)", "repeated pattern", "shortest palindrome", "একাধিক pattern" — এসবে KMP/Rabin-Karp। তবে ইন্টারভিউয়ে আগে <code>text.find(pattern)</code> উল্লেখ করে তারপর অপ্টিমাল আলগরিদম দেখান।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= MATH ALGORITHMS ================= -->
+  <section class="topic" id="mathalgo">
+    <h2>🧷 Math অ্যালগরিদম</h2>
+    <p class="lead">সংখ্যাতত্ত্বের কয়েকটি অ্যালগরিদম FAANG-এ নিয়মিত আসে — GCD, মৌলিক সংখ্যা, দ্রুত ঘাত। এগুলো জানা থাকা মাস্ট।</p>
+
+    <h3>GCD ও LCM — Euclid's Algorithm</h3>
+    <p>দুটি সংখ্যার গসাগু (GCD): বড়কে ছোট দিয়ে ভাগ করে ভাগশেষ নিয়ে পুনরাবৃত্তি। অসাধারণ দ্রুত — <span class="cx-good">O(log(min))</span>।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def gcd(a, b):
+    while b:
+        a, b = b, a % b        # bn: ভাগশেষ দিয়ে চালিয়ে যাই
+    return a
+
+def lcm(a, b):
+    return a * b // gcd(a, b)  # bn: লসাগু
+
+print(gcd(48, 18))   # 6
+print(lcm(4, 6))     # 12</code></pre></div>
+
+    <h3>Sieve of Eratosthenes — n পর্যন্ত সব মৌলিক সংখ্যা</h3>
+    <p>প্রতিটি মৌলিক সংখ্যার গুণিতকগুলো বাতিল করে দিই। বহু মৌলিক সংখ্যা একসাথে দরকার হলে আদর্শ।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def sieve(n):
+    is_prime = [True] * (n + 1)
+    is_prime[0] = is_prime[1] = False
+    for i in range(2, int(n**0.5) + 1):
+        if is_prime[i]:
+            for j in range(i*i, n + 1, i):   # bn: গুণিতক বাতিল
+                is_prime[j] = False
+    return [i for i in range(n + 1) if is_prime[i]]
+
+print(sieve(30))   # [2,3,5,7,11,13,17,19,23,29]</code></pre></div>
+    <p><strong>Time:</strong> <span class="cx-good">O(n log log n)</span>।</p>
+
+    <h3>Fast (Binary) Exponentiation — bᵉ দ্রুত</h3>
+    <p>সাধারণভাবে bᵉ লাগে O(e) গুণ। বিট ধরে ধরে করলে <span class="cx-good">O(log e)</span>। বড় mod-এ ক্রিপ্টোগ্রাফি/কম্বিনেটরিক্সে অপরিহার্য।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def power(base, exp, mod=None):
+    result = 1
+    base = base % mod if mod else base
+    while exp > 0:
+        if exp & 1:                # bn: বিট 1 হলে গুণ
+            result = result * base
+            if mod: result %= mod
+        base = base * base         # bn: base বর্গ
+        if mod: base %= mod
+        exp >>= 1                  # bn: পরের বিট
+    return result
+
+print(power(2, 10))            # 1024
+print(power(2, 100, 1000000007))  # mod সহ</code></pre></div>
+
+    <div class="note interview">
+      <span class="tag">🎯 চিনবেন কীভাবে</span>
+      "count primes" → Sieve। "Pow(x,n)", "modular exponentiation" → Fast Exp। "fraction/ratio সরল করা", "common divisor" → GCD। Python-এ <code>math.gcd</code> ও <code>pow(b,e,mod)</code> বিল্ট-ইন আছে — কিন্তু ভেতরের লজিক জানা জরুরি।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= MST ================= -->
+  <section class="topic" id="mst">
+    <h2>🌐 Minimum Spanning Tree (MST)</h2>
+    <p class="lead">একটি weighted graph-এর সব নোডকে যুক্ত রাখা সবচেয়ে কম মোট ওজনে, কোনো cycle ছাড়া। নেটওয়ার্ক কেবল, রাস্তা নির্মাণে ব্যবহৃত। দুটি ক্লাসিক অ্যালগরিদম।</p>
+
+    <h3>১. Kruskal's — edge ধরে ধরে (Union-Find দিয়ে)</h3>
+    <p>সব edge ওজন অনুযায়ী সাজিয়ে, ছোট থেকে নিতে থাকি — যদি cycle না বানায় (Union-Find দিয়ে চেক)।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def kruskal(n, edges):
+    # bn: edges = [(weight, u, v)]
+    parent = list(range(n))
+    def find(x):
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]   # path compression
+            x = parent[x]
+        return x
+    edges.sort()                  # bn: ওজন অনুযায়ী
+    total = 0; used = []
+    for w, u, v in edges:
+        ru, rv = find(u), find(v)
+        if ru != rv:              # bn: cycle বানায় না
+            parent[ru] = rv
+            total += w; used.append((u, v, w))
+    return total, used
+
+edges = [(1,0,1),(2,1,2),(3,0,2),(4,2,3)]
+print(kruskal(4, edges))   # (7, [(0,1,1),(1,2,2),(2,3,4)])</code></pre></div>
+    <p><strong>Time:</strong> <span class="cx-mid">O(E log E)</span> (sorting)।</p>
+
+    <h3>২. Prim's — নোড ধরে ধরে (Heap দিয়ে)</h3>
+    <p>এক নোড থেকে শুরু করে, প্রতিবার সবচেয়ে সস্তা edge দিয়ে নতুন নোড যোগ করি — min-heap দিয়ে।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>import heapq
+def prim(graph, start=0):
+    # bn: graph = {node: [(neighbor, weight), ...]}
+    visited = set()
+    heap = [(0, start)]
+    total = 0
+    while heap:
+        w, u = heapq.heappop(heap)
+        if u in visited:
+            continue
+        visited.add(u)
+        total += w
+        for v, wt in graph[u]:
+            if v not in visited:
+                heapq.heappush(heap, (wt, v))
+    return total
+
+g = {0:[(1,1),(2,3)], 1:[(0,1),(2,2)], 2:[(0,3),(1,2),(3,4)], 3:[(2,4)]}
+print(prim(g))   # 7</code></pre></div>
+    <p><strong>Time:</strong> <span class="cx-mid">O(E log V)</span>।</p>
+
+    <div class="note interview">
+      <span class="tag">🎯 চিনবেন কীভাবে</span>
+      "সব নোড যুক্ত রাখা ন্যূনতম খরচে", "connect all points", "minimum cost to connect" — এসব MST। sparse graph (কম edge) → Kruskal; dense graph → Prim।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= SEGMENT TREE / BIT ================= -->
+  <section class="topic" id="segmenttree">
+    <h2>🌴 Segment Tree ও Fenwick Tree (BIT)</h2>
+    <p class="lead">যখন array-তে বারবার <strong>range query</strong> (যোগফল/min/max) আর <strong>update</strong> দুটোই লাগে — তখন এগুলো প্রতিটি অপারেশন <span class="cx-good">O(log n)</span>-এ করে।</p>
+
+    <div class="note">
+      <span class="tag">📊 কেন দরকার?</span>
+      শুধু range sum হলে prefix sum (query O(1)) ভালো — কিন্তু update এলে prefix sum পুরোটা O(n) তে রিবিল্ড করতে হয়। Segment Tree/BIT-এ update ও query <strong>দুটোই</strong> O(log n)।
+    </div>
+
+    <h3>১. Segment Tree (iterative, range sum + point update)</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>class SegmentTree:
+    def __init__(self, arr):
+        self.n = len(arr)
+        self.tree = [0] * (2 * self.n)
+        for i in range(self.n):              # bn: পাতা ভরাও
+            self.tree[self.n + i] = arr[i]
+        for i in range(self.n - 1, 0, -1):   # bn: অভিভাবক হিসাব
+            self.tree[i] = self.tree[2*i] + self.tree[2*i+1]
+
+    def update(self, i, val):                # bn: O(log n)
+        i += self.n
+        self.tree[i] = val
+        i //= 2
+        while i:
+            self.tree[i] = self.tree[2*i] + self.tree[2*i+1]
+            i //= 2
+
+    def query(self, l, r):    # bn: [l, r) যোগফল, O(log n)
+        res = 0
+        l += self.n; r += self.n
+        while l < r:
+            if l & 1: res += self.tree[l]; l += 1
+            if r & 1: r -= 1; res += self.tree[r]
+            l //= 2; r //= 2
+        return res
+
+st = SegmentTree([1, 3, 5, 7, 9, 11])
+print(st.query(1, 4))   # 3+5+7 = 15
+st.update(1, 10)        # index 1 -> 10
+print(st.query(1, 4))   # 10+5+7 = 22</code></pre></div>
+
+    <h3>২. Fenwick Tree / Binary Indexed Tree (BIT)</h3>
+    <p>Segment Tree-র চেয়ে সংক্ষিপ্ত ও কম মেমোরি — prefix sum + update-এর জন্য আদর্শ। বিট-ট্রিক (<code>i & -i</code>) দিয়ে চলে।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>class Fenwick:
+    def __init__(self, n):
+        self.tree = [0] * (n + 1)   # bn: 1-indexed
+
+    def update(self, i, delta):     # bn: index i তে delta যোগ
+        while i < len(self.tree):
+            self.tree[i] += delta
+            i += i & (-i)           # bn: পরের দায়িত্বশীল নোড
+
+    def query(self, i):             # bn: prefix sum [1..i]
+        s = 0
+        while i > 0:
+            s += self.tree[i]
+            i -= i & (-i)
+        return s
+
+bit = Fenwick(6)
+for idx, val in enumerate([1,3,5,7,9,11], start=1):
+    bit.update(idx, val)
+print(bit.query(4))              # 1+3+5+7 = 16
+# bn: range [l,r] = query(r) - query(l-1)
+print(bit.query(4) - bit.query(1))   # 3+5+7 = 15</code></pre></div>
+
+    <table class="cx-table">
+      <tr><th></th><th>Prefix Sum</th><th>Segment Tree / BIT</th></tr>
+      <tr><td>range query</td><td><span class="cx-good">O(1)</span></td><td><span class="cx-good">O(log n)</span></td></tr>
+      <tr><td>update</td><td><span class="cx-bad">O(n)</span></td><td><span class="cx-good">O(log n)</span></td></tr>
+    </table>
+
+    <div class="note interview">
+      <span class="tag">🎯 চিনবেন কীভাবে</span>
+      "range sum/min/max + update দুটোই", "count of smaller numbers after self", "range update", "interval query" — এসবে Segment Tree বা BIT। শুধু prefix query হলে prefix sum-ই যথেষ্ট। BIT কোড ছোট, কিন্তু min/max-এ Segment Tree বেশি নমনীয়।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= VISUALIZER ================= -->
+  <section class="topic" id="visualizer">
+    <h2>🎬 Sorting Visualizer (ইন্টারঅ্যাক্টিভ)</h2>
+    <p class="lead">অ্যালগরিদম শুধু পড়ে নয়, <strong>চোখে দেখে</strong> বুঝুন। অ্যালগরিদম বেছে নিন, "Sort" চাপুন — প্রতিটি তুলনা (compare) ও অদলবদল (swap) রঙ দিয়ে দেখানো হবে। নিচে গণনাও চলবে।</p>
+
+    <div class="viz-controls">
+      <label>অ্যালগরিদম
+        <select id="viz-algo">
+          <option value="bubble">Bubble Sort — O(n²)</option>
+          <option value="selection">Selection Sort — O(n²)</option>
+          <option value="insertion">Insertion Sort — O(n²)</option>
+          <option value="merge">Merge Sort — O(n log n)</option>
+          <option value="quick">Quick Sort — O(n log n)</option>
+        </select>
+      </label>
+      <label>সাইজ <input type="range" id="viz-size" min="10" max="80" value="40"></label>
+      <label>গতি <input type="range" id="viz-speed" min="1" max="100" value="60"></label>
+      <button class="viz-btn" id="viz-gen">🎲 নতুন অ্যারে</button>
+      <button class="viz-btn alt" id="viz-run">▶️ Sort</button>
+    </div>
+
+    <div class="viz-legend">
+      <span><span class="dot" style="background:var(--accent-2)"></span> সাধারণ</span>
+      <span><span class="dot" style="background:var(--accent)"></span> তুলনা (compare)</span>
+      <span><span class="dot" style="background:var(--red)"></span> অদলবদল (swap)</span>
+      <span><span class="dot" style="background:var(--purple)"></span> pivot</span>
+      <span><span class="dot" style="background:var(--green)"></span> সাজানো (sorted)</span>
+    </div>
+
+    <div class="viz-bars" id="viz-bars"></div>
+    <div class="viz-status">
+      <span>অ্যালগরিদম: <b id="viz-name">—</b></span>
+      <span>তুলনা: <b id="viz-cmp">0</b></span>
+      <span>swap: <b id="viz-swp">0</b></span>
+    </div>
+
+    <div class="note tip">
+      <span class="tag">💡 কী লক্ষ্য করবেন</span>
+      Bubble/Selection/Insertion-এ compare ও swap সংখ্যা দ্রুত বাড়ে (O(n²))। কিন্তু Merge ও Quick-এ অনেক কম কাজে সাজানো শেষ হয় (O(n log n)) — size বাড়িয়ে দুটো চালিয়ে গণনার পার্থক্য নিজে দেখুন। এটাই Big-O বাস্তবে অনুভব করার সেরা উপায়।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= PRACTICE ================= -->
+  <section class="topic" id="practice">
+    <h2>📝 Practice Problems (সমাধানসহ)</h2>
+    <p class="lead">শেখা যাচাই করার একমাত্র উপায় — সমস্যা সমাধান। প্রতিটি প্রশ্নে প্রথমে <strong>নিজে চেষ্টা করুন</strong>, তারপর "💡 সমাধান দেখুন"-এ ক্লিক করুন। প্যাটার্ন অনুযায়ী সাজানো — ঠিক যেভাবে FAANG ইন্টারভিউ এগোয়।</p>
+
+    <div class="note interview">
+      <span class="tag">🎯 ব্যবহারবিধি</span>
+      প্রতিটি প্রবলেমের নামে ক্লিক করে প্রশ্ন খুলুন। নিজে কাগজে/এডিটরে চেষ্টা করুন (অন্তত ২০ মিনিট), <em>তারপর</em> সমাধান। মুখস্থ নয় — কেন এই পদ্ধতি, সেটা বোঝার চেষ্টা করুন।
+    </div>
+
+    <h3>🟢 Hashing / Array (শুরু এখান থেকে)</h3>
+
+    <details class="problem">
+      <summary>Two Sum <span class="diff easy">Easy</span></summary>
+      <div class="body">
+        <p>একটি array ও target দেওয়া। এমন দুটি index ফেরত দিন যাদের মান যোগ করলে target হয়।</p>
+        <p><code>two_sum([2,7,11,15], 9) → [0,1]</code></p>
+        <details class="reveal"><summary>💡 সমাধান দেখুন</summary>
+          <p><strong>আইডিয়া:</strong> hash map-এ আগে দেখা মান রাখুন; প্রতিটি সংখ্যায় "কত লাগবে" (complement) আগে দেখা হয়েছে কিনা চেক করুন — O(1)।</p>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>def two_sum(nums, target):
+    seen = {}
+    for i, num in enumerate(nums):
+        if target - num in seen:
+            return [seen[target - num], i]
+        seen[num] = i
+    return []</code></pre></div>
+          <p><strong>Time:</strong> <span class="cx-good">O(n)</span> • <strong>Space:</strong> O(n)</p>
+        </details>
+      </div>
+    </details>
+
+    <details class="problem">
+      <summary>Contains Duplicate <span class="diff easy">Easy</span></summary>
+      <div class="body">
+        <p>array-তে কোনো মান একাধিকবার আছে কিনা বলুন।</p>
+        <details class="reveal"><summary>💡 সমাধান দেখুন</summary>
+          <p><strong>আইডিয়া:</strong> set-এ unique মান গোনা — দৈর্ঘ্য কমে গেলে ডুপ্লিকেট আছে।</p>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>def contains_duplicate(nums):
+    return len(set(nums)) != len(nums)</code></pre></div>
+          <p><strong>Time:</strong> <span class="cx-good">O(n)</span> • <strong>Space:</strong> O(n)</p>
+        </details>
+      </div>
+    </details>
+
+    <details class="problem">
+      <summary>Valid Anagram <span class="diff easy">Easy</span></summary>
+      <div class="body">
+        <p>দুটি string একে অপরের anagram কিনা (একই অক্ষর, ভিন্ন সাজানো)।</p>
+        <details class="reveal"><summary>💡 সমাধান দেখুন</summary>
+          <p><strong>আইডিয়া:</strong> দুটোর অক্ষর-frequency সমান কিনা — Counter দিয়ে এক লাইনে।</p>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>from collections import Counter
+def is_anagram(s, t):
+    return Counter(s) == Counter(t)</code></pre></div>
+          <p><strong>Time:</strong> <span class="cx-good">O(n)</span> • <strong>Space:</strong> O(1) (২৬ অক্ষর)</p>
+        </details>
+      </div>
+    </details>
+
+    <h3>🟡 Two Pointers / Sliding Window</h3>
+
+    <details class="problem">
+      <summary>Valid Palindrome <span class="diff easy">Easy</span></summary>
+      <div class="body">
+        <p>শুধু অক্ষর-সংখ্যা বিবেচনায় string palindrome কিনা (case উপেক্ষা করে)।</p>
+        <details class="reveal"><summary>💡 সমাধান দেখুন</summary>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>def is_palindrome(s):
+    s = [c.lower() for c in s if c.isalnum()]
+    left, right = 0, len(s) - 1
+    while left < right:
+        if s[left] != s[right]:
+            return False
+        left += 1; right -= 1
+    return True</code></pre></div>
+          <p><strong>Time:</strong> <span class="cx-good">O(n)</span> • <strong>Space:</strong> O(n)</p>
+        </details>
+      </div>
+    </details>
+
+    <details class="problem">
+      <summary>Longest Substring Without Repeating Characters <span class="diff medium">Medium</span></summary>
+      <div class="body">
+        <p>পুনরাবৃত্তিহীন সবচেয়ে লম্বা substring-এর দৈর্ঘ্য। <code>"abcabcbb" → 3</code></p>
+        <details class="reveal"><summary>💡 সমাধান দেখুন</summary>
+          <p><strong>আইডিয়া:</strong> sliding window — অক্ষর আবার দেখলে বাঁ-প্রান্ত সরিয়ে দিন।</p>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>def length_of_longest(s):
+    seen = {}; left = 0; best = 0
+    for right, ch in enumerate(s):
+        if ch in seen and seen[ch] >= left:
+            left = seen[ch] + 1
+        seen[ch] = right
+        best = max(best, right - left + 1)
+    return best</code></pre></div>
+          <p><strong>Time:</strong> <span class="cx-good">O(n)</span> • <strong>Space:</strong> O(min(n, charset))</p>
+        </details>
+      </div>
+    </details>
+
+    <details class="problem">
+      <summary>Maximum Subarray (Kadane's) <span class="diff medium">Medium</span></summary>
+      <div class="body">
+        <p>সবচেয়ে বড় যোগফলবিশিষ্ট অবিচ্ছিন্ন subarray-র যোগফল। <code>[-2,1,-3,4,-1,2,1,-5,4] → 6</code></p>
+        <details class="reveal"><summary>💡 সমাধান দেখুন</summary>
+          <p><strong>আইডিয়া (Kadane):</strong> প্রতিটি ঘরে সিদ্ধান্ত — আগের যোগফলে যোগ করব, নাকি নতুন শুরু করব?</p>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>def max_subarray(nums):
+    cur = best = nums[0]
+    for x in nums[1:]:
+        cur = max(x, cur + x)   # নতুন শুরু নাকি যোগ
+        best = max(best, cur)
+    return best</code></pre></div>
+          <p><strong>Time:</strong> <span class="cx-good">O(n)</span> • <strong>Space:</strong> O(1)</p>
+        </details>
+      </div>
+    </details>
+
+    <h3>🟡 Stack / Linked List</h3>
+
+    <details class="problem">
+      <summary>Valid Parentheses <span class="diff easy">Easy</span></summary>
+      <div class="body">
+        <p><code>"{[()]}"</code> ব্যালেন্সড কিনা।</p>
+        <details class="reveal"><summary>💡 সমাধান দেখুন</summary>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>def is_valid(s):
+    stack = []
+    pairs = {')': '(', ']': '[', '}': '{'}
+    for ch in s:
+        if ch in pairs:
+            if not stack or stack.pop() != pairs[ch]:
+                return False
+        else:
+            stack.append(ch)
+    return not stack</code></pre></div>
+          <p><strong>Time:</strong> <span class="cx-good">O(n)</span> • <strong>Space:</strong> O(n)</p>
+        </details>
+      </div>
+    </details>
+
+    <details class="problem">
+      <summary>Reverse Linked List <span class="diff easy">Easy</span></summary>
+      <div class="body">
+        <p>একটি singly linked list উল্টে দিন।</p>
+        <details class="reveal"><summary>💡 সমাধান দেখুন</summary>
+          <p><strong>আইডিয়া:</strong> তিন পয়েন্টার — prev, cur, next। দিক উল্টে এগিয়ে যান।</p>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>def reverse_list(head):
+    prev = None
+    cur = head
+    while cur:
+        nxt = cur.next
+        cur.next = prev
+        prev = cur
+        cur = nxt
+    return prev</code></pre></div>
+          <p><strong>Time:</strong> <span class="cx-good">O(n)</span> • <strong>Space:</strong> O(1)</p>
+        </details>
+      </div>
+    </details>
+
+    <h3>🔴 Tree / Graph</h3>
+
+    <details class="problem">
+      <summary>Maximum Depth of Binary Tree <span class="diff easy">Easy</span></summary>
+      <div class="body">
+        <p>গাছের সর্বোচ্চ গভীরতা বের করুন।</p>
+        <details class="reveal"><summary>💡 সমাধান দেখুন</summary>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>def max_depth(root):
+    if not root:
+        return 0
+    return 1 + max(max_depth(root.left), max_depth(root.right))</code></pre></div>
+          <p><strong>Time:</strong> <span class="cx-mid">O(n)</span> • <strong>Space:</strong> O(h) — h গাছের উচ্চতা</p>
+        </details>
+      </div>
+    </details>
+
+    <details class="problem">
+      <summary>Number of Islands <span class="diff medium">Medium</span></summary>
+      <div class="body">
+        <p>'1' (জমি) ও '0' (পানি) এর grid-এ কয়টি দ্বীপ আছে গুনুন (পাশাপাশি '1' একই দ্বীপ)।</p>
+        <details class="reveal"><summary>💡 সমাধান দেখুন</summary>
+          <p><strong>আইডিয়া:</strong> প্রতিটি '1' পেলে DFS দিয়ে পুরো দ্বীপ "ডুবিয়ে" (০ করে) দিন, count বাড়ান।</p>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>def num_islands(grid):
+    if not grid: return 0
+    rows, cols = len(grid), len(grid[0])
+    count = 0
+    def dfs(r, c):
+        if r < 0 or c < 0 or r >= rows or c >= cols or grid[r][c] == '0':
+            return
+        grid[r][c] = '0'              # visited চিহ্নিত
+        dfs(r+1, c); dfs(r-1, c); dfs(r, c+1); dfs(r, c-1)
+    for r in range(rows):
+        for c in range(cols):
+            if grid[r][c] == '1':
+                count += 1
+                dfs(r, c)
+    return count</code></pre></div>
+          <p><strong>Time:</strong> <span class="cx-mid">O(rows × cols)</span> • <strong>Space:</strong> O(rows × cols) (recursion)</p>
+        </details>
+      </div>
+    </details>
+
+    <h3>🔴 Dynamic Programming</h3>
+
+    <details class="problem">
+      <summary>Climbing Stairs <span class="diff easy">Easy</span></summary>
+      <div class="body">
+        <p>n ধাপের সিঁড়ি, একবারে ১ বা ২ ধাপ। কত উপায়ে ওঠা যায়?</p>
+        <details class="reveal"><summary>💡 সমাধান দেখুন</summary>
+          <p><strong>আইডিয়া:</strong> এটা আসলে Fibonacci! ways(n) = ways(n-1) + ways(n-2)।</p>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>def climb_stairs(n):
+    a, b = 1, 1
+    for _ in range(n):
+        a, b = b, a + b
+    return a</code></pre></div>
+          <p><strong>Time:</strong> <span class="cx-good">O(n)</span> • <strong>Space:</strong> O(1)</p>
+        </details>
+      </div>
+    </details>
+
+    <details class="problem">
+      <summary>Coin Change (ন্যূনতম মুদ্রা) <span class="diff medium">Medium</span></summary>
+      <div class="body">
+        <p>কিছু মুদ্রার মান ও amount দেওয়া। amount বানাতে ন্যূনতম কয়টি মুদ্রা লাগে? না পারলে -1।</p>
+        <details class="reveal"><summary>💡 সমাধান দেখুন</summary>
+          <p><strong>আইডিয়া:</strong> bottom-up DP — প্রতিটি মানের জন্য ন্যূনতম মুদ্রা টেবিলে রাখুন।</p>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>def coin_change(coins, amount):
+    dp = [float('inf')] * (amount + 1)
+    dp[0] = 0
+    for i in range(1, amount + 1):
+        for c in coins:
+            if c <= i:
+                dp[i] = min(dp[i], dp[i - c] + 1)
+    return dp[amount] if dp[amount] != float('inf') else -1</code></pre></div>
+          <p><strong>Time:</strong> <span class="cx-mid">O(amount × coins)</span> • <strong>Space:</strong> O(amount)</p>
+        </details>
+      </div>
+    </details>
+
+    <div class="note tip">
+      <span class="tag">🚀 পরবর্তী ধাপ</span>
+      এগুলো আয়ত্ত হলে <a href="https://leetcode.com/studyplan/leetcode-75/" target="_blank">LeetCode 75</a> বা <strong>Blind 75</strong> তালিকা ধরে এগোন। প্রতিদিন ১–২টি সমস্যা, প্যাটার্ন অনুযায়ী — ৩ মাসে FAANG-রেডি।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= INTERVIEW ================= -->
+  <section class="topic" id="interview">
+    <h2>🎯 ইন্টারভিউ গাইড ও কৌশল</h2>
+    <p class="lead">সব শেখা কাজে লাগানোর জায়গা। কীভাবে সমস্যা সমাধান করবেন, কী বলবেন, আর কোন প্রশ্নগুলো অবশ্যই আসবে।</p>
+
+    <h3>সমস্যা সমাধানের ৫ ধাপ (UMPIRE)</h3>
+    <ol>
+      <li><strong>Understand:</strong> প্রশ্ন বুঝুন, edge case জিজ্ঞেস করুন (খালি ইনপুট? ডুপ্লিকেট? নেগেটিভ?)।</li>
+      <li><strong>Match:</strong> এটা কোন প্যাটার্ন? (sorting / hashing / two-pointer / DP / graph?)</li>
+      <li><strong>Plan:</strong> ছদ্মকোডে (pseudocode) পরিকল্পনা বলুন — কোড লেখার আগে।</li>
+      <li><strong>Implement:</strong> পরিষ্কার কোড লিখুন, জোরে চিন্তা প্রকাশ করুন।</li>
+      <li><strong>Review + Evaluate:</strong> উদাহরণ দিয়ে নিজে চালান, তারপর Time/Space Complexity বলুন।</li>
+    </ol>
+
+    <div class="note tip">
+      <span class="tag">💡 সবচেয়ে দামি অভ্যাস</span>
+      চুপ করে কোড লিখবেন না — <strong>জোরে চিন্তা করুন</strong>। ইন্টারভিউয়ার আপনার চিন্তাভাবনা দেখতে চায়, শুধু সঠিক উত্তর নয়। ভুল পথেও যদি যুক্তি দেখান, নম্বর পাবেন।
+    </div>
+
+    <h3>অবশ্য-জানা প্যাটার্নসমূহ (FAANG প্যাটার্ন ম্যাপ)</h3>
+    <table class="cx-table">
+      <tr><th>প্যাটার্ন</th><th>কখন চিনবেন</th><th>টুল</th></tr>
+      <tr><td>Hashing</td><td>"আগে দেখেছি কিনা", frequency, two sum</td><td>dict, set</td></tr>
+      <tr><td>Two Pointer</td><td>সাজানো array, জোড়া খোঁজা, palindrome</td><td>দুই index</td></tr>
+      <tr><td>Sliding Window</td><td>subarray/substring, "consecutive", "at most K"</td><td>window সরানো</td></tr>
+      <tr><td>Binary Search</td><td>সাজানো ডেটা, "minimize the maximum"</td><td>low/high/mid</td></tr>
+      <tr><td>BFS/DFS</td><td>graph, tree, grid, পথ আছে কিনা</td><td>queue/recursion</td></tr>
+      <tr><td>Heap</td><td>Top-K, K-তম, median স্ট্রিম</td><td>heapq</td></tr>
+      <tr><td>Backtracking</td><td>সব permutation/subset/combination</td><td>choose→recurse→undo</td></tr>
+      <tr><td>DP</td><td>সর্বোচ্চ/সর্বনিম্ন, কত উপায়, সম্ভব কিনা</td><td>memo/table</td></tr>
+      <tr><td>Greedy</td><td>interval, schedule, এক পাসে অপ্টিমাল</td><td>sort + লুপ</td></tr>
+      <tr><td>Trie</td><td>prefix, autocomplete, dictionary</td><td>prefix tree</td></tr>
+      <tr><td>Union-Find</td><td>connected components, "একই গ্রুপ?"</td><td>DSU</td></tr>
+      <tr><td>Topo Sort / Dijkstra</td><td>prerequisite / weighted shortest path</td><td>indegree / heap</td></tr>
+      <tr><td>Bit Manipulation</td><td>"O(1) space", XOR, unique খোঁজা</td><td>&amp; | ^ &lt;&lt; &gt;&gt;</td></tr>
+      <tr><td>Prefix Sum</td><td>range sum, subarray sum = k</td><td>cumulative + dict</td></tr>
+      <tr><td>Monotonic Stack</td><td>next greater/smaller, histogram</td><td>increasing/decreasing stack</td></tr>
+      <tr><td>MST</td><td>সব নোড যুক্ত, ন্যূনতম খরচ</td><td>Kruskal / Prim</td></tr>
+      <tr><td>Segment Tree / BIT</td><td>range query + update দুটোই</td><td>tree / i&amp;-i</td></tr>
+      <tr><td>String Matching</td><td>substring/pattern খোঁজা</td><td>KMP / Rabin-Karp</td></tr>
+    </table>
+
+    <h3>📋 Complexity Cheat-Sheet (মুখস্থ রাখুন)</h3>
+    <table class="cx-table">
+      <tr><th>অপারেশন / অ্যালগরিদম</th><th>Time</th></tr>
+      <tr><td>list index / dict-set lookup / append</td><td><span class="cx-good">O(1)</span></td></tr>
+      <tr><td>Binary Search / heap push-pop / BST (balanced)</td><td><span class="cx-good">O(log n)</span></td></tr>
+      <tr><td>লুপ / linear search / BFS-DFS (V+E)</td><td><span class="cx-mid">O(n)</span></td></tr>
+      <tr><td>Merge/Quick/Heap sort, Dijkstra</td><td><span class="cx-mid">O(n log n)</span></td></tr>
+      <tr><td>নেস্টেড লুপ / bubble sort / 2D DP</td><td><span class="cx-bad">O(n²)</span></td></tr>
+      <tr><td>সব subset / recursive fib</td><td><span class="cx-bad">O(2ⁿ)</span></td></tr>
+      <tr><td>সব permutation</td><td><span class="cx-bad">O(n!)</span></td></tr>
+    </table>
+
+    <h3>ঘন ঘন জিজ্ঞেস করা তত্ত্বীয় প্রশ্ন</h3>
+    <div class="note interview">
+      <span class="tag">Q1: list বনাম tuple?</span>
+      list mutable (পরিবর্তনযোগ্য), tuple immutable। tuple দ্রুত, কম মেমোরি, dict-এর key হতে পারে।
+    </div>
+    <div class="note interview">
+      <span class="tag">Q2: dict কীভাবে O(1) lookup দেয়?</span>
+      Hash function key থেকে index বানায়, সরাসরি সেখানে যায়। Collision হলে chaining/probing দিয়ে সামলায়। গড়ে O(1), worst O(n)।
+    </div>
+    <div class="note interview">
+      <span class="tag">Q3: Mutable বনাম Immutable?</span>
+      Mutable (list, dict, set) — পরিবর্তন করা যায়। Immutable (int, str, tuple) — যায় না, পরিবর্তন করলে নতুন অবজেক্ট তৈরি হয়।
+    </div>
+    <div class="note interview">
+      <span class="tag">Q4: == বনাম is?</span>
+      <code>==</code> মান সমান কিনা দেখে; <code>is</code> একই অবজেক্ট (একই মেমোরি) কিনা দেখে।
+    </div>
+    <div class="note interview">
+      <span class="tag">Q5: shallow বনাম deep copy?</span>
+      Shallow copy ভেতরের নেস্টেড অবজেক্ট শেয়ার করে; deep copy সবকিছু নতুন করে কপি করে (<code>copy.deepcopy()</code>)।
+    </div>
+    <div class="note interview">
+      <span class="tag">Q6: Python-এ memory management?</span>
+      Reference counting + garbage collector। কোনো অবজেক্টের reference 0 হলে মেমোরি মুক্ত হয়।
+    </div>
+
+    <h3>শেষ পরামর্শ</h3>
+    <ul>
+      <li><strong>প্রতিদিন অনুশীলন:</strong> LeetCode (Easy → Medium), HackerRank-এ নিয়মিত সমস্যা সমাধান করুন।</li>
+      <li><strong>প্যাটার্নে ফোকাস:</strong> ৫০০ সমস্যা না, ২০টি প্যাটার্ন ভালো করে রপ্ত করুন।</li>
+      <li><strong>Complexity মুখস্থ নয়, বোঝা:</strong> কেন O(n log n) — সেটা ব্যাখ্যা করতে পারলেই জিতবেন।</li>
+      <li><strong>নিজের কোড নিজে ব্যাখ্যা করুন:</strong> আয়নার সামনে বা বন্ধুকে বুঝিয়ে অনুশীলন করুন।</li>
+    </ul>
+
+    <div class="note tip">
+      <span class="tag">🚀 তোমার জন্য</span>
+      MSc + চাকরি — দুটোতেই এই ভিত্তি যথেষ্ট। প্রতিটি টপিক নিজে কোড করে দেখো, complexity ব্যাখ্যা করার অভ্যাস করো। ধীরে ধীরে কঠিন সমস্যায় যাও। তুমি পারবে! 💪
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+    <div class="footer-credit">Python + DSA হাব • বাংলায় সম্পূর্ণ ইন্টারভিউ প্রস্তুতি • শুভকামনা!</div>
+  </section>
+
+  <!-- ================= CLOUD (AWS & AZURE) ================= -->
+  <section class="topic" id="cloud">
+    <h2>☁️ Cloud Computing — AWS ও Azure</h2>
+    <p class="lead">Cloud মানে — নিজের সার্ভার না কিনে ইন্টারনেটের মাধ্যমে অন্যের ডেটা সেন্টার ভাড়া নিয়ে অ্যাপ চালানো। AWS (Amazon) ও Azure (Microsoft) — দুটি বৃহত্তম প্ল্যাটফর্ম। চাকরির বাজারে এদের চাহিদা প্রচুর।</p>
+
+    <h3>Cloud কেন? (নিজের সার্ভারের বদলে)</h3>
+    <ul>
+      <li><strong>খরচ:</strong> যতটুকু ব্যবহার, ততটুকু পেমেন্ট (pay-as-you-go) — আগাম বড় বিনিয়োগ নেই।</li>
+      <li><strong>Scalability:</strong> ব্যবহারকারী বাড়লে এক ক্লিকে সার্ভার বাড়ানো যায়, কমলে কমানো।</li>
+      <li><strong>নির্ভরযোগ্যতা:</strong> বিশ্বজুড়ে data center, ব্যাকআপ, ৯৯.৯৯% uptime।</li>
+    </ul>
+
+    <h3>৩টি সার্ভিস মডেল (অবশ্য-জানা)</h3>
+    <table class="cx-table">
+      <tr><th>মডেল</th><th>মানে</th><th>উদাহরণ</th><th>উপমা</th></tr>
+      <tr><td><strong>IaaS</strong></td><td>শুধু অবকাঠামো (সার্ভার, স্টোরেজ) ভাড়া</td><td>EC2, Azure VM</td><td>খালি ফ্ল্যাট ভাড়া</td></tr>
+      <tr><td><strong>PaaS</strong></td><td>প্ল্যাটফর্ম রেডি, শুধু কোড দাও</td><td>AWS Elastic Beanstalk, Azure App Service</td><td>সাজানো ফ্ল্যাট</td></tr>
+      <tr><td><strong>SaaS</strong></td><td>রেডি সফটওয়্যার ব্যবহার</td><td>Gmail, Office 365</td><td>হোটেল রুম</td></tr>
+    </table>
+
+    <h3>মূল ধারণা: Region ও Availability Zone</h3>
+    <p><strong>Region</strong> = ভৌগোলিক এলাকা (যেমন Mumbai, Singapore)। <strong>Availability Zone (AZ)</strong> = একটি region-এর ভেতরে আলাদা data center। একাধিক AZ-তে অ্যাপ রাখলে একটা বন্ধ হলেও অন্যটা চলে — এটাই <em>high availability</em>।</p>
+
+    <h3>সবচেয়ে গুরুত্বপূর্ণ সার্ভিস (AWS ↔ Azure)</h3>
+    <table class="cx-table">
+      <tr><th>কাজ</th><th>AWS</th><th>Azure</th></tr>
+      <tr><td>ভার্চুয়াল সার্ভার (compute)</td><td>EC2</td><td>Virtual Machines</td></tr>
+      <tr><td>ফাইল/অবজেক্ট স্টোরেজ</td><td>S3</td><td>Blob Storage</td></tr>
+      <tr><td>ডেটাবেস (SQL)</td><td>RDS</td><td>Azure SQL Database</td></tr>
+      <tr><td>NoSQL ডেটাবেস</td><td>DynamoDB</td><td>Cosmos DB</td></tr>
+      <tr><td>Serverless ফাংশন</td><td>Lambda</td><td>Azure Functions</td></tr>
+      <tr><td>পরিচয়/অনুমতি</td><td>IAM</td><td>Azure AD / Entra ID</td></tr>
+      <tr><td>নেটওয়ার্ক</td><td>VPC</td><td>Virtual Network (VNet)</td></tr>
+      <tr><td>কন্টেইনার (Kubernetes)</td><td>EKS</td><td>AKS</td></tr>
+    </table>
+
+    <h3>হাতে-কলমে: AWS CLI উদাহরণ</h3>
+    <p>CLI (Command Line) দিয়ে cloud নিয়ন্ত্রণ করা যায়। নিচে S3 (স্টোরেজ) এর কিছু কমান্ড:</p>
+    <div class="code-wrap"><span class="lang">bash</span><pre><code># bn: একটি bucket (ফোল্ডারের মতো) তৈরি
+aws s3 mb s3://my-first-bucket
+
+# bn: ফাইল আপলোড
+aws s3 cp report.pdf s3://my-first-bucket/
+
+# bn: bucket-এর সব ফাইল দেখা
+aws s3 ls s3://my-first-bucket/
+
+# bn: চলমান EC2 সার্ভার দেখা
+aws ec2 describe-instances</code></pre></div>
+
+    <h3>Python দিয়ে cloud (boto3 — AWS SDK)</h3>
+    <p>তুমি Python শিখছ — তাই জেনে রাখো, <code>boto3</code> দিয়ে কোড থেকেই AWS নিয়ন্ত্রণ করা যায়:</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>import boto3
+
+# bn: S3 ক্লায়েন্ট তৈরি
+s3 = boto3.client('s3')
+
+# bn: ফাইল আপলোড
+s3.upload_file('report.pdf', 'my-first-bucket', 'report.pdf')
+
+# bn: সব bucket তালিকা
+for bucket in s3.list_buckets()['Buckets']:
+    print(bucket['Name'])</code></pre></div>
+
+    <div class="note tip">
+      <span class="tag">💡 শুরু কীভাবে করবে</span>
+      AWS ও Azure দুটোতেই <strong>Free Tier</strong> (১২ মাস ফ্রি) আছে — অ্যাকাউন্ট খুলে EC2/VM চালু করে, S3/Blob-এ ফাইল রেখে হাতে-কলমে শেখো। সার্টিফিকেশন শুরু: <strong>AWS Certified Cloud Practitioner</strong> বা <strong>Azure Fundamentals (AZ-900)</strong> — বিগিনারদের জন্য সেরা।
+    </div>
+
+    <div class="note interview">
+      <span class="tag">🎯 ইন্টারভিউ প্রশ্ন</span>
+      <strong>Q:</strong> IaaS, PaaS, SaaS এর পার্থক্য? <br>
+      <strong>A:</strong> নিয়ন্ত্রণ বনাম সুবিধার ট্রেড-অফ। IaaS-এ তুমি OS থেকে সব ম্যানেজ করো (বেশি নিয়ন্ত্রণ)। PaaS-এ শুধু কোড — সার্ভার/OS provider সামলায়। SaaS-এ কিছুই না, শুধু ব্যবহার। <br><br>
+      <strong>Q:</strong> Scaling — vertical বনাম horizontal? <br>
+      <strong>A:</strong> Vertical = একটি সার্ভার আরও শক্তিশালী করা (বেশি RAM/CPU)। Horizontal = আরও সার্ভার যোগ করা। Cloud-এ horizontal scaling বেশি জনপ্রিয় (auto-scaling)।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= GIT ================= -->
+  <section class="topic" id="git">
+    <h2>🔧 Git ও GitHub</h2>
+    <p class="lead">Git হলো <strong>version control system</strong> — তোমার কোডের প্রতিটি পরিবর্তনের ইতিহাস রাখে, দলে কাজ সহজ করে, ভুল হলে পেছনে ফেরা যায়। প্রতিটি ডেভেলপারের অবশ্য-জানা স্কিল।</p>
+
+    <div class="note">
+      <span class="tag">📊 Git বনাম GitHub</span>
+      <strong>Git</strong> = তোমার কম্পিউটারে চলা টুল (version control)। <strong>GitHub</strong> = অনলাইন প্ল্যাটফর্ম যেখানে Git রিপোজিটরি রাখা ও শেয়ার করা যায় (GitLab, Bitbucket-ও আছে)।
+    </div>
+
+    <h3>প্রথম সেটআপ (একবারই)</h3>
+    <div class="code-wrap"><span class="lang">bash</span><pre><code># bn: তোমার নাম ও ইমেইল সেট করো
+git config --global user.name "Byron"
+git config --global user.email "byron@example.com"</code></pre></div>
+
+    <h3>মৌলিক কাজের চক্র (সবচেয়ে দরকারি)</h3>
+    <div class="code-wrap"><span class="lang">bash</span><pre><code># bn: নতুন রিপো শুরু (একবার)
+git init
+
+# bn: বর্তমান অবস্থা দেখা — কী বদলেছে
+git status
+
+# bn: ফাইল staging-এ যোগ (commit এর জন্য প্রস্তুত)
+git add file.py          # নির্দিষ্ট ফাইল
+git add .                 # সব পরিবর্তন
+
+# bn: পরিবর্তন স্থায়ীভাবে সেভ (snapshot)
+git commit -m "যোগ করলাম login feature"
+
+# bn: পরিবর্তনের ইতিহাস দেখা
+git log --oneline</code></pre></div>
+
+    <h3>Git-এর ৩টি অবস্থা (মূল ধারণা)</h3>
+    <table class="cx-table">
+      <tr><th>অবস্থা</th><th>মানে</th><th>কমান্ড</th></tr>
+      <tr><td>Working Directory</td><td>তুমি এখন যেখানে এডিট করছ</td><td>(এডিটর)</td></tr>
+      <tr><td>Staging Area</td><td>commit এর জন্য প্রস্তুত পরিবর্তন</td><td><code>git add</code></td></tr>
+      <tr><td>Repository</td><td>স্থায়ীভাবে সেভ করা ইতিহাস</td><td><code>git commit</code></td></tr>
+    </table>
+
+    <h3>Branching — সমান্তরাল কাজ</h3>
+    <p>Branch দিয়ে মূল কোড (main) না ছুঁয়ে আলাদা জায়গায় নতুন feature বানানো যায়। শেষে main-এ merge করা হয়।</p>
+    <div class="code-wrap"><span class="lang">bash</span><pre><code># bn: নতুন branch তৈরি করে সেখানে যাওয়া
+git checkout -b feature-login
+# bn: (নতুন উপায়) git switch -c feature-login
+
+# bn: কোন branch গুলো আছে
+git branch
+
+# bn: main branch-এ ফিরে আসা
+git checkout main
+
+# bn: feature-login কে main-এ মিশিয়ে দেওয়া
+git merge feature-login</code></pre></div>
+
+    <h3>Remote — GitHub-এর সাথে কাজ</h3>
+    <div class="code-wrap"><span class="lang">bash</span><pre><code># bn: GitHub রিপো কপি করে নামানো
+git clone https://github.com/user/repo.git
+
+# bn: remote যোগ করা (নতুন রিপোতে)
+git remote add origin https://github.com/user/repo.git
+
+# bn: লোকাল commit GitHub-এ পাঠানো
+git push origin main
+
+# bn: GitHub থেকে নতুন পরিবর্তন আনা
+git pull origin main</code></pre></div>
+
+    <h3>প্রায়ই দরকারি কমান্ড</h3>
+    <div class="code-wrap"><span class="lang">bash</span><pre><code># bn: শেষ commit এর পরিবর্তন বাতিল (কাজ হারায় না)
+git restore file.py
+
+# bn: পরিবর্তন সাময়িক সরিয়ে রাখা
+git stash          # সরাও
+git stash pop      # ফিরিয়ে আনো
+
+# bn: একটি commit বাতিল করে নতুন commit (নিরাপদ)
+git revert <commit-id>
+
+# bn: দুই commit এর পার্থক্য দেখা
+git diff</code></pre></div>
+
+    <div class="note warn">
+      <span class="tag">⚠️ reset বনাম revert</span>
+      <code>git revert</code> পুরোনো পরিবর্তন বাতিল করে <strong>নতুন commit</strong> বানায় — ইতিহাস অক্ষত, দলে নিরাপদ। <code>git reset --hard</code> ইতিহাস <strong>মুছে</strong> দেয় — শেয়ার করা branch-এ বিপজ্জনক। দলে কাজ করলে সবসময় revert।
+    </div>
+
+    <h3>.gitignore — যা track করতে চাই না</h3>
+    <div class="code-wrap"><span class="lang">bash</span><pre><code># bn: .gitignore ফাইলে এগুলো লিখলে Git উপেক্ষা করে
+__pycache__/
+*.pyc
+.env              # bn: গোপন পাসওয়ার্ড/key কখনো push করো না!
+node_modules/
+venv/</code></pre></div>
+
+    <div class="note interview">
+      <span class="tag">🎯 ইন্টারভিউ প্রশ্ন</span>
+      <strong>Q:</strong> <code>merge</code> বনাম <code>rebase</code>? <br>
+      <strong>A:</strong> দুটোই branch একত্র করে। <code>merge</code> একটি merge-commit বানিয়ে ইতিহাস সংরক্ষণ করে (নিরাপদ, কিন্তু ইতিহাস জটিল)। <code>rebase</code> commit গুলো নতুন base-এর ওপর সাজিয়ে সরল-রৈখিক ইতিহাস বানায় (পরিষ্কার, কিন্তু শেয়ার করা branch-এ এড়ানো উচিত)। <br><br>
+      <strong>Q:</strong> Merge conflict কী? <br>
+      <strong>A:</strong> দুই branch একই লাইন ভিন্নভাবে বদলালে Git নিজে ঠিক করতে পারে না — তখন তুমি ম্যানুয়ালি ঠিক করে <code>git add</code> + <code>git commit</code> করো।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= SOFTWARE DESIGN ================= -->
+  <section class="topic" id="softwaredesign">
+    <h2>🏗️ Software Design</h2>
+    <p class="lead">কোড শুধু "চললেই হয় না" — পরিষ্কার, রক্ষণাবেক্ষণযোগ্য ও সম্প্রসারণযোগ্য হওয়া চাই। ভালো design ইন্টারভিউ ও বাস্তব চাকরিতে সিনিয়র ডেভেলপারের পরিচয়।</p>
+
+    <h3>মৌলিক নীতি: DRY, KISS, YAGNI</h3>
+    <ul>
+      <li><strong>DRY</strong> (Don't Repeat Yourself): একই কোড বারবার নয় — ফাংশন/ক্লাসে রাখো।</li>
+      <li><strong>KISS</strong> (Keep It Simple): জটিল না করে সরল সমাধান দাও।</li>
+      <li><strong>YAGNI</strong> (You Aren't Gonna Need It): এখন দরকার নেই এমন feature আগেভাগে বানিও না।</li>
+    </ul>
+
+    <h3>SOLID নীতি (অবশ্য-জানা)</h3>
+    <p>ভালো OOP design-এর ৫টি স্তম্ভ:</p>
+    <table class="cx-table">
+      <tr><th>অক্ষর</th><th>নীতি</th><th>সরল মানে</th></tr>
+      <tr><td><strong>S</strong></td><td>Single Responsibility</td><td>একটি ক্লাসের একটিই কাজ</td></tr>
+      <tr><td><strong>O</strong></td><td>Open/Closed</td><td>সম্প্রসারণে খোলা, পরিবর্তনে বন্ধ</td></tr>
+      <tr><td><strong>L</strong></td><td>Liskov Substitution</td><td>child দিয়ে parent প্রতিস্থাপনযোগ্য</td></tr>
+      <tr><td><strong>I</strong></td><td>Interface Segregation</td><td>ছোট ছোট নির্দিষ্ট interface</td></tr>
+      <tr><td><strong>D</strong></td><td>Dependency Inversion</td><td>concrete নয়, abstraction-এর ওপর নির্ভর</td></tr>
+    </table>
+
+    <h4>উদাহরণ: Single Responsibility</h4>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: খারাপ — একটি ক্লাস অনেক কাজ করছে
+class User:
+    def save_to_db(self): ...      # ডেটাবেস
+    def send_email(self): ...      # ইমেইল
+    def generate_report(self): ... # রিপোর্ট
+
+# bn: ভালো — প্রতিটি ক্লাসের একটিই দায়িত্ব
+class User: ...
+class UserRepository:    # শুধু ডেটাবেস
+    def save(self, user): ...
+class EmailService:      # শুধু ইমেইল
+    def send(self, user): ...</code></pre></div>
+
+    <h3>Coupling ও Cohesion</h3>
+    <p><strong>Low Coupling</strong> (কম নির্ভরতা): এক অংশ বদলালে অন্য অংশে কম প্রভাব। <strong>High Cohesion</strong> (বেশি সংহতি): সম্পর্কিত জিনিস একসাথে। লক্ষ্য — <em>low coupling, high cohesion</em>।</p>
+
+    <h3>Design Patterns — পরীক্ষিত সমাধান</h3>
+    <p>সাধারণ সমস্যার পুনর্ব্যবহারযোগ্য সমাধান। তিন ধরন: Creational (তৈরি), Structural (গঠন), Behavioral (আচরণ)।</p>
+
+    <h4>১. Singleton (Creational) — একটিই instance</h4>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: পুরো অ্যাপে একটিই object (যেমন DB connection)
+class Database:
+    _instance = None
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+
+a = Database()
+b = Database()
+print(a is b)   # True -> একই instance</code></pre></div>
+
+    <h4>২. Factory (Creational) — object তৈরির কারখানা</h4>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: কোন ক্লাস বানাবে তা একজায়গায় ঠিক হয়
+class Dog:
+    def speak(self): return "ঘেউ"
+class Cat:
+    def speak(self): return "মিয়াও"
+
+def animal_factory(kind):
+    animals = {"dog": Dog, "cat": Cat}
+    return animals[kind]()      # bn: কারখানা object দেয়
+
+pet = animal_factory("dog")
+print(pet.speak())   # ঘেউ</code></pre></div>
+
+    <h4>৩. Observer (Behavioral) — একের পরিবর্তনে সবাইকে জানানো</h4>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: YouTube চ্যানেল-সাবস্ক্রাইবার মডেল
+class Channel:
+    def __init__(self):
+        self.subscribers = []
+    def subscribe(self, user):
+        self.subscribers.append(user)
+    def upload(self, video):       # bn: নতুন ভিডিও -> সবাইকে নোটিফাই
+        for user in self.subscribers:
+            user.notify(video)
+
+class User:
+    def __init__(self, name): self.name = name
+    def notify(self, video):
+        print(f"{self.name} পেল: {video}")
+
+ch = Channel()
+ch.subscribe(User("Byron"))
+ch.subscribe(User("Rahim"))
+ch.upload("Python Tutorial")
+# Byron পেল: Python Tutorial / Rahim পেল: ...</code></pre></div>
+
+    <h3>System Design বেসিক (intermediate)</h3>
+    <p>বড় অ্যাপ ডিজাইনের মূল ধারণা — ইন্টারভিউতে আসা শুরু করে:</p>
+    <ul>
+      <li><strong>Load Balancer:</strong> অনেক সার্ভারে ট্রাফিক ভাগ করে দেয়।</li>
+      <li><strong>Caching:</strong> বারবার লাগা ডেটা দ্রুত মেমোরিতে রাখা (Redis) — ডেটাবেসের চাপ কমে।</li>
+      <li><strong>Database scaling:</strong> Replication (কপি) ও Sharding (ভাগ) দিয়ে বড় ডেটা সামলানো।</li>
+      <li><strong>API:</strong> REST — ক্লায়েন্ট ও সার্ভারের মধ্যে যোগাযোগের নিয়ম (GET/POST/PUT/DELETE)।</li>
+      <li><strong>Message Queue:</strong> ভারী কাজ পরে করার জন্য সারিতে রাখা (RabbitMQ, Kafka)।</li>
+    </ul>
+
+    <div class="note interview">
+      <span class="tag">🎯 ইন্টারভিউ প্রশ্ন</span>
+      <strong>Q:</strong> Design pattern কখন ব্যবহার করবে? <br>
+      <strong>A:</strong> যখন একটি সাধারণ, পুনরাবৃত্ত সমস্যা চিনতে পারো — তখন। কিন্তু জোর করে pattern বসিও না (over-engineering); সরলতাই (KISS) আগে। <br><br>
+      <strong>Q:</strong> Monolithic বনাম Microservices? <br>
+      <strong>A:</strong> Monolith = পুরো অ্যাপ একটি কোডবেস (সহজ শুরু, কিন্তু বড় হলে কঠিন)। Microservices = ছোট ছোট স্বাধীন সার্ভিস (আলাদা scale/deploy, কিন্তু জটিল)। ছোট প্রজেক্টে monolith, বড় টিমে microservices।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  </main>
+</div>
+
+<script src="js/main.js"></script>
+<script src="js/practice.js"></script>
+<script src="js/visualizer.js"></script>
+</body>
+</html>
