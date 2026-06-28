@@ -5017,6 +5017,66 @@ __pycache__/
 node_modules/
 venv/</code></pre></div>
 
+    <h3>🔬 গভীরে: বাস্তব Git Workflow (Feature Branch + PR)</h3>
+    <p>দলে কাজের আদর্শ প্রবাহ — সরাসরি <code>main</code>-এ কাজ নয়:</p>
+    <div class="code-wrap"><span class="lang">bash</span><pre><code># bn: ১) main আপডেট নাও
+git checkout main && git pull
+
+# bn: ২) feature branch বানাও
+git checkout -b feature/login
+
+# bn: ৩) কাজ করো, commit করো
+git add . && git commit -m "Add login form"
+
+# bn: ৪) GitHub-এ push করো
+git push -u origin feature/login
+
+# bn: ৫) GitHub-এ Pull Request (PR) খোলো → review → merge
+# bn: ৬) merge হলে লোকাল পরিষ্কার
+git checkout main && git pull
+git branch -d feature/login</code></pre></div>
+
+    <h3>🔬 HEAD ও কমিট চিহ্নিত করা</h3>
+    <ul>
+      <li><strong>HEAD:</strong> তুমি এখন কোন commit-এ আছো তার পয়েন্টার (সাধারণত বর্তমান branch-এর শেষ commit)।</li>
+      <li><code>HEAD~1</code> = এক commit আগে, <code>HEAD~2</code> = দুই আগে।</li>
+      <li><strong>Detached HEAD:</strong> branch নয়, সরাসরি কোনো commit-এ গেলে — সেখানে commit করলে হারিয়ে যেতে পারে।</li>
+    </ul>
+
+    <h3>🔬 কমন সমস্যা ও সমাধান (মুখস্থ রাখো)</h3>
+    <div class="code-wrap"><span class="lang">bash</span><pre><code># bn: শেষ commit মেসেজ ঠিক করা
+git commit --amend -m "নতুন মেসেজ"
+
+# bn: শেষ commit বাতিল কিন্তু পরিবর্তন রাখা (staged)
+git reset --soft HEAD~1
+
+# bn: শেষ commit বাতিল ও পরিবর্তনও মুছা (সাবধান!)
+git reset --hard HEAD~1
+
+# bn: ভুল করে যোগ করা ফাইল unstage
+git restore --staged file.py
+
+# bn: একটি নির্দিষ্ট commit অন্য branch-এ আনা
+git cherry-pick <commit-id>
+
+# bn: হারানো commit খুঁজে পাওয়া (lifesaver!)
+git reflog            # bn: সব HEAD পরিবর্তনের ইতিহাস</code></pre></div>
+
+    <h3>🔬 Tag ও Stash</h3>
+    <div class="code-wrap"><span class="lang">bash</span><pre><code># bn: version release চিহ্নিত করা
+git tag -a v1.0 -m "Release 1.0"
+git push origin v1.0
+
+# bn: অসম্পূর্ণ কাজ সরিয়ে রেখে branch পাল্টানো
+git stash              # সরাও
+git stash list         # তালিকা
+git stash pop          # ফিরিয়ে আনো</code></pre></div>
+
+    <div class="note tip">
+      <span class="tag">💡 Git ভেতরে কী রাখে</span>
+      প্রতিটি commit একটি snapshot (diff নয়) + parent commit-এর পয়েন্টার + unique SHA-1 hash। branch আসলে একটি commit-এর দিকে নির্দেশকারী হালকা পয়েন্টার মাত্র — তাই branch তৈরি/পরিবর্তন এত দ্রুত।
+    </div>
+
     <div class="note interview">
       <span class="tag">🎯 ইন্টারভিউ প্রশ্ন</span>
       <strong>Q:</strong> <code>merge</code> বনাম <code>rebase</code>? <br>
@@ -5118,6 +5178,62 @@ ch.subscribe(User("Tusher Ahmed"))
 ch.subscribe(User("Rahim"))
 ch.upload("Python Tutorial")
 # Tusher Ahmed পেল: Python Tutorial / Rahim পেল: ...</code></pre></div>
+
+    <h3>🔬 গভীরে: SOLID প্রতিটি উদাহরণসহ</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: O — Open/Closed: নতুন আকার যোগে পুরোনো কোড বদলাতে হয় না
+from abc import ABC, abstractmethod
+class Shape(ABC):
+    @abstractmethod
+    def area(self): ...
+class Circle(Shape):
+    def __init__(self, r): self.r = r
+    def area(self): return 3.14 * self.r**2
+class Square(Shape):
+    def __init__(self, s): self.s = s
+    def area(self): return self.s**2
+# bn: নতুন Triangle যোগ করতে শুধু নতুন ক্লাস — total_area() অপরিবর্তিত
+def total_area(shapes):
+    return sum(s.area() for s in shapes)   # bn: Shape-এর উপর নির্ভর
+
+# bn: D — Dependency Inversion: concrete নয়, abstraction-এর উপর নির্ভর
+class NotificationSender:
+    def __init__(self, channel):    # bn: channel inject করা হয়
+        self.channel = channel      # bn: Email/SMS যেকোনো কিছু
+    def send(self, msg):
+        self.channel.send(msg)</code></pre></div>
+    <div class="note tip">
+      <span class="tag">💡 L ও I সংক্ষেপে</span>
+      <strong>Liskov:</strong> child ক্লাস parent-এর জায়গায় বসালে প্রোগ্রাম ভাঙবে না (Square যদি Rectangle-এর setWidth ভেঙে দেয়, তবে Liskov লঙ্ঘন)। <strong>Interface Segregation:</strong> একটি বড় interface-এ সব method না রেখে ছোট ছোট নির্দিষ্ট interface — ক্লাসকে অপ্রয়োজনীয় method implement করতে বাধ্য কোরো না।
+    </div>
+
+    <h3>🔬 আরও Design Pattern</h3>
+    <h4>Strategy (Behavioral) — অ্যালগরিদম পাল্টানো যায়</h4>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: রানটাইমে আচরণ বদলানো (if-else এর পরিষ্কার বিকল্প)
+class PaymentContext:
+    def __init__(self, strategy):
+        self.strategy = strategy
+    def pay(self, amount):
+        return self.strategy(amount)
+
+bkash = lambda amt: f"bKash এ {amt} পরিশোধ"
+card  = lambda amt: f"Card এ {amt} পরিশোধ"
+print(PaymentContext(bkash).pay(500))   # bn: কৌশল inject</code></pre></div>
+
+    <h4>Adapter (Structural) — বেমানান interface মেলানো</h4>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: পুরোনো ক্লাসকে নতুন interface-এ মানানো
+class OldPrinter:
+    def print_old(self, text): return f"OLD: {text}"
+class PrinterAdapter:               # bn: adapter
+    def __init__(self, old): self.old = old
+    def print(self, text):          # bn: নতুন নাম
+        return self.old.print_old(text)
+p = PrinterAdapter(OldPrinter())
+print(p.print("hello"))             # OLD: hello</code></pre></div>
+
+    <div class="note tip">
+      <span class="tag">💡 Composition over Inheritance</span>
+      Inheritance (is-a) শক্ত বন্ধন তৈরি করে — parent বদলালে সব child ভাঙে। Composition (has-a) নমনীয়: একটি ক্লাস অন্য object ধারণ করে কাজ অর্পণ করে (delegation)। আধুনিক design-এ inheritance-এর চেয়ে composition পছন্দনীয়। Strategy pattern এর বাস্তব উদাহরণ।
+    </div>
 
     <h3>System Design বেসিক (intermediate)</h3>
     <p>বড় অ্যাপ ডিজাইনের মূল ধারণা — ইন্টারভিউতে আসা শুরু করে:</p>
