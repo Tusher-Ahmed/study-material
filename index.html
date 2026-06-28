@@ -3312,6 +3312,12 @@ print(fractional_knapsack([(60,10),(100,20),(120,30)], 50))  # 240.0</code></pre
     <h2>↔️ Two Pointers</h2>
     <p class="lead">দুটি index একসাথে চালিয়ে O(n²) সমাধানকে <span class="cx-good">O(n)</span> বানানো — FAANG-এর সবচেয়ে বেশি জিজ্ঞাসিত প্যাটার্নগুলোর একটি।</p>
 
+    <div class="note concept">
+      <span class="tag">🧩 কোন সমস্যা সমাধান করে</span>
+      <p>সাজানো array-তে জোড়া/triplet খোঁজা, palindrome চেক, in-place ডুপ্লিকেট সরানো, linked list-এ cycle/middle — যেখানে দুটো পয়েন্টার দিয়ে nested loop এড়ানো যায়।</p>
+      <span class="imagine">💡 <strong>কল্পনা করো:</strong> সাজানো সংখ্যার লাইনে দুজন দাঁড়িয়ে — একজন বাম প্রান্তে, একজন ডান প্রান্তে। তাদের যোগফল target থেকে বেশি হলে ডানজন এক ঘর বামে আসে (যোগফল কমে), কম হলে বামজন ডানে যায়। দুজন মাঝে মিলে গেলে শেষ — এক পাসেই O(n)। অথবা "fast-slow": একজন ২ ঘর, একজন ১ ঘর — linked list-এ loop ধরা বা মাঝ খোঁজার ট্রিক।</span>
+    </div>
+
     <h3>ধরন ১: দুই প্রান্ত থেকে (Opposite ends)</h3>
     <p>সাজানো array-তে জোড়া খোঁজা। বাম+ডান যোগ target থেকে বড় হলে ডান কমাও, ছোট হলে বাম বাড়াও।</p>
     <div class="code-wrap"><span class="lang">python</span><pre><code>def two_sum_sorted(arr, target):
@@ -3374,6 +3380,12 @@ left=2(4), right=3(5):  4+5 =9  == 9 → পেলাম! [2,3] ✅
   <section class="topic" id="slidingwindow">
     <h2>🪟 Sliding Window</h2>
     <p class="lead">একটি "জানালা" array/string-এর ওপর সরিয়ে নিয়ে যাওয়া — প্রতিটি উপাদান বারবার না গুনে। subarray/substring সমস্যার O(n²) → <span class="cx-good">O(n)</span>।</p>
+
+    <div class="note concept">
+      <span class="tag">🧩 কোন সমস্যা সমাধান করে</span>
+      <p>"পরপর (contiguous) উপাদানের" উপর কিছু খোঁজা — সর্বোচ্চ যোগফলের subarray, পুনরাবৃত্তিহীন দীর্ঘতম substring, "at most K" টাইপ। প্রতিটি window নতুন করে না গুনে আগেরটা থেকে আপডেট করা।</p>
+      <span class="imagine">💡 <strong>কল্পনা করো:</strong> চলন্ত ট্রেনের জানালা দিয়ে বাইরে তাকাচ্ছ — একটা নির্দিষ্ট দৃশ্যের অংশ দেখো। ট্রেন এগোলে ডানে নতুন দৃশ্য ঢোকে, বাঁয়ে পুরোনো বেরিয়ে যায় — পুরো দৃশ্য আবার দেখতে হয় না, শুধু পার্থক্যটুকু। তেমনি window ডানে বাড়াও (right++), শর্ত ভাঙলে বাঁ দিক টেনে ছোট করো (left++)। প্রতিটি উপাদান একবার ঢোকে একবার বেরোয় → O(n)।</span>
+    </div>
 
     <h3>ক্লাসিক: সর্বোচ্চ যোগফল (size k subarray)</h3>
     <div class="code-wrap"><span class="lang">python</span><pre><code>def max_sum_k(arr, k):
@@ -3445,6 +3457,12 @@ r=6 'b': → window="cb"...
   <section class="topic" id="backtracking">
     <h2>♟️ Backtracking</h2>
     <p class="lead">সব সম্ভাবনা পদ্ধতিগতভাবে চেষ্টা করা — একটা পথ ব্যর্থ হলে পিছিয়ে এসে (backtrack) অন্য পথ। permutation, subset, N-Queens, Sudoku-র মূল।</p>
+
+    <div class="note concept">
+      <span class="tag">🧩 কোন সমস্যা সমাধান করে</span>
+      <p>"সব সম্ভাব্য সমাধান বের করো / গোনো" বা "একটি বৈধ বিন্যাস খোঁজো" — permutation, subset, combination, N-Queens, Sudoku, word search, গোলকধাঁধার সব পথ।</p>
+      <span class="imagine">💡 <strong>কল্পনা করো:</strong> গোলকধাঁধায় হাঁটছ। প্রতিটি মোড়ে একটা পথ বেছে এগোও; দেয়ালে আটকে গেলে পিছিয়ে এসে (backtrack) অন্য পথ চেষ্টা করো — আগের সব মোড় মনে রেখে। এটাই decision tree-তে DFS: <em>choose → recurse → un-choose</em>। আর যে পথ কখনো সমাধানে নেবে না, সেটা আগেই বাদ দাও (pruning) — এতে বিশাল search space ছোট হয়।</span>
+    </div>
 
     <h3>টেমপ্লেট (মুখস্থ রাখুন)</h3>
     <div class="code-wrap"><span class="lang">python</span><pre><code># bn: choose -> explore -> un-choose
@@ -3535,6 +3553,12 @@ print(combination_sum([2,3,6,7], 7))   # [[2,2,3],[7]]</code></pre></div>
   <section class="topic" id="bitmanip">
     <h2>🔢 Bit Manipulation</h2>
     <p class="lead">সংখ্যাকে বাইনারি বিট হিসেবে দেখে কাজ করা — অবিশ্বাস্য দ্রুত (<span class="cx-good">O(1)</span>) ও মেমোরি-সাশ্রয়ী। FAANG-এ চতুর সমাধানের জন্য আসে।</p>
+
+    <div class="note concept">
+      <span class="tag">🧩 কোন সমস্যা সমাধান করে</span>
+      <p>"অতিরিক্ত মেমোরি ছাড়া", flag/set উপস্থাপন, জোড়ের মধ্যে একাকী খোঁজা, 2-এর ঘাত চেক, subset enumeration — যেখানে বিট-লেভেল চালাকি O(1) দেয়।</p>
+      <span class="imagine">💡 <strong>কল্পনা করো:</strong> ৮টি সুইচের একটা প্যানেল — প্রতিটি on/off। একটা সংখ্যাই (যার ৮টি বিট) পুরো প্যানেলের অবস্থা ধরে রাখে! তাই "কে কে উপস্থিত" বোঝাতে set-এর বদলে একটা int যথেষ্ট। আর XOR-এর জাদু: <code>a^a=0</code> — সব জোড়া মিলিয়ে XOR করলে শুধু একাকী সংখ্যাটাই বাকি থাকে (Single Number)। বিট দিয়ে ভাবলে অনেক সমস্যার চটজলদি O(1) সমাধান বেরিয়ে আসে।</span>
+    </div>
 
     <h3>মৌলিক অপারেটর</h3>
     <table class="cx-table">
@@ -3959,6 +3983,12 @@ find(0)==find(3)? root 0 vs 3 → False (আলাদা) ✓</code></pre></div>
     <h2>➕ Prefix Sum (সঞ্চিত যোগফল)</h2>
     <p class="lead">আগে থেকে cumulative sum হিসাব করে রাখলে যেকোনো range-এর যোগফল <span class="cx-good">O(1)</span> তে পাওয়া যায়। বারবার subarray যোগফল চাইলে এটি O(n²) কে O(n) বানায়।</p>
 
+    <div class="note concept">
+      <span class="tag">🧩 কোন সমস্যা সমাধান করে</span>
+      <p>যখন একই array-তে বারবার "i থেকে j পর্যন্ত যোগফল কত?" জিজ্ঞেস করা হয়, অথবা "যোগফল = k এমন subarray কয়টি" — তখন prefix sum।</p>
+      <span class="imagine">💡 <strong>কল্পনা করো:</strong> পরীক্ষার নম্বরের একটা চলমান মোট রাখলে — "অধ্যায় ৩ থেকে ৭ এর মোট নম্বর" পেতে শুধু (৭ পর্যন্ত মোট) − (২ পর্যন্ত মোট), আলাদা করে যোগ করতে হয় না। এই "আগে পর্যন্ত মোট জমিয়ে রাখা" দিয়ে যেকোনো range O(1)। আর hash map-এ আগের prefix রাখলে "যোগফল=k subarray" এক পাসে বের হয়।</span>
+    </div>
+
     <h3>মূল ধারণা</h3>
     <p><code>prefix[i]</code> = প্রথম i টি উপাদানের যোগফল। তাহলে index l থেকে r (inclusive) এর যোগফল = <code>prefix[r+1] - prefix[l]</code> — কোনো লুপ ছাড়াই।</p>
     <div class="code-wrap"><span class="lang">python</span><pre><code>def build_prefix(arr):
@@ -4005,6 +4035,12 @@ x=1: cur=3, cur-k=1  seen-এ আছে(1)! count+=1 → count=2 ✅</code></pre
   <section class="topic" id="monotonicstack">
     <h2>📈 Monotonic Stack</h2>
     <p class="lead">এমন stack যেখানে উপাদানগুলো সবসময় বাড়তে বা কমতে থাকা ক্রমে থাকে। "পরের বড়/ছোট উপাদান" টাইপ সমস্যায় O(n²) কে <span class="cx-good">O(n)</span> বানায়।</p>
+
+    <div class="note concept">
+      <span class="tag">🧩 কোন সমস্যা সমাধান করে</span>
+      <p>"প্রতিটি উপাদানের ডানে/বামে পরের বড় বা ছোট উপাদান কোনটি" — Daily Temperatures, stock span, histogram-এ সবচেয়ে বড় আয়তক্ষেত্র, trapping rain water।</p>
+      <span class="imagine">💡 <strong>কল্পনা করো:</strong> একদল মানুষ উচ্চতা অনুযায়ী লাইনে, প্রত্যেকে জানতে চায় "আমার ডানে প্রথম লম্বা লোক কে?"। তুমি একটা stack-এ এখনো উত্তর না-পাওয়া লোকদের রাখো (উচ্চতা কমন্ত ক্রমে)। নতুন একজন এলে, stack-এর যাদের চেয়ে সে লম্বা — তাদের উত্তর সে-ই! তাদের stack থেকে বের করে দাও। প্রতিজন একবার ঢোকে একবার বের হয় → O(n), যেখানে brute-force O(n²)।</span>
+    </div>
 
     <h3>ক্লাসিক: Next Greater Element</h3>
     <p>প্রতিটি উপাদানের ডানদিকে প্রথম বড় উপাদান কোনটি। stack-এ index রাখি; নতুন বড় মান এলে stack-এর ছোটগুলোর উত্তর সেট করি।</p>
