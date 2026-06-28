@@ -1363,6 +1363,49 @@ print(sum(squares))   # bn: এক সময়ে একটাই মান ম
       <tr><td>ব্যবহার</td><td>ছোট ডেটা, বারবার লাগে</td><td>বড়/অসীম স্ট্রিম</td></tr>
     </table>
 
+    <h3>🔬 গভীরে: সব ধরনের Comprehension</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: list / set / dict comprehension
+squares = [x*x for x in range(5)]            # list
+unique = {x % 3 for x in range(10)}          # set -> {0,1,2}
+sq_map = {x: x*x for x in range(5)}          # dict
+
+# bn: শর্ত সহ (filter)
+evens = [x for x in range(20) if x % 2 == 0]
+
+# bn: if-else (transform) -> for এর আগে বসে
+labels = ["জোড়" if x%2==0 else "বিজোড়" for x in range(5)]
+
+# bn: nested comprehension (2D flatten)
+matrix = [[1,2,3],[4,5,6]]
+flat = [x for row in matrix for x in row]    # [1,2,3,4,5,6]
+
+# bn: 2D grid তৈরি
+grid = [[0]*3 for _ in range(3)]</code></pre></div>
+
+    <h3>🔬 yield from ও Generator Pipeline</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: yield from -> আরেক generator থেকে সরাসরি yield
+def chain(*iterables):
+    for it in iterables:
+        yield from it
+print(list(chain([1,2], [3,4])))   # [1,2,3,4]
+
+# bn: pipeline — প্রতিটি ধাপ lazy, মেমোরি O(1)
+def read_nums(n):           # উৎস
+    for i in range(n): yield i
+def squared(nums):          # রূপান্তর
+    for x in nums: yield x*x
+def evens(nums):            # ফিল্টার
+    for x in nums:
+        if x % 2 == 0: yield x
+
+pipe = evens(squared(read_nums(10)))
+print(list(pipe))           # [0, 4, 16, 36, 64]</code></pre></div>
+
+    <div class="note tip">
+      <span class="tag">💡 Generator-এর হিসাব রাখা</span>
+      Generator একবারই চলে — শেষ হলে আবার লুপ করলে কিছু পাবে না। আবার লাগলে নতুন করে তৈরি করতে হবে। আর <code>len()</code> কাজ করে না (আগে থেকে জানা নেই কতগুলো আসবে)।
+    </div>
+
     <div class="note interview">
       <span class="tag">🎯 FAANG প্রশ্ন</span>
       <strong>Q:</strong> ১০ GB ফাইল লাইন বাই লাইন প্রসেস করবে কীভাবে? <br>
@@ -1419,6 +1462,58 @@ def fib(n):
     return fib(n-1) + fib(n-2)
 
 print(fib(100))   # bn: O(2ⁿ) থেকে O(n) — এক লাইনে!</code></pre></div>
+
+    <h3>🔬 গভীরে: Decorator with Arguments (তিন স্তর)</h3>
+    <p>decorator-কে নিজে আর্গুমেন্ট দিতে হলে আরেকটি লেয়ার লাগে — একটি ফাংশন যা decorator ফেরত দেয়।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>import functools
+
+def repeat(times):                    # bn: লেয়ার ১ — আর্গুমেন্ট নেয়
+    def decorator(func):              # bn: লেয়ার ২ — আসল decorator
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs): # bn: লেয়ার ৩ — মোড়ক
+            for _ in range(times):
+                result = func(*args, **kwargs)
+            return result
+        return wrapper
+    return decorator
+
+@repeat(times=3)
+def greet(name):
+    print(f"হ্যালো {name}")
+
+greet("Byron")   # bn: ৩ বার ছাপাবে</code></pre></div>
+
+    <h3>🔬 Decorator Stacking (একাধিক, ক্রম গুরুত্বপূর্ণ)</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>@decorator_a
+@decorator_b
+def func(): ...
+# bn: সমান -> func = decorator_a(decorator_b(func))
+# bn: কাছেরটা (b) আগে মোড়ে, তারপর a — নিচ থেকে উপরে</code></pre></div>
+
+    <h3>🔬 বাস্তব উদাহরণ: retry decorator</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>import functools, time
+def retry(attempts=3, delay=1):
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            for i in range(attempts):
+                try:
+                    return func(*args, **kwargs)
+                except Exception as e:
+                    print(f"চেষ্টা {i+1} ব্যর্থ: {e}")
+                    time.sleep(delay)
+            raise Exception("সব চেষ্টা ব্যর্থ")
+        return wrapper
+    return decorator
+
+@retry(attempts=3)
+def fetch_data():
+    ...   # bn: নেটওয়ার্ক কল যা মাঝে মাঝে fail করে</code></pre></div>
+
+    <div class="note warn">
+      <span class="tag">⚠️ functools.wraps কেন</span>
+      decorator ছাড়া <code>func.__name__</code> হয়ে যায় <code>"wrapper"</code>, docstring হারায়। <code>@functools.wraps(func)</code> মূল ফাংশনের নাম/doc সংরক্ষণ করে — সবসময় ব্যবহার করো।
+    </div>
 
     <div class="note interview">
       <span class="tag">🎯 FAANG প্রশ্ন</span>
@@ -1480,6 +1575,51 @@ print(D().hello())          # B (MRO অনুযায়ী)
 print([c.__name__ for c in D.__mro__])
 # ['D', 'B', 'C', 'A', 'object']</code></pre></div>
 
+    <h3>🔬 গভীরে: নিজের ক্লাসকে iterable বানানো</h3>
+    <p><code>__iter__</code> ও <code>__next__</code> দিলে তোমার object-এর ওপর <code>for</code> লুপ চালানো যায়।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>class Countdown:
+    def __init__(self, start): self.n = start
+    def __iter__(self): return self          # bn: iterator নিজে
+    def __next__(self):
+        if self.n <= 0:
+            raise StopIteration              # bn: শেষ সংকেত
+        self.n -= 1
+        return self.n + 1
+
+for x in Countdown(3):
+    print(x)        # 3 2 1</code></pre></div>
+
+    <h3>🔬 __getitem__, __setitem__, __contains__, __call__</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>class MyList:
+    def __init__(self): self.data = {}
+    def __getitem__(self, i): return self.data[i]   # obj[i]
+    def __setitem__(self, i, v): self.data[i] = v   # obj[i] = v
+    def __contains__(self, v): return v in self.data.values()  # in
+    def __len__(self): return len(self.data)        # len(obj)
+    def __call__(self, x): return x * 2             # obj(x) -> callable!
+
+m = MyList()
+m[0] = "hi"          # __setitem__
+print(m[0])          # __getitem__ -> hi
+print(len(m))        # 1
+print(m(5))          # 10 -> object কে ফাংশনের মতো ডাকা</code></pre></div>
+
+    <h3>🔬 Comparison Dunder + sorting</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>from functools import total_ordering
+@total_ordering              # bn: __eq__ ও __lt__ থেকে বাকিগুলো অটো
+class Version:
+    def __init__(self, major): self.major = major
+    def __eq__(self, o): return self.major == o.major
+    def __lt__(self, o): return self.major < o.major
+
+versions = [Version(3), Version(1), Version(2)]
+print([v.major for v in sorted(versions)])   # [1, 2, 3]</code></pre></div>
+
+    <div class="note warn">
+      <span class="tag">⚠️ __hash__ ও __eq__ জোড়া</span>
+      কোনো object dict-এর key বা set-এ রাখতে হলে <code>__hash__</code> দরকার। <code>__eq__</code> override করলে object আর hashable থাকে না (unless <code>__hash__</code>-ও দাও)। নিয়ম: <strong>সমান object-এর hash সমান হতে হবে</strong>।
+    </div>
+
     <div class="note interview">
       <span class="tag">🎯 FAANG প্রশ্ন</span>
       <strong>Q:</strong> <code>__slots__</code> কী এবং কেন? <br>
@@ -1537,6 +1677,36 @@ original[0][0] = 99
 print(shallow)   # [[99, 2], [3, 4]] -> প্রভাবিত!
 print(deep)      # [[1, 2], [3, 4]]  -> অক্ষত</code></pre></div>
 
+    <h3>🔬 গভীরে: Everything is an Object</h3>
+    <p>Python-এ সবকিছু — সংখ্যা, string, ফাংশন, ক্লাস, এমনকি মডিউল — একটি object। প্রতিটির <code>id()</code> (ঠিকানা), <code>type()</code> ও value আছে।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def f(): pass
+print(type(f))        # <class 'function'>
+f.custom = 10         # bn: ফাংশনেও attribute যোগ করা যায়!
+print(type(int))      # <class 'type'> -> ক্লাসও object</code></pre></div>
+
+    <h3>🔬 String Interning</h3>
+    <p>Python কিছু string (identifier-সদৃশ) cache করে রাখে, তাই একই মান একই object শেয়ার করে — মেমোরি ও তুলনা দ্রুত।</p>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>a = "hello"; b = "hello"
+print(a is b)         # True (interned)
+c = "hello world!"; d = "hello world!"
+print(c is d)         # False (স্পেস/চিহ্ন থাকলে সাধারণত নয়)
+# bn: তাই string তুলনা সবসময় == দিয়ে, is দিয়ে নয়</code></pre></div>
+
+    <h3>🔬 Memory পরিমাপ ও Garbage Collection</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>import sys
+print(sys.getsizeof(10))        # int এর বাইট সংখ্যা
+print(sys.getsizeof([1,2,3]))   # list এর
+
+import gc
+# bn: reference count 0 হলে সাথে সাথে মুক্ত (primary)
+# bn: cyclic reference (a->b->a) ধরতে generational GC
+gc.collect()                    # bn: ম্যানুয়ালি GC চালানো</code></pre></div>
+
+    <div class="note tip">
+      <span class="tag">💡 reference counting দেখা</span>
+      <code>sys.getrefcount(obj)</code> দিয়ে একটি object-এ কতগুলো reference আছে দেখা যায়। reference 0 হলে CPython তখনই মেমোরি মুক্ত করে। চক্রাকার reference (একে অপরকে ধরে রাখা) ধরতে আলাদা garbage collector আছে।
+    </div>
+
     <div class="note interview">
       <span class="tag">🎯 FAANG প্রশ্ন</span>
       <strong>Q:</strong> Python কীভাবে মেমোরি ম্যানেজ করে? <br>
@@ -1583,6 +1753,51 @@ print(heapq.heappop(heap))   # 1 -> সবসময় ছোটটা (min-heap
 print(list(permutations([1,2,3], 2)))   # সব সাজানো জোড়া
 print(list(combinations([1,2,3], 2)))   # সব নির্বাচন
 print(list(product([0,1], repeat=2)))   # কার্তেসীয় গুণফল</code></pre></div>
+
+    <h3>🔬 গভীরে: functools (reduce, partial)</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>from functools import reduce, partial
+
+# bn: reduce -> পুরো list কে একটি মানে নামিয়ে আনা
+product = reduce(lambda acc, x: acc * x, [1,2,3,4])   # 24
+total = reduce(lambda a, b: a + b, [1,2,3,4])         # 10
+
+# bn: partial -> ফাংশনের কিছু আর্গুমেন্ট আগে থেকে ঠিক করা
+def power(base, exp): return base ** exp
+square = partial(power, exp=2)
+print(square(5))     # 25</code></pre></div>
+
+    <h3>🔬 any() ও all() — শর্ত যাচাই</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>nums = [2, 4, 6, 8]
+print(all(x % 2 == 0 for x in nums))   # True -> সবাই জোড়?
+print(any(x > 5 for x in nums))        # True -> কেউ কি >5?
+# bn: লুপ+flag এর Pythonic বিকল্প</code></pre></div>
+
+    <h3>🔬 namedtuple ও sorted/min/max with key</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>from collections import namedtuple
+Point = namedtuple("Point", ["x", "y"])
+p = Point(3, 4)
+print(p.x, p.y)      # 3 4 -> tuple কিন্তু নাম দিয়ে অ্যাক্সেস
+
+# bn: key দিয়ে min/max -> object থেকে নির্দিষ্ট মান ধরে
+words = ["python", "go", "rust"]
+print(max(words, key=len))      # python (সবচেয়ে লম্বা)
+print(min(words, key=len))      # go
+
+people = [("A", 30), ("B", 25)]
+print(max(people, key=lambda p: p[1]))   # ('A', 30)</code></pre></div>
+
+    <h3>🔬 আরও Pythonic Idiom</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: dict থেকে frequency-র সর্বোচ্চ
+freq = {"a": 3, "b": 5, "c": 1}
+print(max(freq, key=freq.get))      # b
+
+# bn: list of tuples -> দুটি list (unzip)
+pairs = [(1, 'a'), (2, 'b'), (3, 'c')]
+nums, chars = zip(*pairs)           # (1,2,3), ('a','b','c')
+
+# bn: nested dict নিরাপদে অ্যাক্সেস
+config = {"db": {"host": "localhost"}}
+host = config.get("db", {}).get("host", "default")</code></pre></div>
 
     <div class="note tip">
       <span class="tag">💡 Pythonic বনাম C-style</span>
