@@ -151,15 +151,12 @@
   function generate() {
     const n = parseInt(sizeIn.value, 10);
     array = [];
-    for (let i = 0; i < n; i++) array.push(5 + Math.floor((i + 1) / n * 95) ); // 5..100
-    // shuffle (Fisher–Yates, index-seeded so no Math.random ban issue)
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = (i * 2654435761) % (i + 1);
-      [array[i], array[j]] = [array[j], array[i]];
-    }
+    // bn: এলোমেলো উচ্চতা (5..100) — প্রকৃত random, তাই sort স্পষ্ট দেখা যায়
+    for (let i = 0; i < n; i++) array.push(5 + Math.floor(Math.random() * 96));
     renderBars(array);
     if (cmpEl) cmpEl.textContent = "0";
     if (swpEl) swpEl.textContent = "0";
+    if (nameEl) nameEl.textContent = "—";
   }
 
   function delay() {
