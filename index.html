@@ -93,6 +93,9 @@
       <a class="nav-link" data-target="monotonicstack" data-keywords="monotonic stack next greater element histogram">📈 Monotonic Stack</a>
       <a class="nav-link" data-target="backtracking" data-keywords="backtracking permutation subset combination nqueens">♟️ Backtracking</a>
       <a class="nav-link" data-target="bitmanip" data-keywords="bit manipulation xor mask shift">🔢 Bit Manipulation</a>
+      <a class="nav-link" data-target="cyclicsort" data-keywords="cyclic sort missing number duplicate range">🔄 Cyclic Sort</a>
+      <a class="nav-link" data-target="twoheaps" data-keywords="two heaps median data stream find median">⚖️ Two Heaps</a>
+      <a class="nav-link" data-target="matrix" data-keywords="matrix 2d array spiral rotate grid traversal">🔲 Matrix / 2D</a>
     </div>
 
     <div class="nav-group">
@@ -2721,6 +2724,33 @@ print(coin_change([1,2,5], 6))   # 2</code></pre></div>
     <div class="note tip">
       <span class="tag">💡 কৌশল</span>
       ইন্টারভিউয়ে প্রথমে <strong>recursion লিখো</strong> (brute force), তারপর <code>@lru_cache</code> বা dict দিয়ে memoize করো — তাৎক্ষণিকভাবে DP হয়ে যায়। পরে চাইলে tabulation-এ রূপান্তর করো। এটাই সবচেয়ে নিরাপদ পথ।
+    </div>
+
+    <h3>🔬 Advanced DP প্রকারভেদ (হার্ড ইন্টারভিউ)</h3>
+    <ul>
+      <li><strong>1D DP:</strong> state এক ভেরিয়েবল (Climbing Stairs, House Robber)।</li>
+      <li><strong>2D DP:</strong> state দুই ভেরিয়েবল (LCS, Edit Distance, Knapsack, grid path)।</li>
+      <li><strong>Bitmask DP:</strong> state-এ "কোন উপাদানগুলো ব্যবহৃত" বিট দিয়ে রাখা — Traveling Salesman, "assign n tasks to n people"। state সংখ্যা 2ⁿ।</li>
+      <li><strong>Tree DP:</strong> গাছের প্রতিটি নোডে subtree-র উত্তর হিসাব (House Robber III, tree diameter)।</li>
+      <li><strong>Interval DP:</strong> state = একটি range [i,j] (Matrix Chain Multiplication, Burst Balloons)।</li>
+    </ul>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: Tree DP উদাহরণ — House Robber III (পাশাপাশি নোড নেওয়া যাবে না)
+def rob(root):
+    def dfs(node):
+        if not node: return (0, 0)   # (এই নোড নিলে, না নিলে)
+        L = dfs(node.left)
+        R = dfs(node.right)
+        take = node.val + L[1] + R[1]        # নিলে children বাদ
+        skip = max(L) + max(R)               # না নিলে children এর সেরা
+        return (take, skip)
+    return max(dfs(root))
+
+# bn: Bitmask DP কাঠামো — কোন কোন উপাদান ব্যবহৃত (mask)
+# dp[mask] = mask-এ থাকা উপাদান নিয়ে সেরা ফল
+# for mask in range(1<<n): for each unused bit i: dp[mask|1<<i] update</code></pre></div>
+    <div class="note tip">
+      <span class="tag">💡 DP state চেনার চাবি</span>
+      "কোন তথ্যগুলো জানলে বাকি সমস্যা স্বাধীনভাবে সমাধান করা যায়?" — সেই তথ্যগুলোই তোমার DP state। index? অবশিষ্ট capacity? কোনগুলো ব্যবহৃত (mask)? subtree? range? — state সঠিক ধরতে পারলে transition বেরিয়ে আসে।
     </div>
 
     <div class="note interview">
@@ -6157,6 +6187,194 @@ logging.error("ফাইল পাওয়া যায়নি")</code></pre>
     <div class="note tip">
       <span class="tag">💡 print বনাম logging</span>
       ছোট ডিবাগে <code>print</code> ঠিক আছে, কিন্তু বাস্তব অ্যাপে <code>logging</code> ব্যবহার করো — level (INFO/WARNING/ERROR) আলাদা করা যায়, ফাইলে সেভ করা যায়, timestamp থাকে, প্রোডাকশনে বন্ধ/চালু করা যায়।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= CYCLIC SORT ================= -->
+  <section class="topic" id="cyclicsort">
+    <h2>🔄 Cyclic Sort</h2>
+    <p class="lead">যখন array-তে <strong>১ থেকে n</strong> (বা ০ থেকে n-1) রেঞ্জের সংখ্যা থাকে — তখন প্রতিটি সংখ্যাকে তার "সঠিক index"-এ বসিয়ে O(n) সময়ে, O(1) extra জায়গায় সমাধান।</p>
+
+    <div class="note concept">
+      <span class="tag">🧩 কোন সমস্যা সমাধান করে</span>
+      <p>"১ থেকে n রেঞ্জের সংখ্যা, কিন্তু একটি missing / duplicate / ভুল জায়গায়" — missing number, find duplicate, first missing positive। সাজানো ছাড়াই O(n)।</p>
+      <span class="imagine">💡 <strong>কল্পনা করো:</strong> ক্লাসে রোল ১–৩০, কিন্তু সবাই এলোমেলো বসেছে। নিয়ম: প্রত্যেককে নিজের রোল নম্বরের চেয়ারে পাঠাও (রোল ৫ → ৫ নম্বর চেয়ার)। সবাই সঠিক চেয়ারে বসার পর — যে চেয়ারে ভুল লোক বা কেউ নেই, সেটাই missing/duplicate বলে দেয়! সংখ্যা = index বলেই এই ম্যাজিক।</span>
+    </div>
+
+    <h3>মূল কৌশল ও কোড</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def cyclic_sort(nums):
+    i = 0
+    while i < len(nums):
+        correct = nums[i] - 1          # bn: মান x এর সঠিক index = x-1
+        if nums[i] != nums[correct]:   # bn: ভুল জায়গায়? swap
+            nums[i], nums[correct] = nums[correct], nums[i]
+        else:
+            i += 1                     # bn: সঠিক জায়গায়, এগোও
+    return nums
+
+print(cyclic_sort([3, 1, 5, 4, 2]))   # [1, 2, 3, 4, 5]</code></pre></div>
+
+    <h3>প্রয়োগ: Missing Number ও Duplicate</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: প্রথমে cyclic sort, তারপর যে index এ ভুল = উত্তর
+def find_missing(nums):       # 0..n রেঞ্জে missing
+    i, n = 0, len(nums)
+    while i < n:
+        correct = nums[i]
+        if nums[i] < n and nums[i] != nums[correct]:
+            nums[i], nums[correct] = nums[correct], nums[i]
+        else:
+            i += 1
+    for i in range(n):
+        if nums[i] != i:
+            return i          # bn: এই index এ ভুল = missing
+    return n
+
+print(find_missing([4, 0, 3, 1]))   # 2</code></pre></div>
+    <p><strong>Time:</strong> <span class="cx-good">O(n)</span> • <strong>Space:</strong> <span class="cx-good">O(1)</span> (in-place, extra array নয়)।</p>
+
+    <div class="note interview">
+      <span class="tag">🎯 চিনবেন কীভাবে</span>
+      "১ থেকে n" বা "০ থেকে n-1" রেঞ্জ + array, এবং "missing", "duplicate", "first missing positive", "all numbers disappeared" — এসব দেখলেই cyclic sort ভাবো (extra space ছাড়া সমাধান চাইলে)।
+    </div>
+    <div class="note practice">
+      <span class="tag">📝 অনুশীলন</span>
+      <ul class="lc-list">
+        <li><a href="https://leetcode.com/problems/missing-number/" target="_blank" rel="noopener">268. Missing Number</a><span class="diff easy">Easy</span></li>
+        <li><a href="https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/" target="_blank" rel="noopener">448. Find All Numbers Disappeared</a><span class="diff easy">Easy</span></li>
+        <li><a href="https://leetcode.com/problems/find-the-duplicate-number/" target="_blank" rel="noopener">287. Find the Duplicate Number</a><span class="diff medium">Medium</span></li>
+        <li><a href="https://leetcode.com/problems/first-missing-positive/" target="_blank" rel="noopener">41. First Missing Positive</a><span class="diff hard">Hard</span></li>
+      </ul>
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= TWO HEAPS ================= -->
+  <section class="topic" id="twoheaps">
+    <h2>⚖️ Two Heaps</h2>
+    <p class="lead">দুটি heap (একটি max-heap, একটি min-heap) ব্যবহার করে চলমান ডেটার <strong>median</strong> বা মাঝ-সম্পর্কিত মান O(log n)-এ বের করা।</p>
+
+    <div class="note concept">
+      <span class="tag">🧩 কোন সমস্যা সমাধান করে</span>
+      <p>"স্ট্রিমে সংখ্যা আসছে, যেকোনো সময় median বলো", "sliding window median" — যেখানে ডেটাকে দুই অর্ধে ভাগ করে মাঝের মান দরকার।</p>
+      <span class="imagine">💡 <strong>কল্পনা করো:</strong> সংখ্যাগুলোকে দুই দলে ভাগ করো — ছোট অর্ধেক ও বড় অর্ধেক। ছোট দলের <em>সবচেয়ে বড়টা</em> (max-heap-এর top) আর বড় দলের <em>সবচেয়ে ছোটটা</em> (min-heap-এর top) — এই দুটোই median-এর প্রতিবেশী! দুই দল সমান (বা ১ পার্থক্য) রাখলে median সবসময় হাতের নাগালে — পুরো ডেটা সাজানোর দরকার নেই।</span>
+    </div>
+
+    <h3>Median of a Data Stream (ক্লাসিক)</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>import heapq
+class MedianFinder:
+    def __init__(self):
+        self.small = []   # bn: max-heap (নেগেটিভ করে), ছোট অর্ধেক
+        self.large = []   # bn: min-heap, বড় অর্ধেক
+
+    def add(self, num):
+        heapq.heappush(self.small, -num)            # আগে small এ
+        # bn: small এর top যেন large এর top ছাড়িয়ে না যায়
+        if self.small and self.large and (-self.small[0] > self.large[0]):
+            heapq.heappush(self.large, -heapq.heappop(self.small))
+        # bn: আকার ব্যালেন্স (পার্থক্য ≤ 1)
+        if len(self.small) > len(self.large) + 1:
+            heapq.heappush(self.large, -heapq.heappop(self.small))
+        elif len(self.large) > len(self.small) + 1:
+            heapq.heappush(self.small, -heapq.heappop(self.large))
+
+    def median(self):
+        if len(self.small) > len(self.large): return -self.small[0]
+        if len(self.large) > len(self.small): return self.large[0]
+        return (-self.small[0] + self.large[0]) / 2
+
+mf = MedianFinder()
+for x in [5, 15, 1, 3]:
+    mf.add(x)
+print(mf.median())   # 4.0</code></pre></div>
+    <p><strong>Time:</strong> add <span class="cx-good">O(log n)</span>, median <span class="cx-good">O(1)</span>।</p>
+
+    <div class="note interview">
+      <span class="tag">🎯 চিনবেন কীভাবে</span>
+      "median in a stream", "sliding window median", "ডেটাকে দুই ভাগে ভাগ করে মাঝের মান", "IPO/scheduling যেখানে দুই প্রান্তের চরম মান লাগে" — এসবে two heaps।
+    </div>
+    <div class="note practice">
+      <span class="tag">📝 অনুশীলন</span>
+      <ul class="lc-list">
+        <li><a href="https://leetcode.com/problems/find-median-from-data-stream/" target="_blank" rel="noopener">295. Find Median from Data Stream</a><span class="diff hard">Hard</span></li>
+        <li><a href="https://leetcode.com/problems/sliding-window-median/" target="_blank" rel="noopener">480. Sliding Window Median</a><span class="diff hard">Hard</span></li>
+        <li><a href="https://leetcode.com/problems/ipo/" target="_blank" rel="noopener">502. IPO</a><span class="diff hard">Hard</span></li>
+      </ul>
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= MATRIX / 2D ================= -->
+  <section class="topic" id="matrix">
+    <h2>🔲 Matrix / 2D Array</h2>
+    <p class="lead">2D গ্রিড নিয়ে কাজ — traversal, ঘোরানো, খোঁজা। ইন্টারভিউয়ে খুব কমন, আর index ম্যানিপুলেশন আয়ত্ত করার দারুণ অনুশীলন।</p>
+
+    <div class="note concept">
+      <span class="tag">🧩 কোন সমস্যা সমাধান করে</span>
+      <p>সারি-কলামের গ্রিড ডেটা — image (pixel), গেম বোর্ড, spreadsheet, maze। spiral traversal, ৯০° ঘোরানো, sorted matrix-এ খোঁজা, island গোনা (graph-এর সাথে যুক্ত)।</p>
+      <span class="imagine">💡 <strong>কল্পনা করো:</strong> দাবার বোর্ড — প্রতিটি ঘর <code>(row, col)</code> দিয়ে চেনা যায়। মূল চাবিকাঠি index গণিত: ডানে <code>col+1</code>, নিচে <code>row+1</code>; ৯০° ঘোরানো = "transpose তারপর প্রতিটি row উল্টানো"। index ঠিকঠাক সামলানোই অর্ধেক যুদ্ধ।</span>
+    </div>
+
+    <h3>মৌলিক Traversal</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>matrix = [[1,2,3],[4,5,6],[7,8,9]]
+rows, cols = len(matrix), len(matrix[0])
+for r in range(rows):
+    for c in range(cols):
+        print(matrix[r][c], end=" ")   # bn: row-by-row
+
+# bn: ৪ দিকের প্রতিবেশী (DFS/BFS এ লাগে)
+for dr, dc in [(1,0),(-1,0),(0,1),(0,-1)]:
+    nr, nc = r + dr, c + dc
+    if 0 <= nr < rows and 0 <= nc < cols:
+        ...   # bn: বৈধ প্রতিবেশী</code></pre></div>
+
+    <h3>Rotate 90° (ইন-প্লেস)</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def rotate(matrix):
+    n = len(matrix)
+    # bn: ধাপ ১ — transpose (row↔col)
+    for i in range(n):
+        for j in range(i+1, n):
+            matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+    # bn: ধাপ ২ — প্রতিটি row উল্টাও
+    for row in matrix:
+        row.reverse()
+    return matrix
+
+print(rotate([[1,2,3],[4,5,6],[7,8,9]]))
+# [[7,4,1],[8,5,2],[9,6,3]]</code></pre></div>
+
+    <h3>Spiral Traversal</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def spiral(matrix):
+    res = []
+    top, bottom = 0, len(matrix)-1
+    left, right = 0, len(matrix[0])-1
+    while top <= bottom and left <= right:
+        for c in range(left, right+1): res.append(matrix[top][c])   # →
+        top += 1
+        for r in range(top, bottom+1): res.append(matrix[r][right]) # ↓
+        right -= 1
+        if top <= bottom:
+            for c in range(right, left-1, -1): res.append(matrix[bottom][c]) # ←
+            bottom -= 1
+        if left <= right:
+            for r in range(bottom, top-1, -1): res.append(matrix[r][left])   # ↑
+            left += 1
+    return res
+print(spiral([[1,2,3],[4,5,6],[7,8,9]]))   # [1,2,3,6,9,8,7,4,5]</code></pre></div>
+
+    <div class="note interview">
+      <span class="tag">🎯 চিনবেন কীভাবে</span>
+      "grid/matrix", "image", "spiral", "rotate", "sorted 2D matrix search", "set zeroes", "island/region" — 2D index ম্যানিপুলেশন বা grid-as-graph (BFS/DFS)।
+    </div>
+    <div class="note practice">
+      <span class="tag">📝 অনুশীলন</span>
+      <ul class="lc-list">
+        <li><a href="https://leetcode.com/problems/spiral-matrix/" target="_blank" rel="noopener">54. Spiral Matrix</a><span class="diff medium">Medium</span></li>
+        <li><a href="https://leetcode.com/problems/rotate-image/" target="_blank" rel="noopener">48. Rotate Image</a><span class="diff medium">Medium</span></li>
+        <li><a href="https://leetcode.com/problems/set-matrix-zeroes/" target="_blank" rel="noopener">73. Set Matrix Zeroes</a><span class="diff medium">Medium</span></li>
+        <li><a href="https://leetcode.com/problems/search-a-2d-matrix/" target="_blank" rel="noopener">74. Search a 2D Matrix</a><span class="diff medium">Medium</span></li>
+        <li><a href="https://leetcode.com/problems/number-of-islands/" target="_blank" rel="noopener">200. Number of Islands</a><span class="diff medium">Medium</span></li>
+      </ul>
     </div>
     <div class="page-nav"><button>←</button><button>→</button></div>
   </section>
