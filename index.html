@@ -207,7 +207,7 @@ print("Hello, World!")
 print("আমি Python শিখছি")
 
 # bn: একাধিক জিনিস একসাথে ছাপানো যায়
-name = "Byron"
+name = "Tusher Ahmed"
 print("আমার নাম", name)</code></pre></div>
 
     <div class="note">
@@ -285,7 +285,7 @@ print(add.__doc__)   # bn: docstring দেখা যায়</code></pre></div
     <div class="code-wrap"><span class="lang">python</span><pre><code># bn: = চিহ্ন দিয়ে মান বসানো হয় (assignment)
 age = 25            # bn: পূর্ণসংখ্যা (integer)
 price = 99.50       # bn: দশমিক সংখ্যা (float)
-name = "Byron"      # bn: টেক্সট (string)
+name = "Tusher Ahmed"      # bn: টেক্সট (string)
 is_student = True   # bn: সত্য/মিথ্যা (boolean)
 
 # bn: type() দিয়ে টাইপ জানা যায়
@@ -577,7 +577,7 @@ print("Hello".find("l"))          # 2 -> প্রথম যেখানে প�
 print(len("Hello"))               # 5 -> দৈর্ঘ্য</code></pre></div>
 
     <h3>f-string দিয়ে ফরম্যাটিং (আধুনিক উপায়)</h3>
-    <div class="code-wrap"><span class="lang">python</span><pre><code>name = "Byron"
+    <div class="code-wrap"><span class="lang">python</span><pre><code>name = "Tusher Ahmed"
 age = 25
 # bn: f"" এর ভেতরে {} দিলে ভেরিয়েবলের মান বসে
 print(f"আমার নাম {name}, বয়স {age}")
@@ -788,8 +788,8 @@ def greet(name):           # bn: name হলো parameter
     return f"হ্যালো, {name}!"
 
 # bn: ফাংশন কল করা
-message = greet("Byron")   # bn: "Byron" হলো argument
-print(message)             # হ্যালো, Byron!
+message = greet("Tusher Ahmed")   # bn: "Tusher Ahmed" হলো argument
+print(message)             # হ্যালো, Tusher Ahmed!
 
 # bn: একাধিক ইনপুট ও হিসাব
 def add(a, b):
@@ -816,7 +816,7 @@ print(total(1, 2, 3, 4))   # 10
 def profile(**info):
     for key, value in info.items():
         print(f"{key}: {value}")
-profile(name="Byron", age=25)</code></pre></div>
+profile(name="Tusher Ahmed", age=25)</code></pre></div>
 
     <h3>Lambda — এক লাইনের ছোট ফাংশন</h3>
     <div class="code-wrap"><span class="lang">python</span><pre><code># bn: ছোট কাজের জন্য নামহীন ফাংশন
@@ -934,8 +934,8 @@ x, y = point          # bn: unpacking -> x=3, y=4
     <div class="note tip"><span class="tag">💡 কখন tuple?</span> যে ডেটা কখনো বদলাবে না (যেমন স্থানাঙ্ক, RGB রঙ)। Tuple list-এর চেয়ে সামান্য দ্রুত ও কম মেমোরি নেয়, আর dict-এর key হিসেবে ব্যবহার করা যায়।</div>
 
     <h3>৩. Dictionary — key:value জোড়া (সবচেয়ে শক্তিশালী)</h3>
-    <div class="code-wrap"><span class="lang">python</span><pre><code>student = {"name": "Byron", "age": 25, "cgpa": 3.8}
-print(student["name"])         # Byron -> O(1) তে অ্যাক্সেস!
+    <div class="code-wrap"><span class="lang">python</span><pre><code>student = {"name": "Tusher Ahmed", "age": 25, "cgpa": 3.8}
+print(student["name"])         # Tusher Ahmed -> O(1) তে অ্যাক্সেস!
 student["dept"] = "CSE"        # bn: নতুন যোগ
 student["age"] = 26            # bn: আপডেট
 print(student.get("phone", "নেই"))  # bn: না থাকলে default
@@ -1066,9 +1066,9 @@ for s in students:
         return f"{self.name} এর CGPA {self.cgpa}"
 
 # bn: অবজেক্ট তৈরি
-s1 = Student("Byron", 3.8)
+s1 = Student("Tusher Ahmed", 3.8)
 s2 = Student("Rahim", 3.5)
-print(s1.show())     # Byron এর CGPA 3.8
+print(s1.show())     # Tusher Ahmed এর CGPA 3.8
 print(s2.name)       # Rahim</code></pre></div>
 
     <h3>OOP-এর ৪টি স্তম্ভ</h3>
@@ -1481,7 +1481,7 @@ def repeat(times):                    # bn: লেয়ার ১ — আর্
 def greet(name):
     print(f"হ্যালো {name}")
 
-greet("Byron")   # bn: ৩ বার ছাপাবে</code></pre></div>
+greet("Tusher Ahmed")   # bn: ৩ বার ছাপাবে</code></pre></div>
 
     <h3>🔬 Decorator Stacking (একাধিক, ক্রম গুরুত্বপূর্ণ)</h3>
     <div class="code-wrap"><span class="lang">python</span><pre><code>@decorator_a
@@ -2643,6 +2643,50 @@ print(lis([10,9,2,5,3,7,101,18]))   # 4
     return dp[m][n]
 
 print(edit_distance("horse", "ros"))   # 3</code></pre></div>
+
+    <h3>🔬 গভীরে: যেকোনো DP সমাধানের ৪-ধাপ ফ্রেমওয়ার্ক</h3>
+    <p>DP কঠিন লাগে কারণ মানুষ এলোমেলোভাবে ভাবে। এই ৪ ধাপ অনুসরণ করলে যেকোনো DP সমাধান করা যায়:</p>
+    <ol>
+      <li><strong>State সংজ্ঞা:</strong> <code>dp[i]</code> বা <code>dp[i][j]</code> ঠিক কী বোঝায়? (যেমন "dp[i] = i টাকা বানাতে ন্যূনতম কয়েন")</li>
+      <li><strong>Transition (recurrence):</strong> ছোট state থেকে বড় state কীভাবে আসে? (যেমন <code>dp[i] = min(dp[i-coin]) + 1</code>)</li>
+      <li><strong>Base case:</strong> সবচেয়ে ছোট state-এর মান? (যেমন <code>dp[0] = 0</code>)</li>
+      <li><strong>ক্রম:</strong> কোন দিক থেকে টেবিল ভরব? (সাধারণত ছোট → বড়)</li>
+    </ol>
+
+    <h3>🔬 ধাপে ধাপে: Coin Change টেবিল কীভাবে ভরে</h3>
+    <p>coins = [1, 2, 5], amount = 6। লক্ষ্য: ন্যূনতম কয়েন। <code>dp[i]</code> = i টাকা বানাতে ন্যূনতম কয়েন।</p>
+    <div class="code-wrap"><span class="lang">text</span><pre><code>dp[0]=0 (০ টাকায় ০ কয়েন)
+dp[1]: coin 1 → dp[0]+1 = 1
+dp[2]: coin 1→dp[1]+1=2, coin 2→dp[0]+1=1 → min=1
+dp[3]: coin 1→dp[2]+1=2, coin 2→dp[1]+1=2 → min=2
+dp[4]: coin 2→dp[2]+1=2 → 2
+dp[5]: coin 5→dp[0]+1=1 → 1
+dp[6]: coin 1→dp[5]+1=2, coin 2→dp[4]+1=3, coin 5→dp[1]+1=2 → 2
+
+চূড়ান্ত টেবিল: [0, 1, 1, 2, 2, 1, 2]
+উত্তর dp[6] = 2  (5+1 অথবা 2+2+2 নয়, 5+1 সেরা) ✅</code></pre></div>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def coin_change(coins, amount):
+    dp = [float('inf')] * (amount + 1)
+    dp[0] = 0                          # bn: base case
+    for i in range(1, amount + 1):     # bn: ছোট → বড়
+        for coin in coins:
+            if coin <= i:
+                dp[i] = min(dp[i], dp[i - coin] + 1)  # transition
+    return dp[amount] if dp[amount] != float('inf') else -1
+
+print(coin_change([1,2,5], 6))   # 2</code></pre></div>
+
+    <h3>🔬 Memoization বনাম Tabulation — কোনটা কখন</h3>
+    <table class="cx-table">
+      <tr><th></th><th>Memoization (Top-Down)</th><th>Tabulation (Bottom-Up)</th></tr>
+      <tr><td>স্টাইল</td><td>recursion + cache</td><td>লুপ + টেবিল</td></tr>
+      <tr><td>সুবিধা</td><td>লেখা সহজ, শুধু দরকারি state হিসাব</td><td>stack overflow নেই, দ্রুত</td></tr>
+      <tr><td>অসুবিধা</td><td>recursion depth সীমা</td><td>সব state হিসাব করে</td></tr>
+    </table>
+    <div class="note tip">
+      <span class="tag">💡 কৌশল</span>
+      ইন্টারভিউয়ে প্রথমে <strong>recursion লিখো</strong> (brute force), তারপর <code>@lru_cache</code> বা dict দিয়ে memoize করো — তাৎক্ষণিকভাবে DP হয়ে যায়। পরে চাইলে tabulation-এ রূপান্তর করো। এটাই সবচেয়ে নিরাপদ পথ।
+    </div>
 
     <div class="note interview">
       <span class="tag">🎯 ইন্টারভিউ টিপ</span>
@@ -4247,7 +4291,7 @@ for bucket in s3.list_buckets()['Buckets']:
 
     <h3>প্রথম সেটআপ (একবারই)</h3>
     <div class="code-wrap"><span class="lang">bash</span><pre><code># bn: তোমার নাম ও ইমেইল সেট করো
-git config --global user.name "Byron"
+git config --global user.name "Tusher Ahmed"
 git config --global user.email "byron@example.com"</code></pre></div>
 
     <h3>মৌলিক কাজের চক্র (সবচেয়ে দরকারি)</h3>
@@ -4427,10 +4471,10 @@ class User:
         print(f"{self.name} পেল: {video}")
 
 ch = Channel()
-ch.subscribe(User("Byron"))
+ch.subscribe(User("Tusher Ahmed"))
 ch.subscribe(User("Rahim"))
 ch.upload("Python Tutorial")
-# Byron পেল: Python Tutorial / Rahim পেল: ...</code></pre></div>
+# Tusher Ahmed পেল: Python Tutorial / Rahim পেল: ...</code></pre></div>
 
     <h3>System Design বেসিক (intermediate)</h3>
     <p>বড় অ্যাপ ডিজাইনের মূল ধারণা — ইন্টারভিউতে আসা শুরু করে:</p>
