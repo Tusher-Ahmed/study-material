@@ -122,6 +122,13 @@
     </div>
 
     <div class="nav-group">
+      <div class="nav-title">💻 CS Fundamentals</div>
+      <a class="nav-link" data-target="sql" data-keywords="sql database dbms join group by index normalization transaction acid query select">🗄️ SQL ও Database</a>
+      <a class="nav-link" data-target="os" data-keywords="operating system process thread deadlock scheduling memory paging os">⚙️ Operating System</a>
+      <a class="nav-link" data-target="networks" data-keywords="computer network tcp ip http https dns osi model networking">🌐 Computer Networks</a>
+    </div>
+
+    <div class="nav-group">
       <div class="nav-title">ইন্টারভিউ</div>
       <a class="nav-link" data-target="interview" data-keywords="interview question tips cheatsheet faang">🎯 ইন্টারভিউ গাইড</a>
     </div>
@@ -5631,6 +5638,278 @@ GET  /{shortcode}                → 301 redirect
     <div class="note interview">
       <span class="tag">🎯 সবচেয়ে গুরুত্বপূর্ণ পরামর্শ</span>
       System Design-এ মুখস্থ কাজ করে না — <strong>building block গুলো (LB, cache, DB, queue, sharding) গভীরভাবে বুঝে</strong>, প্রশ্ন অনুযায়ী জোড়া লাগানোর অনুশীলন করো। জোরে চিন্তা করো, trade-off বলো — এটাই সিনিয়র সিগন্যাল।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= SQL / DATABASE ================= -->
+  <section class="topic" id="sql">
+    <h2>🗄️ SQL ও Database (DBMS)</h2>
+    <p class="lead">SQL = Structured Query Language — relational database-এর সাথে কথা বলার ভাষা। প্রায় <strong>প্রতিটি চাকরির ইন্টারভিউ</strong> ও বাস্তব কাজে লাগে। DSA-র পর এটাই সবচেয়ে দরকারি স্কিল।</p>
+
+    <div class="note concept">
+      <span class="tag">🧩 কোন সমস্যা সমাধান করে</span>
+      <p>বিপুল পরিমাণ গঠিত (structured) ডেটা — user, order, product — টেবিলে সাজিয়ে রাখা ও দ্রুত খোঁজা/ফিল্টার/যোগফল বের করা। "সবচেয়ে বেশি বিক্রি হওয়া পণ্য?", "প্রতি শহরে কতজন গ্রাহক?" — সব SQL query।</p>
+      <span class="imagine">💡 <strong>কল্পনা করো:</strong> Excel শিট কিন্তু অনেক শক্তিশালী — একাধিক শিট (টেবিল) একে অপরের সাথে সম্পর্কিত (relation)। SQL দিয়ে তুমি ইংরেজির মতো প্রশ্ন করো: "যেসব গ্রাহকের বয়স ৩০+, তাদের নাম দেখাও, বয়স অনুযায়ী সাজিয়ে" → <code>SELECT name FROM users WHERE age > 30 ORDER BY age</code>। তুমি <em>কী চাও</em> বলো, <em>কীভাবে</em> আনবে সেটা database ইঞ্জিন ঠিক করে (declarative)।</span>
+    </div>
+
+    <h3>মূল ধারণা: টেবিল, Row, Column</h3>
+    <p>Database = টেবিলের সংগ্রহ। প্রতিটি টেবিলে <strong>row</strong> (রেকর্ড) ও <strong>column</strong> (ফিল্ড)। প্রতিটি row-কে অনন্যভাবে চেনায় <strong>Primary Key</strong>; অন্য টেবিলের সাথে সম্পর্ক রাখে <strong>Foreign Key</strong>।</p>
+
+    <h3>১. মৌলিক Query (SELECT)</h3>
+    <div class="code-wrap"><span class="lang">sql</span><pre><code>-- bn: নির্দিষ্ট column বাছাই
+SELECT name, age FROM users;
+
+-- bn: সব column
+SELECT * FROM users;
+
+-- bn: শর্ত (WHERE)
+SELECT * FROM users WHERE age > 25 AND city = 'Dhaka';
+
+-- bn: সাজানো ও সীমা
+SELECT * FROM users ORDER BY age DESC LIMIT 5;
+
+-- bn: অনন্য মান, প্যাটার্ন, রেঞ্জ
+SELECT DISTINCT city FROM users;
+SELECT * FROM users WHERE name LIKE 'A%';      -- A দিয়ে শুরু
+SELECT * FROM users WHERE age BETWEEN 20 AND 30;
+SELECT * FROM users WHERE city IN ('Dhaka','Khulna');</code></pre></div>
+
+    <h3>২. Aggregate ও GROUP BY</h3>
+    <div class="code-wrap"><span class="lang">sql</span><pre><code>-- bn: গণনা, যোগফল, গড়, সর্বোচ্চ
+SELECT COUNT(*), AVG(age), MAX(age) FROM users;
+
+-- bn: গ্রুপ করে হিসাব — "প্রতি শহরে কতজন"
+SELECT city, COUNT(*) AS total
+FROM users
+GROUP BY city;
+
+-- bn: HAVING -> গ্রুপের উপর শর্ত (WHERE হয় row-তে, HAVING গ্রুপে)
+SELECT city, COUNT(*) AS total
+FROM users
+GROUP BY city
+HAVING COUNT(*) > 10;</code></pre></div>
+    <div class="note tip">
+      <span class="tag">💡 WHERE বনাম HAVING</span>
+      <code>WHERE</code> গ্রুপিং-এর <em>আগে</em> প্রতিটি row ফিল্টার করে; <code>HAVING</code> গ্রুপিং-এর <em>পরে</em> গ্রুপের উপর শর্ত দেয় (aggregate ব্যবহার করা যায়)। Query চলার ক্রম: FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY।
+    </div>
+
+    <h3>৩. JOIN — একাধিক টেবিল মেলানো (অত্যন্ত গুরুত্বপূর্ণ)</h3>
+    <table class="cx-table">
+      <tr><th>JOIN</th><th>কী ফেরত দেয়</th></tr>
+      <tr><td><strong>INNER JOIN</strong></td><td>দুই টেবিলেই মিল আছে এমন row</td></tr>
+      <tr><td><strong>LEFT JOIN</strong></td><td>বাম টেবিলের সব + ডানের মিল (না মিললে NULL)</td></tr>
+      <tr><td><strong>RIGHT JOIN</strong></td><td>ডান টেবিলের সব + বামের মিল</td></tr>
+      <tr><td><strong>FULL OUTER JOIN</strong></td><td>দুই টেবিলের সব row</td></tr>
+    </table>
+    <div class="code-wrap"><span class="lang">sql</span><pre><code>-- bn: প্রতিটি order এর সাথে গ্রাহকের নাম (দুই টেবিল মেলানো)
+SELECT orders.id, users.name, orders.amount
+FROM orders
+INNER JOIN users ON orders.user_id = users.id;
+
+-- bn: সব গ্রাহক + তাদের order (order না থাকলেও গ্রাহক দেখাবে)
+SELECT users.name, orders.amount
+FROM users
+LEFT JOIN orders ON users.id = orders.user_id;</code></pre></div>
+
+    <h3>৪. Subquery ও Window Function</h3>
+    <div class="code-wrap"><span class="lang">sql</span><pre><code>-- bn: subquery -> গড়ের চেয়ে বেশি বয়সী
+SELECT name FROM users
+WHERE age > (SELECT AVG(age) FROM users);
+
+-- bn: window function -> প্রতি শহরে বয়স অনুযায়ী র‍্যাঙ্ক
+SELECT name, city, age,
+       RANK() OVER (PARTITION BY city ORDER BY age DESC) AS rnk
+FROM users;</code></pre></div>
+
+    <h3>৫. ক্লাসিক ইন্টারভিউ Query: ২য় সর্বোচ্চ বেতন</h3>
+    <div class="code-wrap"><span class="lang">sql</span><pre><code>-- bn: উপায় ১ — subquery
+SELECT MAX(salary) FROM employees
+WHERE salary < (SELECT MAX(salary) FROM employees);
+
+-- bn: উপায় ২ — DISTINCT + LIMIT OFFSET
+SELECT DISTINCT salary FROM employees
+ORDER BY salary DESC LIMIT 1 OFFSET 1;
+
+-- bn: ডুপ্লিকেট ইমেইল খোঁজা
+SELECT email, COUNT(*) FROM users
+GROUP BY email HAVING COUNT(*) > 1;</code></pre></div>
+
+    <h3>৬. INSERT / UPDATE / DELETE (DML)</h3>
+    <div class="code-wrap"><span class="lang">sql</span><pre><code>INSERT INTO users (name, age, city) VALUES ('Tusher', 25, 'Dhaka');
+UPDATE users SET age = 26 WHERE name = 'Tusher';
+DELETE FROM users WHERE age < 18;</code></pre></div>
+
+    <h3>৭. Normalization (ডেটা সুসংগঠিত করা)</h3>
+    <ul>
+      <li><strong>1NF:</strong> প্রতিটি cell-এ একটিমাত্র মান (atomic), কোনো repeating group নয়।</li>
+      <li><strong>2NF:</strong> 1NF + প্রতিটি non-key column পুরো primary key-এর উপর নির্ভরশীল।</li>
+      <li><strong>3NF:</strong> 2NF + কোনো non-key column অন্য non-key column-এর উপর নির্ভরশীল নয় (transitive dependency নেই)।</li>
+    </ul>
+    <p>লক্ষ্য: ডেটার পুনরাবৃত্তি (redundancy) ও anomaly কমানো। বেশি normalize করলে অনেক JOIN লাগে — তাই কখনো কখনো denormalize করা হয় (পারফরম্যান্সের জন্য)।</p>
+
+    <h3>৮. Index — দ্রুত খোঁজা</h3>
+    <p>Index (সাধারণত B-tree) একটি column-এ থাকলে খোঁজা O(n) থেকে O(log n) হয় — বইয়ের index-এর মতো। কিন্তু write ধীর করে ও জায়গা নেয়, তাই সব column-এ নয়, যেগুলোতে বেশি WHERE/JOIN হয় সেগুলোতে।</p>
+    <div class="code-wrap"><span class="lang">sql</span><pre><code>CREATE INDEX idx_email ON users(email);</code></pre></div>
+
+    <h3>৯. Transaction ও ACID</h3>
+    <p>Transaction = কয়েকটি অপারেশন একসাথে "সব হবে নয়তো কিছুই না" (যেমন ব্যাংক ট্রান্সফার — এক অ্যাকাউন্ট থেকে কাটা + আরেকটিতে যোগ)।</p>
+    <div class="code-wrap"><span class="lang">sql</span><pre><code>BEGIN;
+UPDATE accounts SET balance = balance - 500 WHERE id = 1;
+UPDATE accounts SET balance = balance + 500 WHERE id = 2;
+COMMIT;   -- bn: সব সফল হলে স্থায়ী; সমস্যা হলে ROLLBACK</code></pre></div>
+    <table class="cx-table">
+      <tr><th>ACID</th><th>মানে</th></tr>
+      <tr><td><strong>A</strong>tomicity</td><td>সব হবে নয়তো কিছুই না</td></tr>
+      <tr><td><strong>C</strong>onsistency</td><td>ডেটা সবসময় বৈধ অবস্থায়</td></tr>
+      <tr><td><strong>I</strong>solation</td><td>সমান্তরাল transaction একে অপরকে নষ্ট করে না</td></tr>
+      <tr><td><strong>D</strong>urability</td><td>commit হলে স্থায়ী (crash-এও থাকে)</td></tr>
+    </table>
+
+    <h3>১০. SQL বনাম NoSQL</h3>
+    <table class="cx-table">
+      <tr><th></th><th>SQL (relational)</th><th>NoSQL</th></tr>
+      <tr><td>গঠন</td><td>কঠোর schema, টেবিল</td><td>নমনীয় (document/key-value/graph)</td></tr>
+      <tr><td>Scaling</td><td>vertical</td><td>horizontal সহজ</td></tr>
+      <tr><td>Transaction</td><td>শক্তিশালী ACID</td><td>সাধারণত eventual consistency</td></tr>
+      <tr><td>কখন</td><td>জটিল সম্পর্ক, আর্থিক লেনদেন</td><td>বিশাল scale, নমনীয় ডেটা</td></tr>
+    </table>
+
+    <div class="note interview">
+      <span class="tag">🎯 ইন্টারভিউ প্রশ্ন</span>
+      <strong>Q:</strong> <code>DELETE</code>, <code>TRUNCATE</code>, <code>DROP</code> পার্থক্য? <br>
+      <strong>A:</strong> <code>DELETE</code> — নির্দিষ্ট row মুছে (WHERE সহ, rollback করা যায়)। <code>TRUNCATE</code> — সব row দ্রুত মুছে (structure থাকে, rollback কঠিন)। <code>DROP</code> — পুরো টেবিলই মুছে ফেলে। <br><br>
+      <strong>Q:</strong> Primary Key বনাম Unique Key? <br>
+      <strong>A:</strong> Primary Key — অনন্য + NULL নয় + টেবিলে একটিই। Unique Key — অনন্য কিন্তু একটি NULL allowed, একাধিক থাকতে পারে।
+    </div>
+
+    <div class="note practice">
+      <span class="tag">📝 অনুশীলন — সমজাতীয় সমস্যা</span>
+      <ul class="lc-list">
+        <li><a href="https://leetcode.com/problems/second-highest-salary/" target="_blank" rel="noopener">176. Second Highest Salary</a><span class="diff medium">Medium</span></li>
+        <li><a href="https://leetcode.com/problems/combine-two-tables/" target="_blank" rel="noopener">175. Combine Two Tables</a><span class="diff easy">Easy</span></li>
+        <li><a href="https://leetcode.com/problems/duplicate-emails/" target="_blank" rel="noopener">182. Duplicate Emails</a><span class="diff easy">Easy</span></li>
+        <li><a href="https://leetcode.com/problems/employees-earning-more-than-their-managers/" target="_blank" rel="noopener">181. Employees Earning More Than Managers</a><span class="diff easy">Easy</span></li>
+        <li><a href="https://leetcode.com/problems/department-highest-salary/" target="_blank" rel="noopener">184. Department Highest Salary</a><span class="diff medium">Medium</span></li>
+        <li><a href="https://leetcode.com/problems/rank-scores/" target="_blank" rel="noopener">178. Rank Scores</a><span class="diff medium">Medium</span></li>
+      </ul>
+      <p style="margin:12px 0 2px;color:var(--text-dim);font-size:13px;">✍️ অনুশীলন: <a href="https://sqlbolt.com" target="_blank">SQLBolt</a> (ইন্টারঅ্যাক্টিভ) ও LeetCode-এর Database ট্র্যাক।</p>
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= OPERATING SYSTEM ================= -->
+  <section class="topic" id="os">
+    <h2>⚙️ Operating System (OS)</h2>
+    <p class="lead">OS হলো কম্পিউটারের হার্ডওয়্যার ও সফটওয়্যারের মধ্যকার ব্যবস্থাপক — process, memory, file, device সব সামলায়। MSc ও ইন্টারভিউ থিওরিতে নিয়মিত আসে।</p>
+
+    <div class="note concept">
+      <span class="tag">🧩 কী ও কেন</span>
+      <p>একাধিক প্রোগ্রাম একই CPU/RAM শেয়ার করে চলে কীভাবে? কে কখন CPU পাবে, মেমোরি কীভাবে ভাগ হবে, দুটো প্রোগ্রাম একই রিসোর্স চাইলে কী হবে — এসব ব্যবস্থাপনাই OS-এর কাজ।</p>
+      <span class="imagine">💡 <strong>কল্পনা করো:</strong> OS একজন রেস্টুরেন্ট ম্যানেজার — অনেক অর্ডার (process), সীমিত রাঁধুনি (CPU) ও টেবিল (memory)। কে আগে রান্না হবে (scheduling), কোন টেবিল কাকে দেওয়া হবে (memory management), দুই ওয়েটার একই থালা চাইলে ঝামেলা (deadlock) — সব ম্যানেজার সামলায়।</span>
+    </div>
+
+    <h3>Process বনাম Thread (সবচেয়ে কমন প্রশ্ন)</h3>
+    <table class="cx-table">
+      <tr><th></th><th>Process</th><th>Thread</th></tr>
+      <tr><td>কী</td><td>চলমান একটি প্রোগ্রাম</td><td>process-এর ভেতরে ছোট execution unit</td></tr>
+      <tr><td>মেমোরি</td><td>নিজস্ব আলাদা মেমোরি</td><td>process-এর মেমোরি শেয়ার করে</td></tr>
+      <tr><td>যোগাযোগ</td><td>কঠিন (IPC লাগে)</td><td>সহজ (শেয়ার্ড মেমোরি)</td></tr>
+      <tr><td>খরচ</td><td>ভারী (context switch দামি)</td><td>হালকা</td></tr>
+      <tr><td>ক্র্যাশ</td><td>একটি ক্র্যাশে অন্যরা অক্ষত</td><td>একটি thread ক্র্যাশে পুরো process পড়তে পারে</td></tr>
+    </table>
+
+    <h3>Process State ও CPU Scheduling</h3>
+    <p>একটি process-এর অবস্থা: New → Ready → Running → Waiting → Terminated। CPU একসাথে একটিই process চালায়, তাই কে আগে পাবে ঠিক করতে <strong>scheduling algorithm</strong>:</p>
+    <table class="cx-table">
+      <tr><th>অ্যালগরিদম</th><th>নিয়ম</th></tr>
+      <tr><td>FCFS</td><td>First Come First Served (লাইন ধরে)</td></tr>
+      <tr><td>SJF</td><td>Shortest Job First (ছোট কাজ আগে)</td></tr>
+      <tr><td>Round Robin</td><td>প্রত্যেকে নির্দিষ্ট time slice (fair, interactive)</td></tr>
+      <tr><td>Priority</td><td>অগ্রাধিকার অনুযায়ী</td></tr>
+    </table>
+
+    <h3>Concurrency সমস্যা: Race Condition, Deadlock</h3>
+    <ul>
+      <li><strong>Race Condition:</strong> একাধিক thread একই ডেটা একসাথে বদলালে ভুল ফল। সমাধান: <strong>mutex/lock, semaphore</strong> (critical section রক্ষা)।</li>
+      <li><strong>Deadlock:</strong> দুই process একে অপরের ধরে রাখা রিসোর্সের জন্য চিরকাল অপেক্ষা। ৪টি শর্ত একসাথে লাগে (Coffman): Mutual exclusion, Hold &amp; wait, No preemption, Circular wait। যেকোনো একটি ভাঙলে deadlock এড়ানো যায়।</li>
+    </ul>
+    <div class="note tip">
+      <span class="tag">💡 Mutex বনাম Semaphore</span>
+      <strong>Mutex:</strong> একটিমাত্র thread-কে অ্যাক্সেস দেয় (lock/unlock, একই thread)। <strong>Semaphore:</strong> একটি counter — নির্দিষ্ট সংখ্যক thread-কে একসাথে অ্যাক্সেস দিতে পারে (binary semaphore ≈ mutex)।
+    </div>
+
+    <h3>Memory Management: Virtual Memory ও Paging</h3>
+    <ul>
+      <li><strong>Virtual Memory:</strong> প্রতিটি process মনে করে তার কাছে পুরো মেমোরি আছে — আসলে OS ভার্চুয়াল ঠিকানাকে ফিজিক্যাল ঠিকানায় ম্যাপ করে।</li>
+      <li><strong>Paging:</strong> মেমোরিকে সমান টুকরো (page) করে ভাগ — fragmentation কমায়। দরকারি page RAM-এ, বাকি disk-এ (swap)।</li>
+      <li><strong>Page Fault:</strong> দরকারি page RAM-এ না থাকলে disk থেকে আনা (ধীর)। <strong>Thrashing:</strong> অতিরিক্ত page fault-এ সিস্টেম ঝুলে যাওয়া।</li>
+    </ul>
+
+    <div class="note interview">
+      <span class="tag">🎯 ইন্টারভিউ প্রশ্ন</span>
+      <strong>Q:</strong> Context switch কী? <br>
+      <strong>A:</strong> CPU এক process/thread থেকে আরেকটিতে যাওয়ার সময় বর্তমানটির অবস্থা (register, program counter) সেভ করে পরেরটির অবস্থা লোড করে — এটিই context switch। এতে overhead হয়, তাই thread (হালকা) process-এর চেয়ে দ্রুত switch হয়। <br><br>
+      <strong>Q:</strong> User mode বনাম Kernel mode? <br>
+      <strong>A:</strong> Kernel mode-এ OS-এর সব হার্ডওয়্যার অ্যাক্সেস; user mode-এ সীমিত (নিরাপত্তা)। system call করলে user → kernel mode-এ switch হয়।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
+  <!-- ================= COMPUTER NETWORKS ================= -->
+  <section class="topic" id="networks">
+    <h2>🌐 Computer Networks</h2>
+    <p class="lead">কম্পিউটারগুলো কীভাবে একে অপরের সাথে কথা বলে — ইন্টারনেট, ওয়েব, API সবের ভিত্তি। ইন্টারভিউ ও MSc-তে আবশ্যক।</p>
+
+    <div class="note concept">
+      <span class="tag">🧩 কী ও কেন</span>
+      <p>তোমার ব্রাউজার কীভাবে হাজার মাইল দূরের সার্ভার থেকে পেজ আনে? ডেটা কীভাবে নিরাপদে, সঠিক ক্রমে, সঠিক ঠিকানায় পৌঁছায় — এই নিয়মগুলোই (protocol) নেটওয়ার্কিং।</p>
+      <span class="imagine">💡 <strong>কল্পনা করো:</strong> চিঠি পাঠানোর সিস্টেম — খাম (packet), ঠিকানা (IP), ডাকঘরের ধাপ (router), রেজিস্টার্ড ডাক যা নিশ্চিত পৌঁছায় (TCP) বনাম সাধারণ পোস্টকার্ড দ্রুত কিন্তু গ্যারান্টি নেই (UDP)। প্রতিটি স্তর (layer) নিজের কাজ করে — তুমি চিঠি লেখো, বাকি ডেলিভারি নিচের স্তরগুলো সামলায়।</span>
+    </div>
+
+    <h3>OSI 7 Layer ও TCP/IP Model</h3>
+    <p>নেটওয়ার্কিং স্তরে স্তরে কাজ করে — প্রতিটি স্তর নিচেরটির উপর নির্ভর করে:</p>
+    <table class="cx-table">
+      <tr><th>Layer (OSI)</th><th>কাজ</th><th>উদাহরণ</th></tr>
+      <tr><td>7. Application</td><td>ব্যবহারকারীর অ্যাপ</td><td>HTTP, FTP, DNS</td></tr>
+      <tr><td>4. Transport</td><td>নির্ভরযোগ্য ডেলিভারি, port</td><td>TCP, UDP</td></tr>
+      <tr><td>3. Network</td><td>routing, ঠিকানা</td><td>IP</td></tr>
+      <tr><td>2. Data Link</td><td>পাশের ডিভাইসে ফ্রেম</td><td>Ethernet, MAC</td></tr>
+      <tr><td>1. Physical</td><td>বিট → সিগন্যাল (তার/তরঙ্গ)</td><td>cable, WiFi</td></tr>
+    </table>
+    <p><small>(Layer 5-6, Session ও Presentation, TCP/IP মডেলে Application-এর সাথে মিলে যায়।)</small></p>
+
+    <h3>TCP বনাম UDP (সবচেয়ে কমন প্রশ্ন)</h3>
+    <table class="cx-table">
+      <tr><th></th><th>TCP</th><th>UDP</th></tr>
+      <tr><td>সংযোগ</td><td>connection-based (handshake)</td><td>connectionless</td></tr>
+      <tr><td>নির্ভরযোগ্যতা</td><td>গ্যারান্টিড, ক্রমে, error-check</td><td>গ্যারান্টি নেই</td></tr>
+      <tr><td>গতি</td><td>ধীর (overhead বেশি)</td><td>দ্রুত</td></tr>
+      <tr><td>কখন</td><td>ওয়েব, ইমেইল, ফাইল (নির্ভুলতা)</td><td>ভিডিও call, গেম, streaming (গতি)</td></tr>
+    </table>
+    <p><strong>TCP 3-way handshake:</strong> SYN → SYN-ACK → ACK (সংযোগ স্থাপন)।</p>
+
+    <h3>HTTP/HTTPS ও Status Code</h3>
+    <ul>
+      <li><strong>HTTP methods:</strong> GET (পড়া), POST (তৈরি), PUT (পূর্ণ আপডেট), PATCH (আংশিক), DELETE (মুছা)।</li>
+      <li><strong>HTTPS</strong> = HTTP + TLS/SSL encryption (নিরাপদ)।</li>
+      <li><strong>Status code:</strong> 2xx সফল (200 OK, 201 Created), 3xx redirect (301), 4xx ক্লায়েন্ট ভুল (404 Not Found, 401 Unauthorized, 403 Forbidden), 5xx সার্ভার ভুল (500, 503)।</li>
+    </ul>
+
+    <h3>🔬 "URL টাইপ করলে কী হয়" (ক্লাসিক ইন্টারভিউ)</h3>
+    <div class="code-wrap"><span class="lang">text</span><pre><code>১. DNS lookup — google.com → IP ঠিকানা খোঁজা
+২. TCP connection — সার্ভারের সাথে 3-way handshake (HTTPS হলে TLS handshake)
+৩. HTTP request — ব্রাউজার GET request পাঠায়
+৪. সার্ভার process করে HTTP response পাঠায় (HTML)
+৫. ব্রাউজার HTML/CSS/JS render করে পেজ দেখায়
+৬. বাকি resource (ছবি, CSS) এর জন্য আরও request</code></pre></div>
+
+    <div class="note interview">
+      <span class="tag">🎯 ইন্টারভিউ প্রশ্ন</span>
+      <strong>Q:</strong> DNS কী? <br>
+      <strong>A:</strong> Domain Name System — মানুষের পড়ার মতো নাম (google.com) কে মেশিনের IP ঠিকানায় (142.250.x.x) অনুবাদ করে। ইন্টারনেটের "ফোনবুক"। <br><br>
+      <strong>Q:</strong> HTTP stateless মানে কী? <br>
+      <strong>A:</strong> প্রতিটি request স্বাধীন — সার্ভার আগের request মনে রাখে না। state রাখতে cookie, session, token ব্যবহার হয়।
     </div>
     <div class="page-nav"><button>←</button><button>→</button></div>
   </section>
