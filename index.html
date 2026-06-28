@@ -2059,6 +2059,68 @@ print(s.info("শুরু হলো"))   # LOG: শুরু হলো (Logger-
       একই অ্যালগরিদমের তিন রকম case থাকে। Quick sort: average <span class="cx-mid">O(n log n)</span>, কিন্তু worst <span class="cx-bad">O(n²)</span> (খারাপ pivot)। ইন্টারভিউয়ে সাধারণত <strong>worst case</strong> বলবেন, প্রয়োজনে average উল্লেখ করবেন।
     </div>
 
+    <h3>🔬 গভীরে: যেভাবে নিজে Complexity বের করবে (৫টি নিয়ম)</h3>
+    <ol>
+      <li><strong>ধ্রুবক বাদ দাও:</strong> O(2n) → O(n), O(500) → O(1)। বড় n-এ ধ্রুবক গুরুত্বহীন।</li>
+      <li><strong>ছোট term বাদ:</strong> O(n² + n) → O(n²)। সবচেয়ে বড় term-ই থাকে।</li>
+      <li><strong>পরপর লুপ যোগ হয়:</strong> দুটি আলাদা লুপ → O(n) + O(n) = O(n)।</li>
+      <li><strong>নেস্টেড লুপ গুণ হয়:</strong> লুপের ভেতর লুপ → O(n) × O(n) = O(n²)।</li>
+      <li><strong>অর্ধেক হলে log:</strong> প্রতি ধাপে ইনপুট ভাগ হলে O(log n)।</li>
+    </ol>
+
+    <h4>ধাপে ধাপে derivation — উদাহরণ ১</h4>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def example(arr):           # n = len(arr)
+    total = 0               # O(1)
+    for x in arr:           # O(n)
+        total += x          #   O(1) ভেতরে
+    for i in arr:           # O(n)  -- পরপর, যোগ হবে
+        for j in arr:       #   O(n) -- নেস্টেড, গুণ হবে
+            print(i, j)     #     O(1)
+    return total            # O(1)
+# bn: O(1) + O(n) + O(n×n) + O(1) = O(n + n²) = O(n²)</code></pre></div>
+
+    <h4>ধাপে ধাপে derivation — উদাহরণ ২ (log চেনা)</h4>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def example2(n):
+    i = 1
+    while i < n:        # bn: i: 1,2,4,8,16... দ্বিগুণ হচ্ছে
+        print(i)
+        i *= 2          # bn: log₂(n) বার চলবে -> O(log n)
+# bn: n=16 হলে -> 1,2,4,8 = 4 বার = log₂(16)</code></pre></div>
+    <p><strong>কেন log?</strong> n থেকে 1-এ পৌঁছাতে কতবার অর্ধেক করতে হয় = log₂(n)। তাই "প্রতি ধাপে অর্ধেক/দ্বিগুণ" = log।</p>
+
+    <h4>ধাপে ধাপে — recursion-এর complexity</h4>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: প্রতি কল ২টি কল করে, গভীরতা n -> 2^n
+def fib(n):
+    if n <= 1: return n
+    return fib(n-1) + fib(n-2)   # T(n) = T(n-1)+T(n-2) -> O(2ⁿ)
+
+# bn: প্রতি কল ইনপুট অর্ধেক -> O(log n)
+def binary(arr, lo, hi, t):
+    if lo > hi: return -1
+    mid = (lo+hi)//2             # T(n) = T(n/2)+O(1) -> O(log n)
+    ...</code></pre></div>
+    <div class="note tip">
+      <span class="tag">💡 Recurrence চেনার শর্টকাট</span>
+      <code>T(n)=T(n/2)+O(1)</code> → O(log n) (binary search)। <code>T(n)=2T(n/2)+O(n)</code> → O(n log n) (merge sort)। <code>T(n)=T(n-1)+O(1)</code> → O(n) (linear recursion)। <code>T(n)=2T(n-1)</code> → O(2ⁿ)।
+    </div>
+
+    <h4>Space Complexity ধাপে ধাপে</h4>
+    <div class="code-wrap"><span class="lang">python</span><pre><code>def f1(arr):
+    total = 0           # bn: O(1) space (একটি ভেরিয়েবল)
+    for x in arr: total += x
+    return total
+# Space = O(1)
+
+def f2(arr):
+    doubled = [x*2 for x in arr]   # bn: n সাইজের নতুন list
+    return doubled
+# Space = O(n)
+
+# bn: recursion-এ call stack space গোনো
+def f3(n):
+    if n == 0: return
+    f3(n-1)             # bn: n গভীর stack -> O(n) space</code></pre></div>
+
     <div class="note interview">
       <span class="tag">🎯 ইন্টারভিউ গোল্ডেন রুল</span>
       কোড লেখার পর সবসময় বলুন: "এটার Time Complexity O(?), Space Complexity O(?)"। তারপর জিজ্ঞেস করুন/বলুন "এটা কি আরও optimize করা যায়?" — এই অভ্যাসই সিনিয়র ক্যান্ডিডেট চেনায়।
@@ -2103,6 +2165,63 @@ print(fib(7))   # 13</code></pre></div>
     <div class="note warn">
       <span class="tag">⚠️ সাবধান</span>
       এই naive fibonacci-র Complexity <span class="cx-bad">O(2ⁿ)</span> — কারণ একই মান বারবার হিসাব হয়! <code>fib(50)</code> চালালে কয়েক মিনিট লাগবে। সমাধান: <strong>memoization</strong> (Dynamic Programming অধ্যায়ে আছে) যা একে <span class="cx-good">O(n)</span> বানায়।
+    </div>
+
+    <h3>🔬 গভীরে: Call Stack ধাপে ধাপে (কখনো ভুলবে না)</h3>
+    <p>Recursion বোঝার আসল চাবিকাঠি — call stack। প্রতিটি কল stack-এ জমা হয়, base case-এ পৌঁছে উল্টো দিকে ফল ফেরত আসে। <code>factorial(4)</code> এর পূর্ণ ট্রেস:</p>
+    <div class="code-wrap"><span class="lang">text</span><pre><code>ধাপ ১ — নামা (কল জমা হচ্ছে, stack বাড়ছে):
+  factorial(4) → 4 * factorial(3)        [অপেক্ষায়]
+    factorial(3) → 3 * factorial(2)      [অপেক্ষায়]
+      factorial(2) → 2 * factorial(1)    [অপেক্ষায়]
+        factorial(1) → 1                 [BASE CASE! থামল]
+
+ধাপ ২ — ওঠা (ফল ফেরত, stack কমছে):
+        factorial(1) = 1
+      factorial(2) = 2 * 1   = 2
+    factorial(3) = 3 * 2     = 6
+  factorial(4) = 4 * 6       = 24   ✅ চূড়ান্ত ফল</code></pre></div>
+    <div class="note tip">
+      <span class="tag">💡 মূল অন্তর্দৃষ্টি</span>
+      "নামার" সময় কোনো হিসাব হয় না — শুধু কল জমা হয়। আসল হিসাব হয় base case থেকে "ওঠার" সময়। এই দুই দিক (winding ও unwinding) বুঝলে recursion আর রহস্য থাকবে না।
+    </div>
+
+    <h3>🔬 Recursion-এ চিন্তা করার ৩ ধাপ</h3>
+    <ol>
+      <li><strong>Base case:</strong> সবচেয়ে ছোট/সরল ইনপুটে উত্তর কী? (থামার শর্ত)</li>
+      <li><strong>বিশ্বাস (recursive leap):</strong> ধরে নাও ছোট সমস্যার উত্তর তোমার কাছে আছে (<code>f(n-1)</code> ঠিক কাজ করে)।</li>
+      <li><strong>সম্পর্ক:</strong> ছোট উত্তর থেকে বড় উত্তর কীভাবে বানাবে? (<code>f(n) = n × f(n-1)</code>)</li>
+    </ol>
+
+    <h3>🔬 আরও উদাহরণ (একই প্যাটার্ন)</h3>
+    <div class="code-wrap"><span class="lang">python</span><pre><code># bn: list এর যোগফল
+def list_sum(arr):
+    if not arr: return 0              # base: খালি -> 0
+    return arr[0] + list_sum(arr[1:]) # প্রথম + বাকির যোগফল
+
+# bn: string উল্টানো
+def reverse(s):
+    if len(s) <= 1: return s         # base
+    return reverse(s[1:]) + s[0]     # বাকিটা উল্টে + প্রথম অক্ষর
+
+# bn: ঘাত (power) — O(log n) চতুর উপায়
+def power(base, n):
+    if n == 0: return 1              # base
+    half = power(base, n // 2)
+    return half * half if n % 2 == 0 else half * half * base
+
+print(list_sum([1,2,3,4]))   # 10
+print(reverse("abcd"))       # dcba
+print(power(2, 10))          # 1024</code></pre></div>
+
+    <h3>🔬 Linear বনাম Tree Recursion</h3>
+    <ul>
+      <li><strong>Linear:</strong> প্রতি কল একবার নিজেকে ডাকে (factorial) → O(n) সময়।</li>
+      <li><strong>Tree:</strong> প্রতি কল একাধিকবার ডাকে (naive fibonacci) → অনেক বেশি কল, O(2ⁿ)।</li>
+    </ul>
+
+    <div class="note warn">
+      <span class="tag">⚠️ RecursionError</span>
+      Python-এ ডিফল্ট recursion সীমা ~1000। খুব গভীর recursion-এ <code>RecursionError</code> হয়। <code>sys.setrecursionlimit(10000)</code> দিয়ে বাড়ানো যায়, কিন্তু খুব গভীর হলে iteration/explicit stack ভালো। (Python tail-call optimize করে না।)
     </div>
 
     <div class="note interview">
