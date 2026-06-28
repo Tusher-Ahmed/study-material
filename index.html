@@ -4816,6 +4816,97 @@ s3.upload_file('report.pdf', 'my-first-bucket', 'report.pdf')
 for bucket in s3.list_buckets()['Buckets']:
     print(bucket['Name'])</code></pre></div>
 
+    <h3>🔬 ১. Compute (সার্ভার/হিসাবশক্তি) — গভীরে</h3>
+    <p><strong>AWS EC2 / Azure VM:</strong> ভার্চুয়াল সার্ভার। কয়েকটি মূল ধারণা:</p>
+    <ul>
+      <li><strong>Instance type:</strong> কাজভেদে আলাদা — general purpose (t/B-series), compute-optimized (c-series), memory-optimized (r/E-series), GPU (p/N-series)।</li>
+      <li><strong>Auto Scaling:</strong> চাহিদা বাড়লে সার্ভার বাড়ে, কমলে কমে (cost সাশ্রয় + availability)। AWS Auto Scaling Group / Azure VM Scale Set।</li>
+      <li><strong>Pricing model:</strong> On-Demand (নমনীয়, দামি), Reserved (১-৩ বছর, সস্তা), Spot (অব্যবহৃত ক্ষমতা, ৯০% সস্তা কিন্তু যেকোনো সময় বন্ধ হতে পারে)।</li>
+      <li><strong>Serverless compute:</strong> AWS Lambda / Azure Functions — সার্ভার ম্যানেজ না করে শুধু ফাংশন; ব্যবহার অনুযায়ী বিল, না চললে শূন্য খরচ।</li>
+    </ul>
+
+    <h3>🔬 ২. Storage (সংরক্ষণ) — তিন ধরন</h3>
+    <table class="cx-table">
+      <tr><th>ধরন</th><th>কী</th><th>AWS</th><th>Azure</th></tr>
+      <tr><td>Object</td><td>ফাইল/ছবি/ব্যাকআপ (key-value, REST)</td><td>S3</td><td>Blob Storage</td></tr>
+      <tr><td>Block</td><td>VM-এর হার্ডডিস্ক</td><td>EBS</td><td>Managed Disks</td></tr>
+      <tr><td>File</td><td>শেয়ার্ড নেটওয়ার্ক ড্রাইভ (NFS/SMB)</td><td>EFS</td><td>Azure Files</td></tr>
+    </table>
+    <p><strong>Storage class/tier</strong> (খরচ বনাম অ্যাক্সেস গতি): S3 Standard (ঘন অ্যাক্সেস) → Infrequent Access → Glacier (আর্কাইভ, সস্তা কিন্তু ধীর)। Azure-এ Hot / Cool / Archive tier।</p>
+
+    <h3>🔬 ৩. Database</h3>
+    <table class="cx-table">
+      <tr><th>ধরন</th><th>AWS</th><th>Azure</th><th>কখন</th></tr>
+      <tr><td>Managed SQL</td><td>RDS (MySQL/Postgres)</td><td>Azure SQL Database</td><td>সম্পর্কিত ডেটা, ACID</td></tr>
+      <tr><td>Cloud-native SQL</td><td>Aurora</td><td>Azure SQL (Hyperscale)</td><td>উচ্চ পারফরম্যান্স</td></tr>
+      <tr><td>NoSQL (key-value/doc)</td><td>DynamoDB</td><td>Cosmos DB</td><td>বিশাল scale, নমনীয়</td></tr>
+      <tr><td>In-memory cache</td><td>ElastiCache (Redis)</td><td>Azure Cache for Redis</td><td>দ্রুত cache</td></tr>
+      <tr><td>Data Warehouse</td><td>Redshift</td><td>Synapse Analytics</td><td>analytics, BI</td></tr>
+    </table>
+
+    <h3>🔬 ৪. Networking (অবশ্য-জানা)</h3>
+    <ul>
+      <li><strong>VPC / VNet:</strong> তোমার নিজস্ব বিচ্ছিন্ন ভার্চুয়াল নেটওয়ার্ক।</li>
+      <li><strong>Subnet:</strong> VPC-র ভেতরে ভাগ — public subnet (ইন্টারনেট থেকে দেখা যায়) ও private subnet (গোপন, যেমন DB)।</li>
+      <li><strong>Security Group:</strong> instance-স্তরের ফায়ারওয়াল (কোন port/IP ঢুকতে পারবে)।</li>
+      <li><strong>Load Balancer:</strong> AWS ELB/ALB, Azure Load Balancer — ট্রাফিক ভাগ।</li>
+      <li><strong>DNS:</strong> AWS Route 53, Azure DNS।</li>
+      <li><strong>CDN:</strong> AWS CloudFront, Azure CDN — edge-এ static ফাইল।</li>
+    </ul>
+
+    <h3>🔬 ৫. Security ও Identity (IAM)</h3>
+    <ul>
+      <li><strong>IAM (AWS) / Entra ID (Azure):</strong> কে কী করতে পারবে নিয়ন্ত্রণ — user, group, role, policy।</li>
+      <li><strong>Least Privilege নীতি:</strong> ঠিক যতটুকু দরকার ততটুকুই অনুমতি দাও।</li>
+      <li><strong>Role:</strong> অস্থায়ী অনুমতি (যেমন EC2 কে S3 অ্যাক্সেস দিতে — পাসওয়ার্ড নয়)।</li>
+      <li><strong>Secrets:</strong> AWS Secrets Manager / Azure Key Vault — পাসওয়ার্ড/key নিরাপদে রাখা (কোডে নয়!)।</li>
+      <li><strong>Encryption:</strong> at-rest (সংরক্ষিত ডেটা) ও in-transit (TLS/HTTPS)।</li>
+    </ul>
+
+    <h3>🔬 ৬. Container ও Orchestration</h3>
+    <ul>
+      <li><strong>Docker:</strong> অ্যাপ + সব dependency একটি container-এ প্যাকেজ — যেকোনো জায়গায় একইভাবে চলে।</li>
+      <li><strong>Container registry:</strong> AWS ECR / Azure ACR — image সংরক্ষণ।</li>
+      <li><strong>Orchestration (Kubernetes):</strong> AWS EKS / Azure AKS — হাজার container ম্যানেজ, scale, self-heal।</li>
+      <li><strong>সরল container:</strong> AWS ECS/Fargate (serverless container)।</li>
+    </ul>
+
+    <h3>🔬 ৭. DevOps ও Monitoring</h3>
+    <ul>
+      <li><strong>CI/CD:</strong> AWS CodePipeline/CodeBuild, Azure DevOps/GitHub Actions — কোড push হলে স্বয়ংক্রিয় test ও deploy।</li>
+      <li><strong>IaC (Infrastructure as Code):</strong> AWS CloudFormation, Terraform (multi-cloud), Azure ARM/Bicep — কোড দিয়ে অবকাঠামো বানানো।</li>
+      <li><strong>Monitoring:</strong> AWS CloudWatch, Azure Monitor — লগ, মেট্রিক, অ্যালার্ম।</li>
+    </ul>
+
+    <h3>🔬 ৮. Well-Architected Framework (৫/৬ স্তম্ভ — ইন্টারভিউয়ে আসে)</h3>
+    <ol>
+      <li><strong>Operational Excellence:</strong> অটোমেশন, মনিটরিং।</li>
+      <li><strong>Security:</strong> least privilege, encryption।</li>
+      <li><strong>Reliability:</strong> redundancy, auto-recovery, multi-AZ।</li>
+      <li><strong>Performance Efficiency:</strong> সঠিক রিসোর্স বাছাই।</li>
+      <li><strong>Cost Optimization:</strong> অব্যবহৃত রিসোর্স বন্ধ, Reserved/Spot।</li>
+      <li><strong>Sustainability</strong> (AWS-এ ৬ষ্ঠ): শক্তি দক্ষতা।</li>
+    </ol>
+
+    <h3>🔬 ৯. উদাহরণ Architecture: স্কেলেবল ওয়েব অ্যাপ</h3>
+    <div class="code-wrap"><span class="lang">text</span><pre><code>User → Route53 (DNS) → CloudFront (CDN, static)
+                          ↓
+                    Load Balancer (ALB)
+                    ↓            ↓
+              EC2/ECS         EC2/ECS    ← Auto Scaling Group (multi-AZ)
+                    ↓            ↓
+              ElastiCache (Redis cache)
+                          ↓
+              RDS Primary ⇄ RDS Replica (multi-AZ)
+              S3 (ছবি/ফাইল) | CloudWatch (monitor)</code></pre></div>
+    <p>এই প্যাটার্নই (LB + auto-scaling stateless app + cache + replicated DB + CDN) বেশিরভাগ ওয়েব সিস্টেমের ভিত্তি — System Design সেকশনের সাথে মিলিয়ে পড়ো।</p>
+
+    <h3>🔬 ১০. Certification রোডম্যাপ</h3>
+    <ul>
+      <li><strong>AWS:</strong> Cloud Practitioner (বিগিনার) → Solutions Architect Associate (সবচেয়ে জনপ্রিয়) → Professional/Specialty।</li>
+      <li><strong>Azure:</strong> AZ-900 Fundamentals → AZ-104 Administrator / AZ-204 Developer → Expert (AZ-305)।</li>
+    </ul>
+
     <div class="note tip">
       <span class="tag">💡 শুরু কীভাবে করবে</span>
       AWS ও Azure দুটোতেই <strong>Free Tier</strong> (১২ মাস ফ্রি) আছে — অ্যাকাউন্ট খুলে EC2/VM চালু করে, S3/Blob-এ ফাইল রেখে হাতে-কলমে শেখো। সার্টিফিকেশন শুরু: <strong>AWS Certified Cloud Practitioner</strong> বা <strong>Azure Fundamentals (AZ-900)</strong> — বিগিনারদের জন্য সেরা।
