@@ -168,6 +168,11 @@ section.topic.visible { display: block; }
 .note.concept .tag { color: #22d3ee; }
 .note.concept p { margin: 6px 0; }
 .note.concept .imagine { display:block; margin-top:8px; color: var(--text); }
+.note.tradeoff { border-left-color: var(--orange); background: linear-gradient(135deg, rgba(255,169,77,.08), transparent); }
+.note.tradeoff .tag { color: var(--orange); }
+.note.tradeoff ul { margin: 8px 0 0 18px; }
+.note.tradeoff li { margin: 5px 0; }
+.note.tradeoff b { color: var(--text); }
 .note strong { color: var(--accent); }
 .note .tag { font-weight: 700; font-size: 13px; display: block; margin-bottom: 4px; }
 .note.tip .tag { color: var(--green); }
