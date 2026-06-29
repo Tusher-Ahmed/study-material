@@ -31,6 +31,9 @@
       LC('125. Valid Palindrome', 'valid-palindrome', 'easy'),
       LC('14. Longest Common Prefix', 'longest-common-prefix', 'easy'),
       LC('387. First Unique Character', 'first-unique-character-in-a-string', 'easy'),
+      LC('13. Roman to Integer', 'roman-to-integer', 'easy'),
+      LC('58. Length of Last Word', 'length-of-last-word', 'easy'),
+      LC('28. Find the Index of First Occurrence', 'find-the-index-of-the-first-occurrence-in-a-string', 'easy'),
       LC('8. String to Integer (atoi)', 'string-to-integer-atoi', 'medium')
     ]},
     controlflow: { lc: [
@@ -56,7 +59,11 @@
       LC('49. Group Anagrams', 'group-anagrams', 'medium'),
       LC('347. Top K Frequent Elements', 'top-k-frequent-elements', 'medium'),
       LC('238. Product of Array Except Self', 'product-of-array-except-self', 'medium'),
-      LC('128. Longest Consecutive Sequence', 'longest-consecutive-sequence', 'medium')
+      LC('128. Longest Consecutive Sequence', 'longest-consecutive-sequence', 'medium'),
+      LC('26. Remove Duplicates from Sorted Array', 'remove-duplicates-from-sorted-array', 'easy'),
+      LC('169. Majority Element', 'majority-element', 'easy'),
+      LC('88. Merge Sorted Array', 'merge-sorted-array', 'easy'),
+      LC('1. Two Sum (আবার অনুশীলন)', 'two-sum', 'easy')
     ]},
     oop: { lc: [
       LC('155. Min Stack', 'min-stack', 'medium'),
@@ -123,6 +130,9 @@
       LC('33. Search in Rotated Sorted Array', 'search-in-rotated-sorted-array', 'medium'),
       LC('34. Find First and Last Position', 'find-first-and-last-position-of-element-in-sorted-array', 'medium'),
       LC('153. Find Minimum in Rotated Sorted Array', 'find-minimum-in-rotated-sorted-array', 'medium'),
+      LC('374. Guess Number Higher or Lower', 'guess-number-higher-or-lower', 'easy'),
+      LC('278. First Bad Version', 'first-bad-version', 'easy'),
+      LC('69. Sqrt(x)', 'sqrtx', 'easy'),
       LC('875. Koko Eating Bananas', 'koko-eating-bananas', 'medium')
     ]},
     sorting: { lc: [
@@ -139,7 +149,11 @@
       LC('300. Longest Increasing Subsequence', 'longest-increasing-subsequence', 'medium'),
       LC('1143. Longest Common Subsequence', 'longest-common-subsequence', 'medium'),
       LC('72. Edit Distance', 'edit-distance', 'medium'),
-      LC('416. Partition Equal Subset Sum', 'partition-equal-subset-sum', 'medium')
+      LC('416. Partition Equal Subset Sum', 'partition-equal-subset-sum', 'medium'),
+      LC('746. Min Cost Climbing Stairs', 'min-cost-climbing-stairs', 'easy'),
+      LC('392. Is Subsequence', 'is-subsequence', 'easy'),
+      LC('121. Best Time to Buy and Sell Stock', 'best-time-to-buy-and-sell-stock', 'easy'),
+      LC('53. Maximum Subarray (Kadane)', 'maximum-subarray', 'medium')
     ]},
     greedy: { lc: [
       LC('55. Jump Game', 'jump-game', 'medium'),
@@ -155,6 +169,9 @@
       LC('15. 3Sum', '3sum', 'medium'),
       LC('11. Container With Most Water', 'container-with-most-water', 'medium'),
       LC('26. Remove Duplicates from Sorted Array', 'remove-duplicates-from-sorted-array', 'easy'),
+      LC('283. Move Zeroes', 'move-zeroes', 'easy'),
+      LC('977. Squares of a Sorted Array', 'squares-of-a-sorted-array', 'easy'),
+      LC('344. Reverse String', 'reverse-string', 'easy'),
       LC('42. Trapping Rain Water', 'trapping-rain-water', 'hard')
     ]},
     slidingwindow: { lc: [
@@ -162,6 +179,8 @@
       LC('3. Longest Substring Without Repeating', 'longest-substring-without-repeating-characters', 'medium'),
       LC('424. Longest Repeating Character Replacement', 'longest-repeating-character-replacement', 'medium'),
       LC('567. Permutation in String', 'permutation-in-string', 'medium'),
+      LC('643. Maximum Average Subarray I', 'maximum-average-subarray-i', 'easy'),
+      LC('1456. Max Vowels in a Substring', 'maximum-number-of-vowels-in-a-substring-of-given-length', 'medium'),
       LC('76. Minimum Window Substring', 'minimum-window-substring', 'hard')
     ]},
     backtracking: { lc: [
@@ -170,6 +189,9 @@
       LC('39. Combination Sum', 'combination-sum', 'medium'),
       LC('17. Letter Combinations of a Phone Number', 'letter-combinations-of-a-phone-number', 'medium'),
       LC('79. Word Search', 'word-search', 'medium'),
+      LC('22. Generate Parentheses', 'generate-parentheses', 'medium'),
+      LC('77. Combinations', 'combinations', 'medium'),
+      LC('90. Subsets II', 'subsets-ii', 'medium'),
       LC('51. N-Queens', 'n-queens', 'hard')
     ]},
     bitmanip: { lc: [
@@ -188,6 +210,10 @@
       LC('21. Merge Two Sorted Lists', 'merge-two-sorted-lists', 'easy'),
       LC('19. Remove Nth Node From End', 'remove-nth-node-from-end-of-list', 'medium'),
       LC('2. Add Two Numbers', 'add-two-numbers', 'medium'),
+      LC('203. Remove Linked List Elements', 'remove-linked-list-elements', 'easy'),
+      LC('83. Remove Duplicates from Sorted List', 'remove-duplicates-from-sorted-list', 'easy'),
+      LC('160. Intersection of Two Linked Lists', 'intersection-of-two-linked-lists', 'easy'),
+      LC('234. Palindrome Linked List', 'palindrome-linked-list', 'easy'),
       LC('143. Reorder List', 'reorder-list', 'medium')
     ]},
     stackqueue: { lc: [
@@ -196,6 +222,9 @@
       LC('150. Evaluate Reverse Polish Notation', 'evaluate-reverse-polish-notation', 'medium'),
       LC('739. Daily Temperatures', 'daily-temperatures', 'medium'),
       LC('232. Implement Queue using Stacks', 'implement-queue-using-stacks', 'easy'),
+      LC('1047. Remove All Adjacent Duplicates', 'remove-all-adjacent-duplicates-in-string', 'easy'),
+      LC('682. Baseball Game', 'baseball-game', 'easy'),
+      LC('496. Next Greater Element I', 'next-greater-element-i', 'easy'),
       LC('84. Largest Rectangle in Histogram', 'largest-rectangle-in-histogram', 'hard')
     ]},
     hashing: { lc: [
@@ -204,6 +233,9 @@
       LC('49. Group Anagrams', 'group-anagrams', 'medium'),
       LC('347. Top K Frequent Elements', 'top-k-frequent-elements', 'medium'),
       LC('128. Longest Consecutive Sequence', 'longest-consecutive-sequence', 'medium'),
+      LC('383. Ransom Note', 'ransom-note', 'easy'),
+      LC('205. Isomorphic Strings', 'isomorphic-strings', 'easy'),
+      LC('219. Contains Duplicate II', 'contains-duplicate-ii', 'easy'),
       LC('560. Subarray Sum Equals K', 'subarray-sum-equals-k', 'medium')
     ]},
     heaps: { lc: [
@@ -212,6 +244,8 @@
       LC('973. K Closest Points to Origin', 'k-closest-points-to-origin', 'medium'),
       LC('621. Task Scheduler', 'task-scheduler', 'medium'),
       LC('23. Merge k Sorted Lists', 'merge-k-sorted-lists', 'hard'),
+      LC('1046. Last Stone Weight', 'last-stone-weight', 'easy'),
+      LC('703. Kth Largest Element in a Stream', 'kth-largest-element-in-a-stream', 'easy'),
       LC('295. Find Median from Data Stream', 'find-median-from-data-stream', 'hard')
     ]},
     trees: { lc: [
@@ -220,7 +254,12 @@
       LC('543. Diameter of Binary Tree', 'diameter-of-binary-tree', 'easy'),
       LC('102. Binary Tree Level Order Traversal', 'binary-tree-level-order-traversal', 'medium'),
       LC('98. Validate Binary Search Tree', 'validate-binary-search-tree', 'medium'),
-      LC('236. Lowest Common Ancestor', 'lowest-common-ancestor-of-a-binary-tree', 'medium')
+      LC('236. Lowest Common Ancestor', 'lowest-common-ancestor-of-a-binary-tree', 'medium'),
+      LC('100. Same Tree', 'same-tree', 'easy'),
+      LC('101. Symmetric Tree', 'symmetric-tree', 'easy'),
+      LC('112. Path Sum', 'path-sum', 'easy'),
+      LC('700. Search in a BST', 'search-in-a-binary-search-tree', 'easy'),
+      LC('617. Merge Two Binary Trees', 'merge-two-binary-trees', 'easy')
     ]},
     trie: { lc: [
       LC('208. Implement Trie (Prefix Tree)', 'implement-trie-prefix-tree', 'medium'),
@@ -234,6 +273,9 @@
       LC('207. Course Schedule', 'course-schedule', 'medium'),
       LC('994. Rotting Oranges', 'rotting-oranges', 'medium'),
       LC('417. Pacific Atlantic Water Flow', 'pacific-atlantic-water-flow', 'medium'),
+      LC('733. Flood Fill', 'flood-fill', 'easy'),
+      LC('463. Island Perimeter', 'island-perimeter', 'easy'),
+      LC('1971. Find if Path Exists in Graph', 'find-if-path-exists-in-graph', 'easy'),
       LC('127. Word Ladder', 'word-ladder', 'hard')
     ]},
     advancedgraph: { lc: [
