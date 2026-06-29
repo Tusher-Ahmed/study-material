@@ -317,6 +317,67 @@
       'Observer pattern দিয়ে একটি weather-station → display মডেল লিখুন।',
       'তোমার আগের কোনো কোডে DRY লঙ্ঘন খুঁজে রিফ্যাক্টর করুন।',
       'একটি URL shortener-এর high-level system design কাগজে আঁকুন।'
+    ]},
+
+    /* ---------- পরে যোগ হওয়া সেকশনের practice ---------- */
+    concurrency: { lc: [
+      LC('1114. Print in Order', 'print-in-order', 'easy'),
+      LC('1115. Print FooBar Alternately', 'print-foobar-alternately', 'medium'),
+      LC('1116. Print Zero Even Odd', 'print-zero-even-odd', 'medium'),
+      LC('1117. Building H2O', 'building-h2o', 'medium'),
+      LC('1226. The Dining Philosophers', 'the-dining-philosophers', 'medium')
+    ], ex: [
+      'threading দিয়ে ৩টি ফাইল একসাথে "ডাউনলোড" করুন (time.sleep দিয়ে নকল)।',
+      'asyncio + asyncio.gather দিয়ে ১০টি async কাজ সমান্তরালে চালান।',
+      'একটি shared counter-এ Lock ব্যবহার করে race condition ঠিক করুন।'
+    ]},
+    regex: { lc: [
+      LC('8. String to Integer (atoi)', 'string-to-integer-atoi', 'medium'),
+      LC('468. Validate IP Address', 'validate-ip-address', 'medium'),
+      LC('65. Valid Number', 'valid-number', 'hard'),
+      LC('10. Regular Expression Matching', 'regular-expression-matching', 'hard'),
+      LC('44. Wildcard Matching', 'wildcard-matching', 'hard')
+    ], ex: [
+      'একটি regex লিখুন যা বাংলাদেশি ফোন নম্বর (01XXXXXXXXX) যাচাই করে।',
+      're.findall দিয়ে একটি টেক্সট থেকে সব ইমেইল বের করুন।',
+      're.sub দিয়ে একাধিক স্পেসকে একটি স্পেসে পরিণত করুন।'
+    ]},
+    testing: { ex: [
+      'তোমার লেখা factorial() ফাংশনের জন্য ৫টি pytest test লিখুন (edge case সহ)।',
+      'একটি ফাংশন যা ValueError তোলে — pytest.raises দিয়ে test করুন।',
+      '@pytest.mark.parametrize দিয়ে এক test-এ ৫টি ইনপুট যাচাই করুন।',
+      'TDD অনুশীলন: আগে test লিখে তারপর is_palindrome() বানান।'
+    ]},
+    pypractical: { ex: [
+      'একটি JSON ফাইল পড়ে সবচেয়ে বেশি বয়সী ব্যক্তির নাম বের করুন।',
+      'একটি CSV ফাইল পড়ে প্রতিটি কলামের গড় হিসাব করুন।',
+      'একটি প্রোগ্রামকে module + main.py তে ভাগ করে import করে চালান।',
+      'logging দিয়ে একটি স্ক্রিপ্টে INFO ও ERROR লেভেলের লগ যোগ করুন।'
+    ]},
+    systemdesign: { ex: [
+      'Design TinyURL — requirement, API, DB schema, scaling কাগজে আঁকুন।',
+      'Design Twitter feed — fan-out (push vs pull) ব্যাখ্যা করুন।',
+      'Design একটি Rate Limiter (token bucket) — Redis দিয়ে।',
+      'Design WhatsApp — WebSocket, message delivery, online status।',
+      'Design একটি Parking Lot system (OOP + class design)।'
+    ]},
+    os: { ex: [
+      'Process ও Thread-এর ৩টি পার্থক্য নিজের ভাষায় লিখুন।',
+      'Deadlock-এর ৪টি শর্ত (Coffman) ও কীভাবে একটি ভাঙবেন ব্যাখ্যা করুন।',
+      'Round Robin ও SJF scheduling-এর জন্য একটি উদাহরণে গড় waiting time হিসাব করুন।',
+      'Producer-Consumer সমস্যা semaphore দিয়ে সমাধান করুন (pseudo/Python)।'
+    ]},
+    networks: { ex: [
+      '"google.com টাইপ করলে কী হয়" — সব ধাপ নিজে লিখুন।',
+      'TCP ও UDP-র ৩টি পার্থক্য ও কখন কোনটা ব্যবহার হয় লিখুন।',
+      'HTTP status code (200/301/404/500) এর অর্থ ও উদাহরণ দিন।',
+      'একটি REST API ডিজাইন করুন (GET/POST/PUT/DELETE endpoint সহ)।'
+    ]},
+    behavioral: { ex: [
+      'STAR ফরম্যাটে ৫টি গল্প তৈরি করুন: চ্যালেঞ্জ, conflict, ব্যর্থতা, নেতৃত্ব, deadline।',
+      '"নিজের সম্পর্কে বলুন" — ২ মিনিটের একটি উত্তর লিখে অনুশীলন করুন।',
+      '"সবচেয়ে কঠিন প্রজেক্ট" — STAR দিয়ে গুছিয়ে লিখুন।',
+      'একটি ব্যর্থতা ও তা থেকে শেখা — দায়িত্ব নিয়ে ইতিবাচকভাবে বলুন।'
     ]}
   };
 
