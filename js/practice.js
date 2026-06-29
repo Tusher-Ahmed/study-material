@@ -403,11 +403,14 @@
   }
 
   for (const id in PRACTICE) {
-    const section = document.getElementById(id);
-    if (!section) continue;
-    const block = buildBlock(PRACTICE[id]);
-    const nav = section.querySelector(".page-nav");
-    if (nav) section.insertBefore(block, nav);
-    else section.appendChild(block);
+    try {
+      const section = document.getElementById(id);
+      if (!section) continue;
+      const block = buildBlock(PRACTICE[id]);
+      const nav = section.querySelector(".page-nav");
+      // bn: nav.parentNode দিয়ে insert -> page-nav direct child না হলেও কাজ করে
+      if (nav && nav.parentNode) nav.parentNode.insertBefore(block, nav);
+      else section.appendChild(block);
+    } catch (e) { /* এক সেকশন ব্যর্থ হলেও বাকিগুলো চলবে */ }
   }
 })();

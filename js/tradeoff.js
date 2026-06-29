@@ -163,13 +163,15 @@
   }
 
   for (const id in T) {
-    const d = T[id];
-    if (!d || !d.s) continue;
-    const section = document.getElementById(id);
-    if (!section) continue;
-    const nav = section.querySelector(".page-nav");
-    const box = build(d);
-    if (nav) section.insertBefore(box, nav);
-    else section.appendChild(box);
+    try {
+      const d = T[id];
+      if (!d || !d.s) continue;
+      const section = document.getElementById(id);
+      if (!section) continue;
+      const nav = section.querySelector(".page-nav");
+      const box = build(d);
+      if (nav && nav.parentNode) nav.parentNode.insertBefore(box, nav);
+      else section.appendChild(box);
+    } catch (e) { /* এক সেকশন ব্যর্থ হলেও বাকিগুলো চলবে */ }
   }
 })();

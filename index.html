@@ -2747,7 +2747,7 @@ def rob(root):
 
 # bn: Bitmask DP কাঠামো — কোন কোন উপাদান ব্যবহৃত (mask)
 # dp[mask] = mask-এ থাকা উপাদান নিয়ে সেরা ফল
-# for mask in range(1<<n): for each unused bit i: dp[mask|1<<i] update</code></pre></div>
+# for mask in range(1 &lt;&lt; n): each unused bit i -> dp[mask | 1 &lt;&lt; i] update</code></pre></div>
     <div class="note tip">
       <span class="tag">💡 DP state চেনার চাবি</span>
       "কোন তথ্যগুলো জানলে বাকি সমস্যা স্বাধীনভাবে সমাধান করা যায়?" — সেই তথ্যগুলোই তোমার DP state। index? অবশিষ্ট capacity? কোনগুলো ব্যবহৃত (mask)? subtree? range? — state সঠিক ধরতে পারলে transition বেরিয়ে আসে।
