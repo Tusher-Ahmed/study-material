@@ -8,3 +8,8 @@ Thumbs.db
 *.tmp
 *.log
 _verify.py
+
+# node (only used locally for testing, never deploy)
+node_modules/
+package.json
+package-lock.json
