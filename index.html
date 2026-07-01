@@ -116,6 +116,7 @@
     <div class="nav-group">
       <div class="nav-title">ইন্টারঅ্যাক্টিভ 🎬</div>
       <a class="nav-link" data-target="visualizer" data-keywords="visualizer animation sorting visual bars">🎬 Sorting Visualizer</a>
+      <a class="nav-link" data-target="examples" data-keywords="example classic fibonacci palindrome lcs factorial prime gcd binary search anagram kadane optimised উদাহরণ ফিবোনাচি">🧩 ক্লাসিক উদাহরণ (Cheat-sheet)</a>
       <a class="nav-link" data-target="practice" data-keywords="practice problem leetcode exercise solution">📝 Practice Problems</a>
     </div>
 
@@ -303,10 +304,10 @@ name = "Tusher Ahmed"      # bn: টেক্সট (string)
 is_student = True   # bn: সত্য/মিথ্যা (boolean)
 
 # bn: type() দিয়ে টাইপ জানা যায়
-print(type(age))     # <class 'int'>
-print(type(price))   # <class 'float'>
-print(type(name))    # <class 'str'>
-print(type(is_student))  # <class 'bool'></code></pre></div>
+print(type(age))     # &lt;class 'int'>
+print(type(price))   # &lt;class 'float'>
+print(type(name))    # &lt;class 'str'>
+print(type(is_student))  # &lt;class 'bool'></code></pre></div>
 
     <h3>প্রধান ডেটা টাইপগুলো</h3>
     <table class="cx-table">
@@ -1694,9 +1695,9 @@ print(deep)      # [[1, 2], [3, 4]]  -> অক্ষত</code></pre></div>
     <h3>🔬 গভীরে: Everything is an Object</h3>
     <p>Python-এ সবকিছু — সংখ্যা, string, ফাংশন, ক্লাস, এমনকি মডিউল — একটি object। প্রতিটির <code>id()</code> (ঠিকানা), <code>type()</code> ও value আছে।</p>
     <div class="code-wrap"><span class="lang">python</span><pre><code>def f(): pass
-print(type(f))        # <class 'function'>
+print(type(f))        # &lt;class 'function'>
 f.custom = 10         # bn: ফাংশনেও attribute যোগ করা যায়!
-print(type(int))      # <class 'type'> -> ক্লাসও object</code></pre></div>
+print(type(int))      # &lt;class 'type'> -> ক্লাসও object</code></pre></div>
 
     <h3>🔬 String Interning</h3>
     <p>Python কিছু string (identifier-সদৃশ) cache করে রাখে, তাই একই মান একই object শেয়ার করে — মেমোরি ও তুলনা দ্রুত।</p>
@@ -4654,18 +4655,41 @@ update index 2: শুধু [2]→[0-2]→[0-5] পথ আপডেট → O(lo
     <details class="problem">
       <summary>Two Sum <span class="diff easy">Easy</span></summary>
       <div class="body">
-        <p>একটি array ও target দেওয়া। এমন দুটি index ফেরত দিন যাদের মান যোগ করলে target হয়।</p>
-        <p><code>two_sum([2,7,11,15], 9) → [0,1]</code></p>
+        <div class="ex-sec"><span class="ex-lbl">📋 সমস্যা</span>
+          <p>একটি array ও target দেওয়া। এমন দুটি index ফেরত দিন যাদের মান যোগ করলে target হয়।</p>
+          <span class="ex-io">two_sum([2,7,11,15], 9) → [0, 1]   (2+7=9)</span>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🎯 কোথায় / কখন কাজে লাগে</span>
+          <ul>
+            <li>Hashmap দিয়ে O(n²) → O(n) নামানোর সবচেয়ে বিখ্যাত উদাহরণ; 3Sum/4Sum-এর ভিত্তি।</li>
+            <li>বাস্তবে: দুই লেনদেন/দুই দাম মিলিয়ে নির্দিষ্ট অঙ্ক বা বাজেট বের করা।</li>
+          </ul>
+        </div>
         <details class="reveal"><summary>💡 সমাধান দেখুন</summary>
-          <p><strong>আইডিয়া:</strong> hash map-এ আগে দেখা মান রাখুন; প্রতিটি সংখ্যায় "কত লাগবে" (complement) আগে দেখা হয়েছে কিনা চেক করুন — O(1)।</p>
-          <div class="code-wrap"><span class="lang">python</span><pre><code>def two_sum(nums, target):
-    seen = {}
+          <div class="ex-sec"><span class="ex-lbl">🧠 আইডিয়া</span>
+            <p>প্রতিটি সংখ্যায় জিজ্ঞেস করি "আমার জোড়া (complement = target − num) আগে দেখেছি?" — hashmap-এ O(1) lookup।</p>
+          </div>
+          <div class="ex-sec naive"><span class="ex-lbl">🐢 সরল (দুই লুপ) — O(n²)</span>
+            <div class="code-wrap"><span class="lang">python</span><pre><code>def two_sum(nums, target):
+    for i in range(len(nums)):
+        for j in range(i + 1, len(nums)):
+            if nums[i] + nums[j] == target:
+                return [i, j]</code></pre></div>
+          </div>
+          <div class="ex-sec optimised"><span class="ex-lbl">🚀 অপ্টিমাইজড (Hashmap) — O(n)</span>
+            <div class="code-wrap"><span class="lang">python</span><pre><code>def two_sum(nums, target):
+    seen = {}                       # মান → index
     for i, num in enumerate(nums):
         if target - num in seen:
             return [seen[target - num], i]
         seen[num] = i
     return []</code></pre></div>
-          <p><strong>Time:</strong> <span class="cx-good">O(n)</span> • <strong>Space:</strong> O(n)</p>
+          </div>
+          <div class="ex-sec"><span class="ex-lbl">🔍 ধাপে ধাপে (target=9)</span>
+            <div class="ex-dry">i=0 num=2 need=7 → seen={2:0}
+i=1 num=7 need=2 → 2 আছে! → [0, 1] ✅</div>
+          </div>
+          <div class="ex-sec"><span class="ex-lbl">⏱️ Complexity</span><p>Brute <span class="cx-bad">O(n²)</span> → Hashmap <span class="cx-good">O(n)</span> time, O(n) space।</p></div>
         </details>
       </div>
     </details>
@@ -4673,12 +4697,34 @@ update index 2: শুধু [2]→[0-2]→[0-5] পথ আপডেট → O(lo
     <details class="problem">
       <summary>Contains Duplicate <span class="diff easy">Easy</span></summary>
       <div class="body">
-        <p>array-তে কোনো মান একাধিকবার আছে কিনা বলুন।</p>
+        <div class="ex-sec"><span class="ex-lbl">📋 সমস্যা</span>
+          <p>array-তে কোনো মান একাধিকবার আছে কিনা বলুন।</p>
+          <span class="ex-io">contains_duplicate([1,2,3,1]) → True
+contains_duplicate([1,2,3,4]) → False</span>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🎯 কোথায় / কখন কাজে লাগে</span>
+          <ul>
+            <li>ডেটায় ডুপ্লিকেট ধরা (unique ID, ভোট, ইনভেন্টরি) — set-এর সবচেয়ে সরল ব্যবহার।</li>
+            <li>"seen আগে দেখেছি?" — hashing চিন্তার প্রবেশদ্বার।</li>
+          </ul>
+        </div>
         <details class="reveal"><summary>💡 সমাধান দেখুন</summary>
-          <p><strong>আইডিয়া:</strong> set-এ unique মান গোনা — দৈর্ঘ্য কমে গেলে ডুপ্লিকেট আছে।</p>
-          <div class="code-wrap"><span class="lang">python</span><pre><code>def contains_duplicate(nums):
+          <div class="ex-sec"><span class="ex-lbl">🧠 আইডিয়া</span>
+            <p>set শুধু unique মান রাখে। মূল array-র চেয়ে set ছোট হলে বুঝি কোথাও ডুপ্লিকেট ছিল।</p>
+          </div>
+          <div class="ex-sec naive"><span class="ex-lbl">🐢 সরল (দুই লুপ) — O(n²)</span>
+            <div class="code-wrap"><span class="lang">python</span><pre><code>def contains_duplicate(nums):
+    for i in range(len(nums)):
+        for j in range(i + 1, len(nums)):
+            if nums[i] == nums[j]:
+                return True
+    return False</code></pre></div>
+          </div>
+          <div class="ex-sec optimised"><span class="ex-lbl">🚀 অপ্টিমাইজড (Set) — O(n)</span>
+            <div class="code-wrap"><span class="lang">python</span><pre><code>def contains_duplicate(nums):
     return len(set(nums)) != len(nums)</code></pre></div>
-          <p><strong>Time:</strong> <span class="cx-good">O(n)</span> • <strong>Space:</strong> O(n)</p>
+          </div>
+          <div class="ex-sec"><span class="ex-lbl">⏱️ Complexity</span><p>Time <span class="cx-good">O(n)</span> • Space O(n)।</p></div>
         </details>
       </div>
     </details>
@@ -4686,13 +4732,33 @@ update index 2: শুধু [2]→[0-2]→[0-5] পথ আপডেট → O(lo
     <details class="problem">
       <summary>Valid Anagram <span class="diff easy">Easy</span></summary>
       <div class="body">
-        <p>দুটি string একে অপরের anagram কিনা (একই অক্ষর, ভিন্ন সাজানো)।</p>
+        <div class="ex-sec"><span class="ex-lbl">📋 সমস্যা</span>
+          <p>দুটি string একে অপরের anagram কিনা (একই অক্ষর, ভিন্ন সাজানো)।</p>
+          <span class="ex-io">is_anagram("listen","silent") → True
+is_anagram("rat","car") → False</span>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🎯 কোথায় / কখন কাজে লাগে</span>
+          <ul>
+            <li>Frequency-count প্যাটার্নের ক্লাসিক — "Group Anagrams", "Find All Anagrams"।</li>
+            <li>বানান-পরীক্ষা, শব্দখেলা, একই উপাদানের সেট মেলানো।</li>
+          </ul>
+        </div>
         <details class="reveal"><summary>💡 সমাধান দেখুন</summary>
-          <p><strong>আইডিয়া:</strong> দুটোর অক্ষর-frequency সমান কিনা — Counter দিয়ে এক লাইনে।</p>
-          <div class="code-wrap"><span class="lang">python</span><pre><code>from collections import Counter
+          <div class="ex-sec"><span class="ex-lbl">🧠 আইডিয়া</span>
+            <p>anagram মানে অক্ষর-frequency অভিন্ন। দৈর্ঘ্য আলাদা হলেই না; নয়তো Counter মিলিয়ে দেখুন।</p>
+          </div>
+          <div class="ex-sec naive"><span class="ex-lbl">🐢 সরল (Sort করে) — O(n log n)</span>
+            <div class="code-wrap"><span class="lang">python</span><pre><code>def is_anagram(s, t):
+    return sorted(s) == sorted(t)</code></pre></div>
+          </div>
+          <div class="ex-sec optimised"><span class="ex-lbl">🚀 অপ্টিমাইজড (Counter) — O(n)</span>
+            <div class="code-wrap"><span class="lang">python</span><pre><code>from collections import Counter
 def is_anagram(s, t):
+    if len(s) != len(t):
+        return False
     return Counter(s) == Counter(t)</code></pre></div>
-          <p><strong>Time:</strong> <span class="cx-good">O(n)</span> • <strong>Space:</strong> O(1) (২৬ অক্ষর)</p>
+          </div>
+          <div class="ex-sec"><span class="ex-lbl">⏱️ Complexity</span><p>Sort <span class="cx-mid">O(n log n)</span> → Counter <span class="cx-good">O(n)</span> time, O(1) space (২৬ অক্ষর)।</p></div>
         </details>
       </div>
     </details>
@@ -4702,17 +4768,36 @@ def is_anagram(s, t):
     <details class="problem">
       <summary>Valid Palindrome <span class="diff easy">Easy</span></summary>
       <div class="body">
-        <p>শুধু অক্ষর-সংখ্যা বিবেচনায় string palindrome কিনা (case উপেক্ষা করে)।</p>
+        <div class="ex-sec"><span class="ex-lbl">📋 সমস্যা</span>
+          <p>শুধু অক্ষর-সংখ্যা বিবেচনায় string palindrome কিনা (case উপেক্ষা করে)।</p>
+          <span class="ex-io">"A man, a plan, a canal: Panama" → True
+"race a car" → False</span>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🎯 কোথায় / কখন কাজে লাগে</span>
+          <ul>
+            <li>Two-pointer প্যাটার্নের পরিচয় — দুই প্রান্ত থেকে মাঝে আসা।</li>
+            <li>ইনপুট পরিষ্কার করা (filter) + তুলনা — বাস্তব validation-এর নমুনা।</li>
+          </ul>
+        </div>
         <details class="reveal"><summary>💡 সমাধান দেখুন</summary>
-          <div class="code-wrap"><span class="lang">python</span><pre><code>def is_palindrome(s):
+          <div class="ex-sec"><span class="ex-lbl">🧠 আইডিয়া</span>
+            <p>আগে শুধু অক্ষর-সংখ্যা রেখে lowercase করি, তারপর দুই পয়েন্টার মাঝে এগিয়ে মেলাই। মিল না হলেই না।</p>
+          </div>
+          <div class="ex-sec optimised"><span class="ex-lbl">🚀 অপ্টিমাইজড (Two Pointer) — O(n)</span>
+            <div class="code-wrap"><span class="lang">python</span><pre><code>def is_palindrome(s):
     s = [c.lower() for c in s if c.isalnum()]
     left, right = 0, len(s) - 1
-    while left < right:
+    while left &lt; right:
         if s[left] != s[right]:
             return False
         left += 1; right -= 1
     return True</code></pre></div>
-          <p><strong>Time:</strong> <span class="cx-good">O(n)</span> • <strong>Space:</strong> O(n)</p>
+          </div>
+          <div class="ex-sec"><span class="ex-lbl">🔍 ধাপে ধাপে ("racecar")</span>
+            <div class="ex-dry">L=0(r) R=6(r) ✔ → L=1(a) R=5(a) ✔
+L=2(c) R=4(c) ✔ → L=3 R=3 থামে → True ✅</div>
+          </div>
+          <div class="ex-sec"><span class="ex-lbl">⏱️ Complexity</span><p>Time <span class="cx-good">O(n)</span> • Space O(n) (পরিষ্কার-করা কপি; দুই-পয়েন্টার নিজে O(1))।</p></div>
         </details>
       </div>
     </details>
@@ -4720,18 +4805,49 @@ def is_anagram(s, t):
     <details class="problem">
       <summary>Longest Substring Without Repeating Characters <span class="diff medium">Medium</span></summary>
       <div class="body">
-        <p>পুনরাবৃত্তিহীন সবচেয়ে লম্বা substring-এর দৈর্ঘ্য। <code>"abcabcbb" → 3</code></p>
+        <div class="ex-sec"><span class="ex-lbl">📋 সমস্যা</span>
+          <p>পুনরাবৃত্তিহীন সবচেয়ে লম্বা substring-এর দৈর্ঘ্য।</p>
+          <span class="ex-io">"abcabcbb" → 3  ("abc")
+"bbbbb" → 1    ("b")</span>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🎯 কোথায় / কখন কাজে লাগে</span>
+          <ul>
+            <li>Sliding-window প্যাটার্নের প্রধান উদাহরণ — "সবচেয়ে বড়/ছোট বৈধ window"।</li>
+            <li>বাস্তবে: স্ট্রিম থেকে unique টোকেনের সর্বোচ্চ ধারা, rate-limit উইন্ডো।</li>
+          </ul>
+        </div>
         <details class="reveal"><summary>💡 সমাধান দেখুন</summary>
-          <p><strong>আইডিয়া:</strong> sliding window — অক্ষর আবার দেখলে বাঁ-প্রান্ত সরিয়ে দিন।</p>
-          <div class="code-wrap"><span class="lang">python</span><pre><code>def length_of_longest(s):
+          <div class="ex-sec"><span class="ex-lbl">🧠 আইডিয়া</span>
+            <p>একটা window রাখি [left..right]। অক্ষর আগে দেখা থাকলে left-কে তার পরের ঘরে লাফ দিয়ে সরাই, যাতে window-তে ডুপ্লিকেট না থাকে।</p>
+          </div>
+          <div class="ex-sec naive"><span class="ex-lbl">🐢 সরল (সব substring) — O(n²) বা বেশি</span>
+            <div class="code-wrap"><span class="lang">python</span><pre><code>def length_of_longest(s):
+    best = 0
+    for i in range(len(s)):
+        seen = set()
+        for j in range(i, len(s)):
+            if s[j] in seen:
+                break
+            seen.add(s[j])
+        best = max(best, len(seen))
+    return best</code></pre></div>
+          </div>
+          <div class="ex-sec optimised"><span class="ex-lbl">🚀 অপ্টিমাইজড (Sliding Window) — O(n)</span>
+            <div class="code-wrap"><span class="lang">python</span><pre><code>def length_of_longest(s):
     seen = {}; left = 0; best = 0
     for right, ch in enumerate(s):
-        if ch in seen and seen[ch] >= left:
-            left = seen[ch] + 1
+        if ch in seen and seen[ch] &gt;= left:
+            left = seen[ch] + 1        # ডুপ্লিকেটের পরে লাফ
         seen[ch] = right
         best = max(best, right - left + 1)
     return best</code></pre></div>
-          <p><strong>Time:</strong> <span class="cx-good">O(n)</span> • <strong>Space:</strong> O(min(n, charset))</p>
+          </div>
+          <div class="ex-sec"><span class="ex-lbl">🔍 ধাপে ধাপে ("abcab")</span>
+            <div class="ex-dry">a b c → window "abc" best=3
+a আবার → left=1, window "bca" best=3
+b আবার → left=2, window "cab" best=3 ✅</div>
+          </div>
+          <div class="ex-sec"><span class="ex-lbl">⏱️ Complexity</span><p>Brute <span class="cx-bad">O(n²)</span> → Window <span class="cx-good">O(n)</span> time, O(min(n, charset)) space।</p></div>
         </details>
       </div>
     </details>
@@ -4739,16 +4855,34 @@ def is_anagram(s, t):
     <details class="problem">
       <summary>Maximum Subarray (Kadane's) <span class="diff medium">Medium</span></summary>
       <div class="body">
-        <p>সবচেয়ে বড় যোগফলবিশিষ্ট অবিচ্ছিন্ন subarray-র যোগফল। <code>[-2,1,-3,4,-1,2,1,-5,4] → 6</code></p>
+        <div class="ex-sec"><span class="ex-lbl">📋 সমস্যা</span>
+          <p>সবচেয়ে বড় যোগফলবিশিষ্ট অবিচ্ছিন্ন (contiguous) subarray-র যোগফল।</p>
+          <span class="ex-io">[-2,1,-3,4,-1,2,1,-5,4] → 6   ([4,-1,2,1])</span>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🎯 কোথায় / কখন কাজে লাগে</span>
+          <ul>
+            <li>সর্বোচ্চ লাভের সময়কাল (stock), best-performing window, সর্বোচ্চ সিগন্যাল।</li>
+            <li>DP-চিন্তার সরলতম রূপ — "চালিয়ে যাব নাকি নতুন শুরু?"</li>
+          </ul>
+        </div>
         <details class="reveal"><summary>💡 সমাধান দেখুন</summary>
-          <p><strong>আইডিয়া (Kadane):</strong> প্রতিটি ঘরে সিদ্ধান্ত — আগের যোগফলে যোগ করব, নাকি নতুন শুরু করব?</p>
-          <div class="code-wrap"><span class="lang">python</span><pre><code>def max_subarray(nums):
+          <div class="ex-sec"><span class="ex-lbl">🧠 আইডিয়া (Kadane)</span>
+            <p>প্রতিটি ঘরে সিদ্ধান্ত: আগের running-sum ঋণাত্মক হলে টেনে না নিয়ে নতুন করে শুরু করাই ভালো। পথে সর্বোচ্চ মান ধরে রাখি।</p>
+          </div>
+          <div class="ex-sec optimised"><span class="ex-lbl">🚀 অপ্টিমাইজড (Kadane) — O(n), O(1)</span>
+            <div class="code-wrap"><span class="lang">python</span><pre><code>def max_subarray(nums):
     cur = best = nums[0]
     for x in nums[1:]:
         cur = max(x, cur + x)   # নতুন শুরু নাকি যোগ
         best = max(best, cur)
     return best</code></pre></div>
-          <p><strong>Time:</strong> <span class="cx-good">O(n)</span> • <strong>Space:</strong> O(1)</p>
+          </div>
+          <div class="ex-sec"><span class="ex-lbl">🔍 ধাপে ধাপে</span>
+            <div class="ex-dry">x=1  cur=1  best=1   x=-3 cur=-2 best=1
+x=4  cur=4  best=4   x=-1 cur=3  best=4
+x=2  cur=5  x=1 cur=6 → best=6 ✅</div>
+          </div>
+          <div class="ex-sec"><span class="ex-lbl">⏱️ Complexity</span><p>Time <span class="cx-good">O(n)</span> • Space <span class="cx-good">O(1)</span>।</p></div>
         </details>
       </div>
     </details>
@@ -4758,9 +4892,23 @@ def is_anagram(s, t):
     <details class="problem">
       <summary>Valid Parentheses <span class="diff easy">Easy</span></summary>
       <div class="body">
-        <p><code>"{[()]}"</code> ব্যালেন্সড কিনা।</p>
+        <div class="ex-sec"><span class="ex-lbl">📋 সমস্যা</span>
+          <p>ব্র্যাকেট string সঠিকভাবে ব্যালেন্সড ও ক্রমমতো বন্ধ হয়েছে কিনা।</p>
+          <span class="ex-io">"{[()]}" → True
+"([)]" → False</span>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🎯 কোথায় / কখন কাজে লাগে</span>
+          <ul>
+            <li>Stack-এর সংজ্ঞাগত ব্যবহার (LIFO) — compiler/editor-এ ব্র্যাকেট ম্যাচিং, syntax check।</li>
+            <li>HTML/XML tag, expression parsing — "শেষে খোলা সবশেষে বন্ধ"।</li>
+          </ul>
+        </div>
         <details class="reveal"><summary>💡 সমাধান দেখুন</summary>
-          <div class="code-wrap"><span class="lang">python</span><pre><code>def is_valid(s):
+          <div class="ex-sec"><span class="ex-lbl">🧠 আইডিয়া</span>
+            <p>খোলা ব্র্যাকেট stack-এ push করি; বন্ধ পেলে stack-এর শীর্ষ তার সঠিক জোড়া কিনা দেখি। শেষে stack খালি হলে বৈধ।</p>
+          </div>
+          <div class="ex-sec optimised"><span class="ex-lbl">🚀 অপ্টিমাইজড (Stack) — O(n)</span>
+            <div class="code-wrap"><span class="lang">python</span><pre><code>def is_valid(s):
     stack = []
     pairs = {')': '(', ']': '[', '}': '{'}
     for ch in s:
@@ -4770,7 +4918,14 @@ def is_anagram(s, t):
         else:
             stack.append(ch)
     return not stack</code></pre></div>
-          <p><strong>Time:</strong> <span class="cx-good">O(n)</span> • <strong>Space:</strong> O(n)</p>
+          </div>
+          <div class="ex-sec"><span class="ex-lbl">🔍 ধাপে ধাপে ("{[]}")</span>
+            <div class="ex-dry">{ → push   stack=[{]
+[ → push   stack=[{, []
+] → pop [ ✔ stack=[{]
+} → pop { ✔ stack=[] → খালি → True ✅</div>
+          </div>
+          <div class="ex-sec"><span class="ex-lbl">⏱️ Complexity</span><p>Time <span class="cx-good">O(n)</span> • Space O(n)।</p></div>
         </details>
       </div>
     </details>
@@ -4778,19 +4933,39 @@ def is_anagram(s, t):
     <details class="problem">
       <summary>Reverse Linked List <span class="diff easy">Easy</span></summary>
       <div class="body">
-        <p>একটি singly linked list উল্টে দিন।</p>
+        <div class="ex-sec"><span class="ex-lbl">📋 সমস্যা</span>
+          <p>একটি singly linked list উল্টে দিন।</p>
+          <span class="ex-io">1 → 2 → 3 → None
+ফলাফল: 3 → 2 → 1 → None</span>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🎯 কোথায় / কখন কাজে লাগে</span>
+          <ul>
+            <li>Pointer-manipulation-এর মৌলিক দক্ষতা — অসংখ্য linked-list প্রশ্নের ভিত্তি (reorder, palindrome LL, K-group reverse)।</li>
+            <li>বাস্তবে: undo-history, buffer উল্টানো, ট্রাভার্সাল দিক পাল্টানো।</li>
+          </ul>
+        </div>
         <details class="reveal"><summary>💡 সমাধান দেখুন</summary>
-          <p><strong>আইডিয়া:</strong> তিন পয়েন্টার — prev, cur, next। দিক উল্টে এগিয়ে যান।</p>
-          <div class="code-wrap"><span class="lang">python</span><pre><code>def reverse_list(head):
+          <div class="ex-sec"><span class="ex-lbl">🧠 আইডিয়া</span>
+            <p>তিন পয়েন্টার — prev, cur, nxt। প্রতিটি node-এর <code>next</code> পিছনের দিকে ঘুরিয়ে দিই, তারপর সবাইকে এক ধাপ এগোই।</p>
+          </div>
+          <div class="ex-sec optimised"><span class="ex-lbl">🚀 অপ্টিমাইজড (Iterative) — O(n), O(1)</span>
+            <div class="code-wrap"><span class="lang">python</span><pre><code>def reverse_list(head):
     prev = None
     cur = head
     while cur:
-        nxt = cur.next
-        cur.next = prev
-        prev = cur
-        cur = nxt
+        nxt = cur.next      # পরেরটা মনে রাখি
+        cur.next = prev     # দিক উল্টাই
+        prev = cur          # prev এগোই
+        cur = nxt           # cur এগোই
     return prev</code></pre></div>
-          <p><strong>Time:</strong> <span class="cx-good">O(n)</span> • <strong>Space:</strong> O(1)</p>
+          </div>
+          <div class="ex-sec"><span class="ex-lbl">🔍 ধাপে ধাপে (1→2→3)</span>
+            <div class="ex-dry">prev=None cur=1 → 1.next=None  prev=1 cur=2
+prev=1    cur=2 → 2.next=1     prev=2 cur=3
+prev=2    cur=3 → 3.next=2     prev=3 cur=None
+return prev = 3→2→1 ✅</div>
+          </div>
+          <div class="ex-sec"><span class="ex-lbl">⏱️ Complexity</span><p>Time <span class="cx-good">O(n)</span> • Space <span class="cx-good">O(1)</span>।</p></div>
         </details>
       </div>
     </details>
@@ -4800,13 +4975,37 @@ def is_anagram(s, t):
     <details class="problem">
       <summary>Maximum Depth of Binary Tree <span class="diff easy">Easy</span></summary>
       <div class="body">
-        <p>গাছের সর্বোচ্চ গভীরতা বের করুন।</p>
+        <div class="ex-sec"><span class="ex-lbl">📋 সমস্যা</span>
+          <p>বাইনারি গাছের root থেকে সবচেয়ে দূরের leaf পর্যন্ত node-সংখ্যা (গভীরতা)।</p>
+          <span class="ex-io">    3
+   / \
+  9  20     → depth = 3
+    /  \
+   15   7</span>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🎯 কোথায় / কখন কাজে লাগে</span>
+          <ul>
+            <li>Tree recursion-এর সবচেয়ে সরল উদাহরণ (DFS) — balanced-tree চেক, diameter, height-এর ভিত্তি।</li>
+            <li>বাস্তবে: ফাইল-সিস্টেম/DOM গভীরতা, org-chart স্তর।</li>
+          </ul>
+        </div>
         <details class="reveal"><summary>💡 সমাধান দেখুন</summary>
-          <div class="code-wrap"><span class="lang">python</span><pre><code>def max_depth(root):
+          <div class="ex-sec"><span class="ex-lbl">🧠 আইডিয়া</span>
+            <p>যেকোনো node-এর গভীরতা = 1 + তার বাম ও ডান সাবট্রির মধ্যে যেটা গভীর। খালি node = 0 (base case)।</p>
+          </div>
+          <div class="ex-sec optimised"><span class="ex-lbl">🚀 অপ্টিমাইজড (DFS Recursion) — O(n)</span>
+            <div class="code-wrap"><span class="lang">python</span><pre><code>def max_depth(root):
     if not root:
         return 0
     return 1 + max(max_depth(root.left), max_depth(root.right))</code></pre></div>
-          <p><strong>Time:</strong> <span class="cx-mid">O(n)</span> • <strong>Space:</strong> O(h) — h গাছের উচ্চতা</p>
+          </div>
+          <div class="ex-sec"><span class="ex-lbl">🔍 ধাপে ধাপে</span>
+            <div class="ex-dry">depth(15)=1  depth(7)=1
+depth(20)=1+max(1,1)=2
+depth(9)=1
+depth(3)=1+max(1,2)=3 ✅</div>
+          </div>
+          <div class="ex-sec"><span class="ex-lbl">⏱️ Complexity</span><p>Time <span class="cx-mid">O(n)</span> (প্রতিটি node একবার) • Space O(h) — recursion stack, h = উচ্চতা।</p></div>
         </details>
       </div>
     </details>
@@ -4814,15 +5013,30 @@ def is_anagram(s, t):
     <details class="problem">
       <summary>Number of Islands <span class="diff medium">Medium</span></summary>
       <div class="body">
-        <p>'1' (জমি) ও '0' (পানি) এর grid-এ কয়টি দ্বীপ আছে গুনুন (পাশাপাশি '1' একই দ্বীপ)।</p>
+        <div class="ex-sec"><span class="ex-lbl">📋 সমস্যা</span>
+          <p>'1' (জমি) ও '0' (পানি) এর grid-এ কয়টি দ্বীপ আছে গুনুন (পাশাপাশি '1' একই দ্বীপ)।</p>
+          <span class="ex-io">11000
+11000   → 3 টি দ্বীপ
+00100
+00011</span>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🎯 কোথায় / কখন কাজে লাগে</span>
+          <ul>
+            <li>Grid-কে graph ধরে DFS/BFS — "connected component গোনা" প্যাটার্ন।</li>
+            <li>বাস্তবে: ছবিতে region/blob detection, ম্যাপে সংযুক্ত এলাকা, flood-fill (paint bucket)।</li>
+          </ul>
+        </div>
         <details class="reveal"><summary>💡 সমাধান দেখুন</summary>
-          <p><strong>আইডিয়া:</strong> প্রতিটি '1' পেলে DFS দিয়ে পুরো দ্বীপ "ডুবিয়ে" (০ করে) দিন, count বাড়ান।</p>
-          <div class="code-wrap"><span class="lang">python</span><pre><code>def num_islands(grid):
+          <div class="ex-sec"><span class="ex-lbl">🧠 আইডিয়া</span>
+            <p>প্রতিটি অভিজিত '1' পেলে count বাড়াই, তারপর DFS দিয়ে ওই দ্বীপের সব সংযুক্ত '1'-কে '0' করে "ডুবিয়ে" দিই — যাতে আবার গোনা না হয়।</p>
+          </div>
+          <div class="ex-sec optimised"><span class="ex-lbl">🚀 অপ্টিমাইজড (DFS flood-fill) — O(rows×cols)</span>
+            <div class="code-wrap"><span class="lang">python</span><pre><code>def num_islands(grid):
     if not grid: return 0
     rows, cols = len(grid), len(grid[0])
     count = 0
     def dfs(r, c):
-        if r < 0 or c < 0 or r >= rows or c >= cols or grid[r][c] == '0':
+        if r &lt; 0 or c &lt; 0 or r &gt;= rows or c &gt;= cols or grid[r][c] == '0':
             return
         grid[r][c] = '0'              # visited চিহ্নিত
         dfs(r+1, c); dfs(r-1, c); dfs(r, c+1); dfs(r, c-1)
@@ -4832,7 +5046,8 @@ def is_anagram(s, t):
                 count += 1
                 dfs(r, c)
     return count</code></pre></div>
-          <p><strong>Time:</strong> <span class="cx-mid">O(rows × cols)</span> • <strong>Space:</strong> O(rows × cols) (recursion)</p>
+          </div>
+          <div class="ex-sec"><span class="ex-lbl">⏱️ Complexity</span><p>Time <span class="cx-mid">O(rows × cols)</span> — প্রতিটি ঘর একবার • Space O(rows × cols) worst-case recursion।</p></div>
         </details>
       </div>
     </details>
@@ -4842,15 +5057,33 @@ def is_anagram(s, t):
     <details class="problem">
       <summary>Climbing Stairs <span class="diff easy">Easy</span></summary>
       <div class="body">
-        <p>n ধাপের সিঁড়ি, একবারে ১ বা ২ ধাপ। কত উপায়ে ওঠা যায়?</p>
+        <div class="ex-sec"><span class="ex-lbl">📋 সমস্যা</span>
+          <p>n ধাপের সিঁড়ি, একবারে ১ বা ২ ধাপ। কত উপায়ে ওঠা যায়?</p>
+          <span class="ex-io">n=2 → 2  (1+1, 2)
+n=3 → 3  (1+1+1, 1+2, 2+1)</span>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🎯 কোথায় / কখন কাজে লাগে</span>
+          <ul>
+            <li>DP-র প্রবেশদ্বার — "শেষ ধাপে পৌঁছানোর উপায় = আগের দুই অবস্থার যোগফল"।</li>
+            <li>Fibonacci-রই ছদ্মবেশ; tiling/decode-ways-এর মতো গোনা-সমস্যার মূল কাঠামো।</li>
+          </ul>
+        </div>
         <details class="reveal"><summary>💡 সমাধান দেখুন</summary>
-          <p><strong>আইডিয়া:</strong> এটা আসলে Fibonacci! ways(n) = ways(n-1) + ways(n-2)।</p>
-          <div class="code-wrap"><span class="lang">python</span><pre><code>def climb_stairs(n):
+          <div class="ex-sec"><span class="ex-lbl">🧠 আইডিয়া</span>
+            <p>n-তম ধাপে আসা যায় (n-1) থেকে ১ ধাপ বা (n-2) থেকে ২ ধাপ দিয়ে। তাই ways(n) = ways(n-1) + ways(n-2) — Fibonacci!</p>
+          </div>
+          <div class="ex-sec optimised"><span class="ex-lbl">🚀 অপ্টিমাইজড (O(1) space)</span>
+            <div class="code-wrap"><span class="lang">python</span><pre><code>def climb_stairs(n):
     a, b = 1, 1
     for _ in range(n):
         a, b = b, a + b
     return a</code></pre></div>
-          <p><strong>Time:</strong> <span class="cx-good">O(n)</span> • <strong>Space:</strong> O(1)</p>
+          </div>
+          <div class="ex-sec"><span class="ex-lbl">🔍 ধাপে ধাপে (n=4)</span>
+            <div class="ex-dry">a=1 b=1 → 1 1 2 3 5
+৪ বার পরে a = 5 → 5 উপায় ✅</div>
+          </div>
+          <div class="ex-sec"><span class="ex-lbl">⏱️ Complexity</span><p>Time <span class="cx-good">O(n)</span> • Space <span class="cx-good">O(1)</span>।</p></div>
         </details>
       </div>
     </details>
@@ -4858,18 +5091,36 @@ def is_anagram(s, t):
     <details class="problem">
       <summary>Coin Change (ন্যূনতম মুদ্রা) <span class="diff medium">Medium</span></summary>
       <div class="body">
-        <p>কিছু মুদ্রার মান ও amount দেওয়া। amount বানাতে ন্যূনতম কয়টি মুদ্রা লাগে? না পারলে -1।</p>
+        <div class="ex-sec"><span class="ex-lbl">📋 সমস্যা</span>
+          <p>কিছু মুদ্রার মান ও amount দেওয়া। amount বানাতে ন্যূনতম কয়টি মুদ্রা লাগে? না পারলে -1।</p>
+          <span class="ex-io">coin_change([1,2,5], 11) → 3   (5+5+1)
+coin_change([2], 3) → -1</span>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🎯 কোথায় / কখন কাজে লাগে</span>
+          <ul>
+            <li>ক্লাসিক "unbounded knapsack" DP — মুদ্রা/নোট ভাঙানো, ন্যূনতম উপকরণে লক্ষ্য পূরণ।</li>
+            <li>সতর্কতা: এখানে greedy (সবসময় বড় মুদ্রা) ভুল উত্তর দিতে পারে — তাই DP লাগে।</li>
+          </ul>
+        </div>
         <details class="reveal"><summary>💡 সমাধান দেখুন</summary>
-          <p><strong>আইডিয়া:</strong> bottom-up DP — প্রতিটি মানের জন্য ন্যূনতম মুদ্রা টেবিলে রাখুন।</p>
-          <div class="code-wrap"><span class="lang">python</span><pre><code>def coin_change(coins, amount):
+          <div class="ex-sec"><span class="ex-lbl">🧠 আইডিয়া</span>
+            <p>dp[i] = i বানাতে ন্যূনতম মুদ্রা। প্রতিটি মুদ্রা c-এর জন্য dp[i] = min(dp[i], dp[i−c] + 1)। ছোট থেকে বড় সব amount পূরণ করি (bottom-up)।</p>
+          </div>
+          <div class="ex-sec optimised"><span class="ex-lbl">🚀 অপ্টিমাইজড (Bottom-up DP)</span>
+            <div class="code-wrap"><span class="lang">python</span><pre><code>def coin_change(coins, amount):
     dp = [float('inf')] * (amount + 1)
     dp[0] = 0
     for i in range(1, amount + 1):
         for c in coins:
-            if c <= i:
+            if c &lt;= i:
                 dp[i] = min(dp[i], dp[i - c] + 1)
     return dp[amount] if dp[amount] != float('inf') else -1</code></pre></div>
-          <p><strong>Time:</strong> <span class="cx-mid">O(amount × coins)</span> • <strong>Space:</strong> O(amount)</p>
+          </div>
+          <div class="ex-sec"><span class="ex-lbl">🔍 ধাপে ধাপে (coins=[1,2,5])</span>
+            <div class="ex-dry">dp[1]=1  dp[2]=1  dp[3]=2  dp[4]=2
+dp[5]=1  dp[6]=2 ... dp[11]=min via 5→dp[6]=3 ✅</div>
+          </div>
+          <div class="ex-sec"><span class="ex-lbl">⏱️ Complexity</span><p>Time <span class="cx-mid">O(amount × coins)</span> • Space O(amount)।</p></div>
         </details>
       </div>
     </details>
@@ -5224,7 +5475,7 @@ git stash          # সরাও
 git stash pop      # ফিরিয়ে আনো
 
 # bn: একটি commit বাতিল করে নতুন commit (নিরাপদ)
-git revert <commit-id>
+git revert &lt;commit-id&gt;
 
 # bn: দুই commit এর পার্থক্য দেখা
 git diff</code></pre></div>
@@ -5282,7 +5533,7 @@ git reset --hard HEAD~1
 git restore --staged file.py
 
 # bn: একটি নির্দিষ্ট commit অন্য branch-এ আনা
-git cherry-pick <commit-id>
+git cherry-pick &lt;commit-id&gt;
 
 # bn: হারানো commit খুঁজে পাওয়া (lifesaver!)
 git reflog            # bn: সব HEAD পরিবর্তনের ইতিহাস</code></pre></div>
@@ -6379,10 +6630,707 @@ print(spiral([[1,2,3],[4,5,6],[7,8,9]]))   # [1,2,3,6,9,8,7,4,5]</code></pre></d
     <div class="page-nav"><button>←</button><button>→</button></div>
   </section>
 
+  <!-- ================= CLASSIC EXAMPLES ================= -->
+  <section class="topic" id="examples">
+    <h2>🧩 ক্লাসিক উদাহরণ — সবচেয়ে বেশি জিজ্ঞেস করা প্রবলেম</h2>
+    <p class="lead">Fibonacci, Palindrome, LCS-এর মতো <strong>চিরায়ত সমস্যা</strong> — প্রতিটির জন্য: সমস্যা কী, <em>কোথায়/কখন বাস্তবে লাগে</em>, আইডিয়া, সরল বনাম অপ্টিমাইজড কোড, ধাপে ধাপে dry-run, আর Complexity। নিচের মেনু থেকে বেছে নিন বা সার্চ করুন।</p>
+
+    <div class="note tip">
+      <span class="tag">📖 কীভাবে পড়বেন</span>
+      প্রতিটি কার্ডে একই কাঠামো — 📋 <b>সমস্যা</b> → 🎯 <b>কোথায় লাগে</b> → 🧠 <b>আইডিয়া</b> → 🐢 <b>সরল</b> → 🚀 <b>অপ্টিমাইজড</b> → 🔍 <b>dry-run</b> → ⏱️ <b>Complexity</b>। আগে নিজে ভাবুন, তারপর অপ্টিমাইজড কোড দেখুন।
+    </div>
+
+    <div class="ex-menu" id="exMenu">
+      <button class="ex-chip active" data-cat="all">সব</button>
+      <button class="ex-chip" data-cat="math">🔢 Math</button>
+      <button class="ex-chip" data-cat="string">🔤 String</button>
+      <button class="ex-chip" data-cat="array">🗂️ Array</button>
+      <button class="ex-chip" data-cat="sort">📊 Sort</button>
+      <button class="ex-chip" data-cat="dp">🧮 DP</button>
+    </div>
+    <div class="ex-search"><input id="exSearch" type="text" placeholder="🔍 প্রবলেম খুঁজুন... (fibonacci, palindrome, lcs, binary search)"></div>
+
+    <div id="exList">
+
+      <!-- ============ FIBONACCI ============ -->
+      <div class="ex-card" data-cat="math" data-name="fibonacci ফিবোনাচি dp memoization">
+        <h3>Fibonacci (ফিবোনাচি সংখ্যা) <span class="catbadge">Math / DP</span><span class="diff easy">Easy</span></h3>
+        <div class="ex-sec"><span class="ex-lbl">📋 সমস্যা</span>
+          <p>n-তম Fibonacci সংখ্যা বের করুন। প্রতিটি সংখ্যা = আগের দুইটির যোগফল।</p>
+          <span class="ex-io">fib: 0 1 1 2 3 5 8 13 21 34 ...
+fib(0)=0, fib(1)=1, fib(7)=13</span>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🎯 কোথায় / কখন কাজে লাগে</span>
+          <ul>
+            <li><b>DP শেখার প্রথম ধাপ</b> — overlapping subproblem ও memoization এখানেই সবচেয়ে পরিষ্কার।</li>
+            <li>বাস্তবে: Climbing Stairs, tiling, খরগোশের বংশবৃদ্ধি মডেল, ফাইন্যান্সে Fibonacci retracement।</li>
+            <li>ইন্টারভিউয়ে যাচাই করে: recursion বোঝেন কিনা, আর তাকে O(n)/O(1)-তে নামাতে পারেন কিনা।</li>
+          </ul>
+        </div>
+        <div class="ex-sec naive"><span class="ex-lbl">🐢 সরল (Recursion) — O(2ⁿ), খুব ধীর</span>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>def fib(n):
+    if n &lt; 2:            # base case: fib(0)=0, fib(1)=1
+        return n
+    return fib(n-1) + fib(n-2)   # একই কাজ বারবার হয় → ধীর</code></pre></div>
+          <p>সমস্যা: <code>fib(5)</code> বের করতে <code>fib(3)</code> বহুবার গোনা হয় → exponential।</p>
+        </div>
+        <div class="ex-sec optimised"><span class="ex-lbl">🚀 অপ্টিমাইজড (Iterative) — O(n) time, O(1) space</span>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>def fib(n):
+    a, b = 0, 1              # a=fib(i-1), b=fib(i)
+    for _ in range(n):
+        a, b = b, a + b      # এক ধাপ সামনে সরান
+    return a</code></pre></div>
+          <p>শুধু আগের দুইটি মান মনে রাখলেই চলে — পুরো টেবিল দরকার নেই।</p>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🔍 ধাপে ধাপে (fib(5))</span>
+          <div class="ex-dry">start  a=0 b=1
+step1  a=1 b=1
+step2  a=1 b=2
+step3  a=2 b=3
+step4  a=3 b=5
+step5  a=5 b=8   → return a = 5 ✅</div>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">⏱️ Complexity</span>
+          <p>Recursion: <span class="cx-bad">O(2ⁿ)</span> • Memoized: <span class="cx-good">O(n)</span> • Iterative: <span class="cx-good">O(n)</span> time, <span class="cx-good">O(1)</span> space।</p>
+        </div>
+      </div>
+
+      <!-- ============ FACTORIAL ============ -->
+      <div class="ex-card" data-cat="math" data-name="factorial ফ্যাক্টোরিয়াল recursion">
+        <h3>Factorial (n!) <span class="catbadge">Math</span><span class="diff easy">Easy</span></h3>
+        <div class="ex-sec"><span class="ex-lbl">📋 সমস্যা</span>
+          <p>n! = 1×2×3×...×n। <code>0! = 1</code> (সংজ্ঞা অনুযায়ী)।</p>
+          <span class="ex-io">factorial(5) = 120
+factorial(0) = 1</span>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🎯 কোথায় / কখন কাজে লাগে</span>
+          <ul>
+            <li>Permutation/Combination গোনা (nCr, nPr), probability।</li>
+            <li>Recursion ও base-case শেখানোর ক্লাসিক উদাহরণ।</li>
+            <li>বড় n-এ Python-এর arbitrary-precision int (overflow হয় না) দেখানো যায়।</li>
+          </ul>
+        </div>
+        <div class="ex-sec optimised"><span class="ex-lbl">🚀 দুই উপায় (দুটোই O(n))</span>
+          <div class="code-wrap"><span class="lang">python</span><pre><code># Iterative — stack overflow-এর ভয় নেই
+def factorial(n):
+    result = 1
+    for i in range(2, n + 1):
+        result *= i
+    return result
+
+# Recursive — পরিষ্কার, কিন্তু গভীর n-এ RecursionError
+def factorial_rec(n):
+    if n &lt;= 1:
+        return 1
+    return n * factorial_rec(n - 1)</code></pre></div>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🔍 ধাপে ধাপে (factorial(4))</span>
+          <div class="ex-dry">i=2 → result=2
+i=3 → result=6
+i=4 → result=24  ✅</div>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">⏱️ Complexity</span><p>Time <span class="cx-good">O(n)</span> • Space: iterative <span class="cx-good">O(1)</span>, recursive O(n) (call stack)।</p></div>
+      </div>
+
+      <!-- ============ PALINDROME ============ -->
+      <div class="ex-card" data-cat="string" data-name="palindrome প্যালিনড্রোম two pointer reverse">
+        <h3>Palindrome Check (প্যালিনড্রোম) <span class="catbadge">String</span><span class="diff easy">Easy</span></h3>
+        <div class="ex-sec"><span class="ex-lbl">📋 সমস্যা</span>
+          <p>string উল্টো করলে একই থাকে কিনা। <code>"madam"</code>, <code>"racecar"</code> → হ্যাঁ; <code>"hello"</code> → না।</p>
+          <span class="ex-io">is_palindrome("madam") → True
+is_palindrome("hello") → False</span>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🎯 কোথায় / কখন কাজে লাগে</span>
+          <ul>
+            <li><b>Two-pointer প্যাটার্নের</b> সবচেয়ে সহজ পরিচয় — দুই প্রান্ত থেকে মাঝে আসা।</li>
+            <li>DNA/RNA প্যালিনড্রোমিক সিকোয়েন্স, ডেটা validation, সংখ্যা প্যালিনড্রোম চেক।</li>
+            <li>বড় সমস্যার ভিত্তি: Longest Palindromic Substring, Valid Palindrome (LeetCode 125)।</li>
+          </ul>
+        </div>
+        <div class="ex-sec naive"><span class="ex-lbl">🐢 সরল (Slicing) — O(n) time, O(n) space</span>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>def is_palindrome(s):
+    return s == s[::-1]     # উল্টো string বানিয়ে তুলনা — extra memory</code></pre></div>
+        </div>
+        <div class="ex-sec optimised"><span class="ex-lbl">🚀 অপ্টিমাইজড (Two Pointer) — O(n) time, O(1) space</span>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>def is_palindrome(s):
+    left, right = 0, len(s) - 1
+    while left &lt; right:
+        if s[left] != s[right]:   # মিল না হলেই না
+            return False
+        left += 1
+        right -= 1
+    return True</code></pre></div>
+          <p>মাঝখানে পৌঁছানোর আগেই ভুল পেলে থেমে যায় — নতুন string বানাতে হয় না।</p>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🔍 ধাপে ধাপে ("racecar")</span>
+          <div class="ex-dry">r a c e c a r
+L=0(r) R=6(r) ✔  →  L=1(a) R=5(a) ✔
+L=2(c) R=4(c) ✔  →  L=3 R=3 থামে → True ✅</div>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">⏱️ Complexity</span><p>Time <span class="cx-good">O(n)</span> • Space <span class="cx-good">O(1)</span> (two-pointer)।</p></div>
+      </div>
+
+      <!-- ============ REVERSE STRING ============ -->
+      <div class="ex-card" data-cat="string" data-name="reverse string উল্টো two pointer">
+        <h3>Reverse a String <span class="catbadge">String</span><span class="diff easy">Easy</span></h3>
+        <div class="ex-sec"><span class="ex-lbl">📋 সমস্যা</span>
+          <p>string উল্টে দিন। <code>"hello" → "olleh"</code>।</p>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🎯 কোথায় / কখন কাজে লাগে</span>
+          <ul>
+            <li>Palindrome, reverse words in a sentence, reverse Linked List — সবার ভিত্তি।</li>
+            <li>ইন-প্লেস reversal (O(1) space) দেখানোর জন্য (C/Java-তে array হিসেবে)।</li>
+          </ul>
+        </div>
+        <div class="ex-sec optimised"><span class="ex-lbl">🚀 Pythonic ও ইন-প্লেস দুই উপায়</span>
+          <div class="code-wrap"><span class="lang">python</span><pre><code># Pythonic — সবচেয়ে দ্রুত ও পরিষ্কার
+def reverse(s):
+    return s[::-1]
+
+# Two-pointer (in-place, list হিসেবে — O(1) extra)
+def reverse_inplace(chars):     # chars = list(s)
+    l, r = 0, len(chars) - 1
+    while l &lt; r:
+        chars[l], chars[r] = chars[r], chars[l]   # swap
+        l += 1
+        r -= 1
+    return chars</code></pre></div>
+          <p>Python string immutable, তাই in-place করতে list দরকার। <code>s[::-1]</code> সাধারণ কাজে যথেষ্ট।</p>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">⏱️ Complexity</span><p>Time <span class="cx-good">O(n)</span> • Space: slicing O(n), two-pointer <span class="cx-good">O(1)</span>।</p></div>
+      </div>
+
+      <!-- ============ ANAGRAM ============ -->
+      <div class="ex-card" data-cat="string" data-name="anagram frequency counter hashmap">
+        <h3>Valid Anagram <span class="catbadge">String</span><span class="diff easy">Easy</span></h3>
+        <div class="ex-sec"><span class="ex-lbl">📋 সমস্যা</span>
+          <p>দুটি string-এ একই অক্ষর একই সংখ্যক আছে কিনা (শুধু সাজানো ভিন্ন)।</p>
+          <span class="ex-io">is_anagram("listen", "silent") → True
+is_anagram("rat", "car") → False</span>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🎯 কোথায় / কখন কাজে লাগে</span>
+          <ul>
+            <li><b>Frequency-count / hashmap</b> প্যাটার্নের ক্লাসিক — "Group Anagrams", "Find All Anagrams"।</li>
+            <li>বানান-পরীক্ষা, শব্দখেলা, ডেটায় একই উপাদানের সেট মেলানো।</li>
+          </ul>
+        </div>
+        <div class="ex-sec naive"><span class="ex-lbl">🐢 সরল (Sort করে) — O(n log n)</span>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>def is_anagram(s, t):
+    return sorted(s) == sorted(t)   # দুটোই সাজিয়ে তুলনা</code></pre></div>
+        </div>
+        <div class="ex-sec optimised"><span class="ex-lbl">🚀 অপ্টিমাইজড (Counter) — O(n)</span>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>from collections import Counter
+def is_anagram(s, t):
+    if len(s) != len(t):
+        return False
+    return Counter(s) == Counter(t)   # অক্ষর-গণনা মেলান</code></pre></div>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">⏱️ Complexity</span><p>Sort: <span class="cx-mid">O(n log n)</span> • Counter: <span class="cx-good">O(n)</span> time, O(1) space (২৬ অক্ষর)।</p></div>
+      </div>
+
+      <!-- ============ VOWEL / CHAR FREQUENCY ============ -->
+      <div class="ex-card" data-cat="string" data-name="vowel count character frequency hashmap most frequent">
+        <h3>Character / Vowel Frequency <span class="catbadge">String</span><span class="diff easy">Easy</span></h3>
+        <div class="ex-sec"><span class="ex-lbl">📋 সমস্যা</span>
+          <p>প্রতিটি অক্ষর কতবার আছে গুনুন, বা vowel সংখ্যা বের করুন।</p>
+          <span class="ex-io">freq("banana") → {'b':1,'a':3,'n':2}
+count_vowels("education") → 5</span>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🎯 কোথায় / কখন কাজে লাগে</span>
+          <ul>
+            <li>প্রায় সব string-সমস্যার প্রথম ধাপ — frequency map বানানো।</li>
+            <li>Most frequent element, first unique char, anagram — সবই এর উপর দাঁড়ায়।</li>
+          </ul>
+        </div>
+        <div class="ex-sec optimised"><span class="ex-lbl">🚀 কোড</span>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>from collections import Counter
+
+def char_freq(s):
+    return Counter(s)              # {'a': 3, 'b': 1, ...}
+
+def count_vowels(s):
+    return sum(1 for c in s.lower() if c in "aeiou")
+
+# সবচেয়ে বেশিবার আসা অক্ষর
+def most_common(s):
+    return Counter(s).most_common(1)[0]   # ('a', 3)</code></pre></div>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">⏱️ Complexity</span><p>Time <span class="cx-good">O(n)</span> • Space O(k) (আলাদা অক্ষর সংখ্যা)।</p></div>
+      </div>
+
+      <!-- ============ LONGEST PALINDROMIC SUBSTRING ============ -->
+      <div class="ex-card" data-cat="string" data-name="longest palindromic substring expand around center দীর্ঘতম">
+        <h3>Longest Palindromic Substring <span class="catbadge">String</span><span class="diff medium">Medium</span></h3>
+        <div class="ex-sec"><span class="ex-lbl">📋 সমস্যা</span>
+          <p>string-এর ভেতরে সবচেয়ে লম্বা palindrome অংশটি বের করুন।</p>
+          <span class="ex-io">longest("babad") → "bab" (বা "aba")
+longest("cbbd")  → "bb"</span>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🎯 কোথায় / কখন কাজে লাগে</span>
+          <ul>
+            <li>"expand around center" প্যাটার্ন — bio-informatics-এ symmetric sequence খোঁজা।</li>
+            <li>ইন্টারভিউয়ে খুব কমন (LeetCode 5) — brute force থেকে optimise করার দক্ষতা যাচাই।</li>
+          </ul>
+        </div>
+        <div class="ex-sec optimised"><span class="ex-lbl">🚀 অপ্টিমাইজড (Expand Around Center) — O(n²)</span>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>def longest_palindrome(s):
+    if not s:
+        return ""
+    start, end = 0, 0
+
+    def expand(l, r):
+        while l &gt;= 0 and r &lt; len(s) and s[l] == s[r]:
+            l -= 1
+            r += 1
+        return l + 1, r - 1          # শেষ বৈধ সীমা
+
+    for i in range(len(s)):
+        l1, r1 = expand(i, i)        # বিজোড় দৈর্ঘ্য (কেন্দ্র একটি অক্ষর)
+        l2, r2 = expand(i, i + 1)    # জোড় দৈর্ঘ্য (কেন্দ্র দুই অক্ষর)
+        if r1 - l1 &gt; end - start:
+            start, end = l1, r1
+        if r2 - l2 &gt; end - start:
+            start, end = l2, r2
+    return s[start:end + 1]</code></pre></div>
+          <p>প্রতিটি অবস্থানকে কেন্দ্র ধরে দুই দিকে ছড়িয়ে দেখি কতদূর palindrome থাকে।</p>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">⏱️ Complexity</span><p>Time <span class="cx-mid">O(n²)</span> • Space <span class="cx-good">O(1)</span>। (আরও দ্রুত: Manacher's O(n))।</p></div>
+      </div>
+
+      <!-- ============ PRIME + SIEVE ============ -->
+      <div class="ex-card" data-cat="math" data-name="prime number sieve eratosthenes মৌলিক">
+        <h3>Prime Check + Sieve <span class="catbadge">Math</span><span class="diff easy">Easy</span></h3>
+        <div class="ex-sec"><span class="ex-lbl">📋 সমস্যা</span>
+          <p>একটি সংখ্যা মৌলিক (prime) কিনা; বা n পর্যন্ত সব prime বের করা।</p>
+          <span class="ex-io">is_prime(17) → True
+primes_upto(10) → [2, 3, 5, 7]</span>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🎯 কোথায় / কখন কাজে লাগে</span>
+          <ul>
+            <li>Cryptography (RSA), hashing, random number — prime সর্বত্র।</li>
+            <li>Sieve = একাধিক query-তে prime লাগলে precompute করার আদর্শ কৌশল।</li>
+          </ul>
+        </div>
+        <div class="ex-sec optimised"><span class="ex-lbl">🚀 একক চেক — O(√n)</span>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>def is_prime(n):
+    if n &lt; 2:
+        return False
+    i = 2
+    while i * i &lt;= n:        # √n পর্যন্তই যথেষ্ট
+        if n % i == 0:
+            return False
+        i += 1
+    return True</code></pre></div>
+          <p>কেন √n? কোনো ভাজক √n-এর বড় হলে তার জোড়া অবশ্যই ছোট — আগেই ধরা পড়ত।</p>
+        </div>
+        <div class="ex-sec optimised"><span class="ex-lbl">🚀 Sieve of Eratosthenes — O(n log log n)</span>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>def primes_upto(n):
+    sieve = [True] * (n + 1)
+    sieve[0] = sieve[1] = False
+    for i in range(2, int(n**0.5) + 1):
+        if sieve[i]:
+            for j in range(i * i, n + 1, i):   # i-এর গুণিতক বাদ
+                sieve[j] = False
+    return [i for i, ok in enumerate(sieve) if ok]</code></pre></div>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">⏱️ Complexity</span><p>is_prime: <span class="cx-good">O(√n)</span> • Sieve: <span class="cx-good">O(n log log n)</span>।</p></div>
+      </div>
+
+      <!-- ============ GCD / LCM ============ -->
+      <div class="ex-card" data-cat="math" data-name="gcd lcm euclid গসাগু euclidean">
+        <h3>GCD & LCM (Euclid) <span class="catbadge">Math</span><span class="diff easy">Easy</span></h3>
+        <div class="ex-sec"><span class="ex-lbl">📋 সমস্যা</span>
+          <p>দুই সংখ্যার গ.সা.গু (GCD) ও ল.সা.গু (LCM)।</p>
+          <span class="ex-io">gcd(48, 18) → 6
+lcm(4, 6)   → 12</span>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🎯 কোথায় / কখন কাজে লাগে</span>
+          <ul>
+            <li>ভগ্নাংশ simplify, cyclic pattern-এ পুনরাবৃত্তি (LCM), modular math।</li>
+            <li>Euclid's algorithm = পুরো number theory-র ভিত্তি।</li>
+          </ul>
+        </div>
+        <div class="ex-sec optimised"><span class="ex-lbl">🚀 অপ্টিমাইজড (Euclidean) — O(log min(a,b))</span>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>def gcd(a, b):
+    while b:
+        a, b = b, a % b     # বড়টাকে ভাগশেষ দিয়ে বদলান
+    return a
+
+def lcm(a, b):
+    return a * b // gcd(a, b)   # a*b = gcd * lcm</code></pre></div>
+          <p>মূল সূত্র: gcd(a, b) = gcd(b, a mod b)। b শূন্য হলে a-ই উত্তর।</p>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🔍 ধাপে ধাপে gcd(48,18)</span>
+          <div class="ex-dry">a=48 b=18 → 48%18=12
+a=18 b=12 → 18%12=6
+a=12 b=6  → 12%6=0
+a=6  b=0  → return 6 ✅</div>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">⏱️ Complexity</span><p>Time <span class="cx-good">O(log min(a,b))</span> • Space O(1)।</p></div>
+      </div>
+
+      <!-- ============ FAST POWER ============ -->
+      <div class="ex-card" data-cat="math" data-name="fast power exponentiation binary বাইনারি pow">
+        <h3>Fast Power (aᵇ) <span class="catbadge">Math</span><span class="diff medium">Medium</span></h3>
+        <div class="ex-sec"><span class="ex-lbl">📋 সমস্যা</span>
+          <p>aᵇ দ্রুত হিসাব করুন — b খুব বড় হলেও।</p>
+          <span class="ex-io">power(2, 10) → 1024
+power(3, 5)  → 243</span>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🎯 কোথায় / কখন কাজে লাগে</span>
+          <ul>
+            <li>Modular exponentiation (RSA, hashing), matrix power দিয়ে Fibonacci O(log n)।</li>
+            <li>"এক ধাপে অর্ধেক করা" (divide &amp; conquer) চিন্তার সুন্দর উদাহরণ।</li>
+          </ul>
+        </div>
+        <div class="ex-sec naive"><span class="ex-lbl">🐢 সরল — O(b)</span>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>def power(a, b):
+    result = 1
+    for _ in range(b):
+        result *= a       # b বার গুণ
+    return result</code></pre></div>
+        </div>
+        <div class="ex-sec optimised"><span class="ex-lbl">🚀 অপ্টিমাইজড (Binary Exponentiation) — O(log b)</span>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>def power(a, b):
+    result = 1
+    while b &gt; 0:
+        if b &amp; 1:          # b বিজোড় হলে একবার গুণ
+            result *= a
+        a *= a             # base বর্গ করুন
+        b &gt;&gt;= 1            # b-কে অর্ধেক
+    return result</code></pre></div>
+          <p>মূল আইডিয়া: a⁸ = (a²)⁴ = ((a²)²)² — প্রতিবার ঘাত অর্ধেক।</p>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">⏱️ Complexity</span><p>সরল <span class="cx-mid">O(b)</span> → অপ্টিমাইজড <span class="cx-good">O(log b)</span>।</p></div>
+      </div>
+
+      <!-- ============ REVERSE NUMBER / ARMSTRONG ============ -->
+      <div class="ex-card" data-cat="math" data-name="reverse number digits armstrong palindrome number সংখ্যা উল্টো">
+        <h3>Reverse Number & Armstrong <span class="catbadge">Math</span><span class="diff easy">Easy</span></h3>
+        <div class="ex-sec"><span class="ex-lbl">📋 সমস্যা</span>
+          <p>সংখ্যার অঙ্ক উল্টানো, palindrome সংখ্যা চেক, বা Armstrong সংখ্যা (যেমন 153 = 1³+5³+3³)।</p>
+          <span class="ex-io">reverse_num(1234) → 4321
+is_armstrong(153)  → True</span>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🎯 কোথায় / কখন কাজে লাগে</span>
+          <ul>
+            <li><b>% ও // দিয়ে অঙ্ক আলাদা করা</b> — checksum, digit-DP, সংখ্যা-manipulation সবখানে।</li>
+            <li>string-এ রূপান্তর ছাড়াই সংখ্যা নিয়ে কাজ করার কৌশল দেখায়।</li>
+          </ul>
+        </div>
+        <div class="ex-sec optimised"><span class="ex-lbl">🚀 কোড</span>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>def reverse_num(n):
+    rev = 0
+    while n &gt; 0:
+        rev = rev * 10 + n % 10   # শেষ অঙ্ক তুলে আনুন
+        n //= 10                  # শেষ অঙ্ক ফেলে দিন
+    return rev
+
+def is_armstrong(n):
+    digits = str(n)
+    p = len(digits)
+    return n == sum(int(d) ** p for d in digits)</code></pre></div>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🔍 ধাপে ধাপে reverse_num(123)</span>
+          <div class="ex-dry">n=123 rev=0 → rev=3   n=12
+n=12  rev=3 → rev=32  n=1
+n=1   rev=32→ rev=321 n=0  → 321 ✅</div>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">⏱️ Complexity</span><p>Time <span class="cx-good">O(অঙ্ক সংখ্যা)</span> = O(log n) • Space O(1)।</p></div>
+      </div>
+
+      <!-- ============ TWO SUM ============ -->
+      <div class="ex-card" data-cat="array" data-name="two sum hashmap complement টু সাম">
+        <h3>Two Sum <span class="catbadge">Array / Hash</span><span class="diff easy">Easy</span></h3>
+        <div class="ex-sec"><span class="ex-lbl">📋 সমস্যা</span>
+          <p>এমন দুটি index বের করুন যাদের মান যোগ করলে target হয়।</p>
+          <span class="ex-io">two_sum([2,7,11,15], 9) → [0, 1]   (2+7=9)</span>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🎯 কোথায় / কখন কাজে লাগে</span>
+          <ul>
+            <li><b>Hashmap দিয়ে O(n²) → O(n)</b> নামানোর সবচেয়ে বিখ্যাত উদাহরণ।</li>
+            <li>"complement খুঁজি" চিন্তা — 3Sum, 4Sum, Pair with given sum সবের ভিত্তি।</li>
+            <li>বাস্তবে: দুই লেনদেন মিলিয়ে নির্দিষ্ট অঙ্ক, দুই দাম মিলিয়ে বাজেট।</li>
+          </ul>
+        </div>
+        <div class="ex-sec naive"><span class="ex-lbl">🐢 সরল (দুই লুপ) — O(n²)</span>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>def two_sum(nums, target):
+    for i in range(len(nums)):
+        for j in range(i + 1, len(nums)):
+            if nums[i] + nums[j] == target:
+                return [i, j]</code></pre></div>
+        </div>
+        <div class="ex-sec optimised"><span class="ex-lbl">🚀 অপ্টিমাইজড (Hashmap) — O(n)</span>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>def two_sum(nums, target):
+    seen = {}                       # মান → index
+    for i, num in enumerate(nums):
+        need = target - num         # কত লাগবে?
+        if need in seen:
+            return [seen[need], i]
+        seen[num] = i
+    return []</code></pre></div>
+          <p>প্রতিটি সংখ্যায় জিজ্ঞেস করি "আমার জোড়া আগে দেখেছি?" — map-এ O(1) lookup।</p>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🔍 ধাপে ধাপে (target=9)</span>
+          <div class="ex-dry">i=0 num=2 need=7 → seen={2:0}
+i=1 num=7 need=2 → 2 আছে! → [0, 1] ✅</div>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">⏱️ Complexity</span><p>Brute <span class="cx-bad">O(n²)</span> → Hashmap <span class="cx-good">O(n)</span> time, O(n) space।</p></div>
+      </div>
+
+      <!-- ============ BINARY SEARCH ============ -->
+      <div class="ex-card" data-cat="array" data-name="binary search sorted বাইনারি সার্চ log n">
+        <h3>Binary Search <span class="catbadge">Array / Search</span><span class="diff easy">Easy</span></h3>
+        <div class="ex-sec"><span class="ex-lbl">📋 সমস্যা</span>
+          <p><b>সাজানো</b> array-তে target-এর index খুঁজুন (না থাকলে -1)।</p>
+          <span class="ex-io">search([1,3,5,7,9], 7) → 3
+search([1,3,5,7,9], 4) → -1</span>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🎯 কোথায় / কখন কাজে লাগে</span>
+          <ul>
+            <li><b>শর্ত: ডেটা সাজানো</b> থাকতে হবে। প্রতিবার অর্ধেক বাদ → O(log n)।</li>
+            <li>বাস্তবে: ডিকশনারিতে শব্দ খোঁজা, database index, "binary search on answer" (min/max feasible)।</li>
+            <li>ভ্যারিয়েন্ট: rotated array, first/last occurrence, sqrt, Koko eats bananas।</li>
+          </ul>
+        </div>
+        <div class="ex-sec optimised"><span class="ex-lbl">🚀 অপ্টিমাইজড — O(log n)</span>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>def search(nums, target):
+    lo, hi = 0, len(nums) - 1
+    while lo &lt;= hi:
+        mid = lo + (hi - lo) // 2    # overflow-নিরাপদ মধ্যবিন্দু
+        if nums[mid] == target:
+            return mid
+        elif nums[mid] &lt; target:
+            lo = mid + 1             # ডান অর্ধেকে খুঁজুন
+        else:
+            hi = mid - 1             # বাম অর্ধেকে খুঁজুন
+    return -1</code></pre></div>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🔍 ধাপে ধাপে (target=7 in [1,3,5,7,9])</span>
+          <div class="ex-dry">lo=0 hi=4 mid=2 nums[2]=5 &lt; 7 → lo=3
+lo=3 hi=4 mid=3 nums[3]=7 == 7 → return 3 ✅</div>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">⏱️ Complexity</span><p>Time <span class="cx-good">O(log n)</span> • Space <span class="cx-good">O(1)</span>।</p></div>
+      </div>
+
+      <!-- ============ KADANE ============ -->
+      <div class="ex-card" data-cat="array" data-name="kadane maximum subarray sum sliding সর্বোচ্চ">
+        <h3>Maximum Subarray (Kadane's) <span class="catbadge">Array / DP</span><span class="diff medium">Medium</span></h3>
+        <div class="ex-sec"><span class="ex-lbl">📋 সমস্যা</span>
+          <p>অবিচ্ছিন্ন (contiguous) subarray-র সর্বোচ্চ যোগফল বের করুন।</p>
+          <span class="ex-io">max_sub([-2,1,-3,4,-1,2,1,-5,4]) → 6   ([4,-1,2,1])</span>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🎯 কোথায় / কখন কাজে লাগে</span>
+          <ul>
+            <li>সর্বোচ্চ লাভের সময়কাল (stock), সর্বোচ্চ সিগন্যাল, best performing window।</li>
+            <li>DP-চিন্তার সরলতম রূপ: "আগেরটা যোগ করব, নাকি নতুন শুরু?"</li>
+          </ul>
+        </div>
+        <div class="ex-sec optimised"><span class="ex-lbl">🚀 অপ্টিমাইজড (Kadane) — O(n), O(1)</span>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>def max_sub(nums):
+    cur = best = nums[0]
+    for x in nums[1:]:
+        cur = max(x, cur + x)   # নতুন শুরু নাকি চালিয়ে যাওয়া?
+        best = max(best, cur)   # সেরা মান ধরে রাখুন
+    return best</code></pre></div>
+          <p>cur ঋণাত্মক হলে তাকে টেনে না নিয়ে নতুন করে শুরু করাই লাভজনক।</p>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🔍 ধাপে ধাপে</span>
+          <div class="ex-dry">x=1  cur=max(1,-1)=1   best=1
+x=-3 cur=max(-3,-2)=-2 best=1
+x=4  cur=max(4,2)=4    best=4
+x=-1 cur=3  x=2 cur=5  x=1 cur=6 → best=6 ✅</div>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">⏱️ Complexity</span><p>Time <span class="cx-good">O(n)</span> • Space <span class="cx-good">O(1)</span>।</p></div>
+      </div>
+
+      <!-- ============ MISSING NUMBER ============ -->
+      <div class="ex-card" data-cat="array" data-name="missing number xor sum cyclic হারানো">
+        <h3>Missing Number <span class="catbadge">Array / Math</span><span class="diff easy">Easy</span></h3>
+        <div class="ex-sec"><span class="ex-lbl">📋 সমস্যা</span>
+          <p>0..n থেকে একটি সংখ্যা বাদ দিয়ে array দেওয়া — বাদ যাওয়া সংখ্যাটি বের করুন।</p>
+          <span class="ex-io">missing([3,0,1]) → 2
+missing([0,1,3,4]) → 2</span>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🎯 কোথায় / কখন কাজে লাগে</span>
+          <ul>
+            <li>ডেটায় হারানো ID/packet খোঁজা, integrity check।</li>
+            <li>দুই সুন্দর কৌশল: <b>যোগফল সূত্র</b> ও <b>XOR</b> — extra space ছাড়াই।</li>
+          </ul>
+        </div>
+        <div class="ex-sec optimised"><span class="ex-lbl">🚀 দুই অপ্টিমাইজড উপায় — O(n), O(1)</span>
+          <div class="code-wrap"><span class="lang">python</span><pre><code># উপায় ১: যোগফল সূত্র  (0..n যোগফল = n(n+1)/2)
+def missing(nums):
+    n = len(nums)
+    return n * (n + 1) // 2 - sum(nums)
+
+# উপায় ২: XOR  (একই সংখ্যা দুবার XOR করলে ০, বাকিটাই থাকে)
+def missing_xor(nums):
+    res = len(nums)
+    for i, x in enumerate(nums):
+        res ^= i ^ x
+    return res</code></pre></div>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">⏱️ Complexity</span><p>Time <span class="cx-good">O(n)</span> • Space <span class="cx-good">O(1)</span>।</p></div>
+      </div>
+
+      <!-- ============ BUBBLE SORT ============ -->
+      <div class="ex-card" data-cat="sort" data-name="bubble sort swap adjacent বাবল সর্ট">
+        <h3>Bubble Sort <span class="catbadge">Sort</span><span class="diff easy">Easy</span></h3>
+        <div class="ex-sec"><span class="ex-lbl">📋 সমস্যা</span>
+          <p>পাশাপাশি জোড়া তুলনা করে বড়টিকে ধীরে ধীরে শেষে "ভাসিয়ে" নিয়ে সাজান।</p>
+          <span class="ex-io">bubble([5,1,4,2,8]) → [1,2,4,5,8]</span>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🎯 কোথায় / কখন কাজে লাগে</span>
+          <ul>
+            <li>বাস্তবে ব্যবহার হয় না (ধীর) — কিন্তু <b>sorting শেখার প্রথম ধাপ</b>।</li>
+            <li>"prematurely sorted হলে থামা" (early exit) optimization বোঝায়।</li>
+          </ul>
+        </div>
+        <div class="ex-sec optimised"><span class="ex-lbl">🚀 কোড (early-exit সহ)</span>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        swapped = False
+        for j in range(n - i - 1):
+            if arr[j] &gt; arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]   # swap
+                swapped = True
+        if not swapped:        # কোনো swap হয়নি = সাজানো শেষ
+            break
+    return arr</code></pre></div>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">⏱️ Complexity</span><p>Time <span class="cx-bad">O(n²)</span> (best O(n) যদি সাজানো) • Space <span class="cx-good">O(1)</span> • Stable।</p></div>
+      </div>
+
+      <!-- ============ MERGE SORT ============ -->
+      <div class="ex-card" data-cat="sort" data-name="merge sort divide conquer মার্জ সর্ট recursion">
+        <h3>Merge Sort <span class="catbadge">Sort</span><span class="diff medium">Medium</span></h3>
+        <div class="ex-sec"><span class="ex-lbl">📋 সমস্যা</span>
+          <p>Divide &amp; Conquer — array-কে অর্ধেক ভাগ করে, সাজিয়ে, merge করা।</p>
+          <span class="ex-io">merge_sort([5,2,4,1,3]) → [1,2,3,4,5]</span>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🎯 কোথায় / কখন কাজে লাগে</span>
+          <ul>
+            <li><b>নিশ্চিত O(n log n)</b>, stable — external sort (বড় ফাইল, ডিস্ক), linked list sort।</li>
+            <li>"Count inversions", "merge k sorted lists" — merge ধাপই মূল হাতিয়ার।</li>
+          </ul>
+        </div>
+        <div class="ex-sec optimised"><span class="ex-lbl">🚀 কোড</span>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>def merge_sort(arr):
+    if len(arr) &lt;= 1:
+        return arr
+    mid = len(arr) // 2
+    left = merge_sort(arr[:mid])     # বাম অর্ধেক সাজান
+    right = merge_sort(arr[mid:])    # ডান অর্ধেক সাজান
+    return merge(left, right)
+
+def merge(a, b):
+    res, i, j = [], 0, 0
+    while i &lt; len(a) and j &lt; len(b):
+        if a[i] &lt;= b[j]:             # ছোটটা আগে নিন (stable)
+            res.append(a[i]); i += 1
+        else:
+            res.append(b[j]); j += 1
+    res.extend(a[i:])                # বাকি অংশ জুড়ে দিন
+    res.extend(b[j:])
+    return res</code></pre></div>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">⏱️ Complexity</span><p>Time <span class="cx-good">O(n log n)</span> (সব ক্ষেত্রে) • Space O(n) • Stable।</p></div>
+      </div>
+
+      <!-- ============ LCS ============ -->
+      <div class="ex-card" data-cat="dp" data-name="lcs longest common subsequence lrs dp সাবসিকোয়েন্স diff">
+        <h3>Longest Common Subsequence (LCS) <span class="catbadge">DP</span><span class="diff medium">Medium</span></h3>
+        <div class="ex-sec"><span class="ex-lbl">📋 সমস্যা</span>
+          <p>দুই string-এ ক্রম বজায় রেখে (পাশাপাশি না হলেও চলবে) সবচেয়ে লম্বা যে অংশ দুটোতেই আছে।</p>
+          <span class="ex-io">lcs("ABCBDAB", "BDCAB") → 4  ("BCAB")
+lcs("AGGTAB", "GXTXAYB") → 4  ("GTAB")</span>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🎯 কোথায় / কখন কাজে লাগে</span>
+          <ul>
+            <li><b>diff টুল (git diff)</b>, version control-এ ফাইলের পার্থক্য বের করা।</li>
+            <li>DNA/protein sequence alignment (bio-informatics), plagiarism/similarity।</li>
+            <li>2D DP টেবিলের সবচেয়ে গুরুত্বপূর্ণ শেখার-উদাহরণ (LRS, Edit Distance-এর ভিত্তি)।</li>
+          </ul>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🧠 আইডিয়া</span>
+          <p>শেষ অক্ষর মিললে: <code>1 + LCS(বাকি, বাকি)</code>। না মিললে: দুই দিকের একটা বাদ দিয়ে বড়টা নিন। overlapping subproblem → 2D টেবিলে জমান।</p>
+        </div>
+        <div class="ex-sec optimised"><span class="ex-lbl">🚀 অপ্টিমাইজড (Bottom-up DP) — O(m×n)</span>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>def lcs(a, b):
+    m, n = len(a), len(b)
+    dp = [[0] * (n + 1) for _ in range(m + 1)]
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            if a[i-1] == b[j-1]:            # অক্ষর মিলল
+                dp[i][j] = dp[i-1][j-1] + 1
+            else:                           # মিলল না → বড়টা রাখুন
+                dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+    return dp[m][n]</code></pre></div>
+          <p>💡 <b>LRS (Longest Repeating Subsequence)</b> = একই string-এর সাথে LCS, শর্ত <code>i != j</code>।</p>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🔍 টেবিল (a="AGGTAB", b="GXTXAYB")</span>
+          <div class="ex-dry">অক্ষর মিললে ↖ কোণ থেকে +1,
+না মিললে ← বা ↑ থেকে বড়টা।
+নিচ-ডান কোণ = 4 → "GTAB" ✅</div>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">⏱️ Complexity</span><p>Time <span class="cx-mid">O(m×n)</span> • Space O(m×n) (2 সারিতে O(n)-এ নামানো যায়)।</p></div>
+      </div>
+
+      <!-- ============ LIS ============ -->
+      <div class="ex-card" data-cat="dp" data-name="lis longest increasing subsequence patience binary search বর্ধমান">
+        <h3>Longest Increasing Subsequence (LIS) <span class="catbadge">DP</span><span class="diff medium">Medium</span></h3>
+        <div class="ex-sec"><span class="ex-lbl">📋 সমস্যা</span>
+          <p>সবচেয়ে লম্বা ক্রমবর্ধমান subsequence-এর দৈর্ঘ্য (পাশাপাশি হতে হবে না)।</p>
+          <span class="ex-io">lis([10,9,2,5,3,7,101,18]) → 4  ([2,3,7,101])</span>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">🎯 কোথায় / কখন কাজে লাগে</span>
+          <ul>
+            <li>version compatibility, box stacking, "সর্বোচ্চ ক্রমবর্ধমান ধারা" — scheduling।</li>
+            <li>DP + Binary Search মিলিয়ে O(n²)→O(n log n) নামানোর সুন্দর উদাহরণ।</li>
+          </ul>
+        </div>
+        <div class="ex-sec naive"><span class="ex-lbl">🐢 DP — O(n²)</span>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>def lis(nums):
+    dp = [1] * len(nums)             # প্রতিটি একা একটা LIS
+    for i in range(len(nums)):
+        for j in range(i):
+            if nums[j] &lt; nums[i]:
+                dp[i] = max(dp[i], dp[j] + 1)
+    return max(dp)</code></pre></div>
+        </div>
+        <div class="ex-sec optimised"><span class="ex-lbl">🚀 অপ্টিমাইজড (Patience + Binary Search) — O(n log n)</span>
+          <div class="code-wrap"><span class="lang">python</span><pre><code>from bisect import bisect_left
+def lis(nums):
+    tails = []                       # tails[k] = দৈর্ঘ্য k+1 LIS-এর ক্ষুদ্রতম শেষ মান
+    for x in nums:
+        i = bisect_left(tails, x)
+        if i == len(tails):
+            tails.append(x)          # নতুন লম্বা ধারা
+        else:
+            tails[i] = x             # ছোট মান দিয়ে বদলান
+    return len(tails)</code></pre></div>
+          <p>tails সবসময় সাজানো থাকে, তাই binary search চলে। দৈর্ঘ্য = tails-এর length।</p>
+        </div>
+        <div class="ex-sec"><span class="ex-lbl">⏱️ Complexity</span><p>DP <span class="cx-mid">O(n²)</span> → Patience <span class="cx-good">O(n log n)</span>।</p></div>
+      </div>
+
+    </div>
+    <p class="ex-empty" id="exEmpty">কোনো প্রবলেম মিলল না। অন্য শব্দ দিয়ে খুঁজুন।</p>
+
+    <div class="note interview">
+      <span class="tag">🎯 পরবর্তী ধাপ</span>
+      এই প্যাটার্নগুলো আয়ত্ত হলে <a class="nav-link" data-target="practice" style="color:var(--accent-2);cursor:pointer">📝 Practice Problems</a> সেকশনে গিয়ে নিজে সমাধান করুন, তারপর LeetCode-এ প্রতিটি টপিকের অনুশীলন লিঙ্ক ধরে এগোন।
+    </div>
+    <div class="page-nav"><button>←</button><button>→</button></div>
+  </section>
+
   </main>
 </div>
 
 <script src="js/main.js"></script>
+<script src="js/examples.js"></script>
 <script src="js/practice.js"></script>
 <script src="js/tradeoff.js"></script>
 <script src="js/visualizer.js"></script>
